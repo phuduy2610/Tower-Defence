@@ -40,34 +40,34 @@ public class LevelManager : MonoBehaviour
     private void CreateLevel(int levelIndex)
     {
         //
-        string[] mapData = new string[]{
-            "G,P,G,P,P","P,G,P,P,P"
-        };
+        string[] mapData = ReadLevelText();
 
         //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ
-        string[,] tilesMap = splitString(mapData);
+        string[,] tilesMap = SplitString(mapData);
 
         //Tính số hàng và số cột khi đã trừ đi các dấu ,
-        int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0) + 1;
-        int cols = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1;
+        int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0) + 1 ;
+        int cols = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1 ;
+
+                //Chạy vòng trên ma trận tạo ở trên để đặt các tile
 
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
         for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j <cols; j++)
+            for (int j = 0; j < cols; j++)
             {
-                PlaceTile(i, j, startPoint, sortingTile(tilesMap[i,j]));
+                PlaceTile(i, j, startPoint, sortingTile(tilesMap[i, j]));
             }
         }
     }
 
     //Tách chuỗi đọc được thành các kí tự để phân thành Tile
-    private string[,] splitString(string[] mapData)
+    private string[,] SplitString(string[] mapData)
     {
         char separator = ',';
         int count;
         string token;
-        int column = mapData[0].Replace(",", "").Length;
+        int column = mapData[0].Replace(",", "").Length - 2;
         string[,] allToken = new string[mapData.Length, column];
         for (int i = 0; i < mapData.Length; i++)
         {
@@ -91,25 +91,87 @@ public class LevelManager : MonoBehaviour
         return allToken;
     }
 
-
+    private string[] ReadLevelText()
+    {
+        TextAsset bindData = Resources.Load("Level1") as TextAsset;
+        string data = bindData.text.Replace(System.Environment.NewLine, string.Empty);
+        return data.Split('-');
+    }
 
     //Hàm dùng để phân loại các loại Tile
-    private GameObject sortingTile(string tileType)
+    private GameObject sortingTile(string tileCode)
     {
         GameObject selectedTile;
-        if (tileType == "P")
+        Tiles tileType;
+        if (System.Enum.TryParse(tileCode, out tileType))
         {
-            selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
-        }
-        else if (tileType == "G")
-        {
-            selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+            switch (tileType)
+            {
+                case Tiles.G:
+                    selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+                    break;
+                case Tiles.P:
+                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    break;
+                case Tiles.E0:
+                    selectedTile = edgeTiles[0];
+                    break;
+                case Tiles.E1:
+                    selectedTile = edgeTiles[1];
+                    break;
+                case Tiles.E2:
+                    selectedTile = edgeTiles[2];
+                    break;
+                case Tiles.E3:
+                    selectedTile = edgeTiles[3];
+                    break;
+                case Tiles.E4:
+                    selectedTile = edgeTiles[4];
+                    break;
+                case Tiles.E5:
+                    selectedTile = edgeTiles[5]; 
+                    break;
+                case Tiles.E6:
+                    selectedTile = edgeTiles[6]; 
+                    break;
+                case Tiles.E7:
+                    selectedTile = edgeTiles[7]; 
+                    break;
+                case Tiles.E8:
+                    selectedTile = edgeTiles[8]; 
+                    break;
+                case Tiles.E9:
+                    selectedTile = edgeTiles[9]; 
+                    break;
+                case Tiles.E10:
+                    selectedTile = edgeTiles[10]; 
+                    break;
+                case Tiles.E11:
+                    selectedTile = edgeTiles[11]; 
+                    break;
+                default:
+                    selectedTile = null;
+                    break;
+            }
         }
         else
         {
-            selectedTile = edgeTiles[Random.Range(0, edgeTiles.Length)];
+            selectedTile = null;
         }
         return selectedTile;
+        // if (tileType == "P")
+        // {
+        //     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+        // }
+        // else if (tileType == "G")
+        // {
+        //     selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+        // }
+        // else
+        // {
+        //     selectedTile = edgeTiles[Random.Range(0, edgeTiles.Length)];
+        // }
+        // return selectedTile;
     }
 
     //Hàm đặt các Tile lên màn hình
@@ -123,6 +185,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    //Hàm lấy góc bên trái của camera 
     private Vector3 GetTopLeftPointOfCamera()
     {
         return cameraView.ViewportToWorldPoint(new Vector3(0, 1, cameraView.nearClipPlane));
