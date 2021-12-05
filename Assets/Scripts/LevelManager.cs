@@ -6,8 +6,12 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] pathTiles;
-    private int width = 5;
-    private int height = 5;
+
+    [SerializeField]
+    private GameObject[] groundTiles;
+
+    [SerializeField]
+    private GameObject[] edgeTiles;
 
     //Object camera dùng để lấy kích thước màn hình
     Camera cameraView;
@@ -31,31 +35,43 @@ public class LevelManager : MonoBehaviour
         CreateLevel(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     //Hàm tạo Level
     private void CreateLevel(int levelIndex)
     {
-        PlaceTile(startPoint);
+        string[] mapData = new string[]{
+            "GPGPP","PGPPP"
+        };
+
+        //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
+        for (int i = 0; i < mapData.Length; i++)
+        {
+            for (int j = 0; j < mapData[i].Length; j++)
+            {
+                PlaceTile(i, j, startPoint, sortingTileType(mapData[i].Substring(j, 1)));
+            }
+        }
+    }
+
+    private GameObject[] sortingTileType(string tileType){
+        if(tileType == "G"){
+            return groundTiles;
+        }
+        else{
+            return pathTiles;
+        }
     }
 
     //Hàm đặt các Tile lên màn hình
-    private void PlaceTile(Vector3 startPoint)
+    private void PlaceTile(int line, int column, Vector3 startPoint, GameObject[] tilesHolder)
     {
+        GameObject currentTile;
         //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                GameObject currentTile = Instantiate(pathTiles[Random.Range(0, pathTiles.Length)]);
-                //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
-                currentTile.transform.position = new Vector3(startPoint.x + j * TileSize, startPoint.y - i * TileSize, 0);
-            }
-        }
+        currentTile = Instantiate(tilesHolder[Random.Range(0, tilesHolder.Length)]);
+        //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
+        currentTile.transform.position = new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0);
+
+
     }
 
     private Vector3 GetTopLeftPointOfCamera()
