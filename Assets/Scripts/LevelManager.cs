@@ -39,38 +39,87 @@ public class LevelManager : MonoBehaviour
     //Hàm tạo Level
     private void CreateLevel(int levelIndex)
     {
+        //
         string[] mapData = new string[]{
-            "GPGPP","PGPPP"
+            "G,P,G,P,P","P,G,P,P,P"
         };
 
-        //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
-        for (int i = 0; i < mapData.Length; i++)
+        //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ
+        string[,] tilesMap = splitString(mapData);
+
+        //Tính số hàng và số cột khi đã trừ đi các dấu ,
+        int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0) + 1;
+        int cols = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1;
+
+        //Chạy vòng trên ma trận tạo ở trên để đặt các tile
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < mapData[i].Length; j++)
+            for (int j = 0; j <cols; j++)
             {
-                PlaceTile(i, j, startPoint, sortingTileType(mapData[i].Substring(j, 1)));
+                PlaceTile(i, j, startPoint, sortingTile(tilesMap[i,j]));
             }
         }
     }
 
-    private GameObject[] sortingTileType(string tileType){
-        if(tileType == "G"){
-            return groundTiles;
+    //Tách chuỗi đọc được thành các kí tự để phân thành Tile
+    private string[,] splitString(string[] mapData)
+    {
+        char separator = ',';
+        int count;
+        string token;
+        int column = mapData[0].Replace(",", "").Length;
+        string[,] allToken = new string[mapData.Length, column];
+        for (int i = 0; i < mapData.Length; i++)
+        {
+            int j = 0;
+            int startPos = 0;
+            int foundPos = mapData[i].IndexOf(separator);
+            while (foundPos >= 0)
+            {
+                count = foundPos - startPos;
+                token = mapData[i].Substring(startPos, count);
+                allToken[i, j] = token;
+                j++;
+                startPos = foundPos + 1;
+                foundPos = mapData[i].IndexOf(separator, startPos);
+            }
+            count = mapData[i].Length - startPos;
+            token = mapData[i].Substring(startPos, count);
+            allToken[i, j] = token;
         }
-        else{
-            return pathTiles;
+
+        return allToken;
+    }
+
+
+
+    //Hàm dùng để phân loại các loại Tile
+    private GameObject sortingTile(string tileType)
+    {
+        GameObject selectedTile;
+        if (tileType == "P")
+        {
+            selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
         }
+        else if (tileType == "G")
+        {
+            selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+        }
+        else
+        {
+            selectedTile = edgeTiles[Random.Range(0, edgeTiles.Length)];
+        }
+        return selectedTile;
     }
 
     //Hàm đặt các Tile lên màn hình
-    private void PlaceTile(int line, int column, Vector3 startPoint, GameObject[] tilesHolder)
+    private void PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
     {
         GameObject currentTile;
         //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
-        currentTile = Instantiate(tilesHolder[Random.Range(0, tilesHolder.Length)]);
+        currentTile = Instantiate(tile);
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
         currentTile.transform.position = new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0);
-
 
     }
 

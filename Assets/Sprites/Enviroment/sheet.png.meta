@@ -4,7 +4,7 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 6530179738444782934
-    second: sheet_0
+    second: edge_17
   - first:
       213: 613435604629981061
     second: sheet_1
@@ -13,13 +13,13 @@ TextureImporter:
     second: sheet_2
   - first:
       213: 3930011312167392660
-    second: sheet_3
+    second: edge_18
   - first:
       213: -96796154962138083
     second: sheet_4
   - first:
       213: -7054820123952135176
-    second: sheet_5
+    second: edge_19
   - first:
       213: 4530623484691778272
     second: ground_11
@@ -73,10 +73,10 @@ TextureImporter:
     second: sheet_22
   - first:
       213: -1460219255197261928
-    second: sheet_23
+    second: edge_1Q
   - first:
       213: -272350928928935694
-    second: sheet_24
+    second: edge_1W
   - first:
       213: 3647273195039021549
     second: path_11
@@ -133,13 +133,13 @@ TextureImporter:
     second: sheet_42
   - first:
       213: -4294464135343857242
-    second: sheet_43
+    second: edge_14
   - first:
       213: 5182346603733836655
-    second: sheet_44
+    second: edge_1A
   - first:
       213: -1308681137950721158
-    second: sheet_45
+    second: edge_1S
   - first:
       213: 3752806198092373919
     second: path_13
@@ -148,7 +148,7 @@ TextureImporter:
     second: path_14
   - first:
       213: -4065470274024804433
-    second: sheet_48
+    second: edge_16
   - first:
       213: -2186017444305452852
     second: ground_13
@@ -325,7 +325,7 @@ TextureImporter:
     second: sheet_106
   - first:
       213: 1492632439871810193
-    second: sheet_107
+    second: edge_11
   - first:
       213: 7588387400726670457
     second: sheet_108
@@ -334,13 +334,13 @@ TextureImporter:
     second: sheet_109
   - first:
       213: 7669233180467344920
-    second: sheet_110
+    second: edge_12
   - first:
       213: -1364391315649492243
     second: sheet_111
   - first:
       213: 8279152721216373759
-    second: sheet_112
+    second: edge_13
   - first:
       213: 1931928189808044030
     second: ground_16
@@ -913,15 +913,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sheet_0
+      name: edge_17
       rect:
         serializedVersion: 2
         x: 0
         y: 176
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -976,15 +976,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_3
+      name: edge_18
       rect:
         serializedVersion: 2
         x: 48
         y: 176
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1018,15 +1018,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_5
+      name: edge_19
       rect:
         serializedVersion: 2
         x: 80
         y: 176
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1396,15 +1396,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_23
+      name: edge_1Q
       rect:
         serializedVersion: 2
         x: 16
         y: 160
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1417,15 +1417,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_24
+      name: edge_1W
       rect:
         serializedVersion: 2
         x: 32
         y: 160
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1816,15 +1816,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_43
+      name: edge_14
       rect:
         serializedVersion: 2
         x: 0
         y: 144
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1837,15 +1837,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_44
+      name: edge_1A
       rect:
         serializedVersion: 2
         x: 16
         y: 144
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1858,15 +1858,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_45
+      name: edge_1S
       rect:
         serializedVersion: 2
         x: 32
         y: 144
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1921,15 +1921,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_48
+      name: edge_16
       rect:
         serializedVersion: 2
         x: 80
         y: 144
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3160,15 +3160,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_107
+      name: edge_11
       rect:
         serializedVersion: 2
         x: 0
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3223,15 +3223,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_110
+      name: edge_12
       rect:
         serializedVersion: 2
         x: 48
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3265,15 +3265,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sheet_112
+      name: edge_13
       rect:
         serializedVersion: 2
         x: 80
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
