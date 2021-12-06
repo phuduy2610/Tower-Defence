@@ -24,7 +24,6 @@ public class Tile : MonoBehaviour
     public Point GridPosition{get; private set;}
     
     private void Start() {
-        
     }
 
     private void Update() {
@@ -32,7 +31,8 @@ public class Tile : MonoBehaviour
     }
 
     public void Setup(Point gridPos,Vector3 worldPos){
-        this.GridPosition = GridPosition;
+        this.GridPosition = gridPos;
+        Debug.Log(this.GridPosition.X + ";" + this.GridPosition.Y );
         transform.position = worldPos;
     }
 }

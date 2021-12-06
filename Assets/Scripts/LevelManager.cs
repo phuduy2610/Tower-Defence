@@ -58,15 +58,14 @@ public class LevelManager : MonoBehaviour
         string[,] tilesMap = SplitString(mapData);
 
         //Tính số hàng và số cột khi đã trừ đi các dấu ,
-        int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0) + 1 ;
-        int columns  = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1 ;
-
+        int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0);
+        int columns = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1;
         Vector3 maxTile = Vector3.zero;
-        
-                //Chạy vòng trên ma trận tạo ở trên để đặt các tile
 
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
-        for (int i = 0; i <  rows; i++)
+
+        //Chạy vòng trên ma trận tạo ở trên để đặt các tile
+        for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
@@ -74,7 +73,7 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        cameraMovement.SetLimits(new Vector3(maxTile.x+TileSize,maxTile.y-TileSize));
+        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
     //Tách chuỗi đọc được thành các kí tự để phân thành Tile
@@ -83,7 +82,8 @@ public class LevelManager : MonoBehaviour
         char separator = ',';
         int count;
         string token;
-        int column = mapData[0].Replace(",", "").Length - 2;
+        //Đọc số string
+        int column = mapData[0].Length - mapData[0].Replace(",", "").Length + 1;
         string[,] allToken = new string[mapData.Length, column];
         for (int i = 0; i < mapData.Length; i++)
         {
@@ -145,25 +145,25 @@ public class LevelManager : MonoBehaviour
                     selectedTile = edgeTiles[4];
                     break;
                 case TilesType.E5:
-                    selectedTile = edgeTiles[5]; 
+                    selectedTile = edgeTiles[5];
                     break;
                 case TilesType.E6:
-                    selectedTile = edgeTiles[6]; 
+                    selectedTile = edgeTiles[6];
                     break;
                 case TilesType.E7:
-                    selectedTile = edgeTiles[7]; 
+                    selectedTile = edgeTiles[7];
                     break;
                 case TilesType.E8:
-                    selectedTile = edgeTiles[8]; 
+                    selectedTile = edgeTiles[8];
                     break;
                 case TilesType.E9:
-                    selectedTile = edgeTiles[9]; 
+                    selectedTile = edgeTiles[9];
                     break;
                 case TilesType.E10:
-                    selectedTile = edgeTiles[10]; 
+                    selectedTile = edgeTiles[10];
                     break;
                 case TilesType.E11:
-                    selectedTile = edgeTiles[11]; 
+                    selectedTile = edgeTiles[11];
                     break;
                 default:
                     selectedTile = null;
@@ -193,13 +193,15 @@ public class LevelManager : MonoBehaviour
     //Hàm đặt các Tile lên màn hình
     private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
     {
+        //Tạo kiểu tile
         Tile currentTile;
-        //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
+        //Tạo ra tile bằng instantiate
         currentTile = Instantiate(tile).GetComponent<Tile>();
-        //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
         //Cho các ô được tạo vào tilesHolder
         currentTile.transform.SetParent(tilesHolder);
-        currentTile.Setup(new Point(column,line),new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0));
+        //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
+        //Sử dụng line và column để làm toạ độ x,y của tile; Vị trí thật trên world thì dùng cho vào worldPos của tile
+        currentTile.Setup(new Point(line,column), new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0));
         return currentTile.transform.position;
 
     }
