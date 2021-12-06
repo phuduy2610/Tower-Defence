@@ -19,6 +19,14 @@ public class LevelManager : MonoBehaviour
     //Điểm bắt đầu đặt tile lên
     Vector3 startPoint;
 
+    //Biến holder giữ các tile
+    private Transform tilesHolder;
+
+    [SerializeField]
+    private CameraMovement cameraMovement;
+
+    //Trả về size của map cho camera
+
     // Tạo một property trả về size của một tile ( hình vuông nên chỉ cần lấy x)
     public float TileSize
     {
@@ -27,6 +35,8 @@ public class LevelManager : MonoBehaviour
             return pathTiles[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
         }
     }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +49,9 @@ public class LevelManager : MonoBehaviour
     //Hàm tạo Level
     private void CreateLevel(int levelIndex)
     {
-        //
+        tilesHolder = new GameObject("Tiles Holder").transform;
+
+        //Đọc từ text lên dữ liệu tạo level
         string[] mapData = ReadLevelText();
 
         //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ
@@ -47,18 +59,22 @@ public class LevelManager : MonoBehaviour
 
         //Tính số hàng và số cột khi đã trừ đi các dấu ,
         int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0) + 1 ;
-        int cols = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1 ;
+        int columns  = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1 ;
 
+        Vector3 maxTile = Vector3.zero;
+        
                 //Chạy vòng trên ma trận tạo ở trên để đặt các tile
 
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i <  rows; i++)
         {
-            for (int j = 0; j < cols; j++)
+            for (int j = 0; j < columns; j++)
             {
-                PlaceTile(i, j, startPoint, sortingTile(tilesMap[i, j]));
+                maxTile = PlaceTile(i, j, startPoint, sortingTile(tilesMap[i, j]));
             }
         }
+
+        cameraMovement.SetLimits(new Vector3(maxTile.x+TileSize,maxTile.y-TileSize));
     }
 
     //Tách chuỗi đọc được thành các kí tự để phân thành Tile
@@ -175,13 +191,16 @@ public class LevelManager : MonoBehaviour
     }
 
     //Hàm đặt các Tile lên màn hình
-    private void PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
+    private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
     {
         GameObject currentTile;
         //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
         currentTile = Instantiate(tile);
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
         currentTile.transform.position = new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0);
+        //Cho các ô được tạo vào tilesHolder
+        currentTile.transform.SetParent(tilesHolder);
+        return currentTile.transform.position;
 
     }
 
