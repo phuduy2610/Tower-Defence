@@ -118,51 +118,51 @@ public class LevelManager : MonoBehaviour
     private GameObject sortingTile(string tileCode)
     {
         GameObject selectedTile;
-        Tiles tileType;
+        TilesType tileType;
         if (System.Enum.TryParse(tileCode, out tileType))
         {
             switch (tileType)
             {
-                case Tiles.G:
+                case TilesType.G:
                     selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
                     break;
-                case Tiles.P:
+                case TilesType.P:
                     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
                     break;
-                case Tiles.E0:
+                case TilesType.E0:
                     selectedTile = edgeTiles[0];
                     break;
-                case Tiles.E1:
+                case TilesType.E1:
                     selectedTile = edgeTiles[1];
                     break;
-                case Tiles.E2:
+                case TilesType.E2:
                     selectedTile = edgeTiles[2];
                     break;
-                case Tiles.E3:
+                case TilesType.E3:
                     selectedTile = edgeTiles[3];
                     break;
-                case Tiles.E4:
+                case TilesType.E4:
                     selectedTile = edgeTiles[4];
                     break;
-                case Tiles.E5:
+                case TilesType.E5:
                     selectedTile = edgeTiles[5]; 
                     break;
-                case Tiles.E6:
+                case TilesType.E6:
                     selectedTile = edgeTiles[6]; 
                     break;
-                case Tiles.E7:
+                case TilesType.E7:
                     selectedTile = edgeTiles[7]; 
                     break;
-                case Tiles.E8:
+                case TilesType.E8:
                     selectedTile = edgeTiles[8]; 
                     break;
-                case Tiles.E9:
+                case TilesType.E9:
                     selectedTile = edgeTiles[9]; 
                     break;
-                case Tiles.E10:
+                case TilesType.E10:
                     selectedTile = edgeTiles[10]; 
                     break;
-                case Tiles.E11:
+                case TilesType.E11:
                     selectedTile = edgeTiles[11]; 
                     break;
                 default:
@@ -193,13 +193,13 @@ public class LevelManager : MonoBehaviour
     //Hàm đặt các Tile lên màn hình
     private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
     {
-        GameObject currentTile;
+        Tile currentTile;
         //Lấy size của một ô tile ( chỉ lấy cái đầu do bằng nhau hết)
-        currentTile = Instantiate(tile);
+        currentTile = Instantiate(tile).GetComponent<Tile>();
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
-        currentTile.transform.position = new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0);
         //Cho các ô được tạo vào tilesHolder
         currentTile.transform.SetParent(tilesHolder);
+        currentTile.Setup(new Point(column,line),new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0));
         return currentTile.transform.position;
 
     }
