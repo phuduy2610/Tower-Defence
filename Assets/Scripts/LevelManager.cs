@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    //Các mảng game Object sẽ chứa các prefab của tile để vẽ lên màn hình (chia theo 3 loại)
     [SerializeField]
     private GameObject[] pathTiles;
 
@@ -22,8 +23,12 @@ public class LevelManager : MonoBehaviour
     //Biến holder giữ các tile
     private Transform tilesHolder;
 
+    //Lấy script của camera movement để lát setLimit cho camera
     [SerializeField]
     private CameraMovement cameraMovement;
+
+    //Chứa toạ độ của tile tương ứng với tile đó ( ví dụ lấy Point(0,1) thì ra tile nào)
+    public Dictionary<Point, Tile> TilesDictionary { get; private set; }= new Dictionary<Point, Tile>();
 
     //Trả về size của map cho camera
 
@@ -40,8 +45,10 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Lấy camera và lấy góc bên trái trên
         cameraView = Camera.main;
         startPoint = GetTopLeftPointOfCamera();
+        //Gọi hàm tạo level
         CreateLevel(1);
     }
 
@@ -49,34 +56,39 @@ public class LevelManager : MonoBehaviour
     //Hàm tạo Level
     private void CreateLevel(int levelIndex)
     {
+        //Tạo Object để chứa các tile (chủ yếu để dễ nhìn trong hierarchy thôi)
         tilesHolder = new GameObject("Tiles Holder").transform;
 
         //Đọc từ text lên dữ liệu tạo level
         string[] mapData = ReadLevelText();
 
-        //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ
+        //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ ( mảng này chứa các kí tự TileType như G,P,E1,...)
         string[,] tilesMap = SplitString(mapData);
 
         //Tính số hàng và số cột khi đã trừ đi các dấu ,
         int rows = tilesMap.GetUpperBound(0) - tilesMap.GetLowerBound(0);
         int columns = tilesMap.GetUpperBound(1) - tilesMap.GetLowerBound(1) + 1;
+
+        //maxTile để lấy toạ độ của tile cuối cùng, mục đích để set limit cho camera
         Vector3 maxTile = Vector3.zero;
 
-        //Chạy vòng trên ma trận tạo ở trên để đặt các tile
-
+        //Biến tạm để lưu loại của tile
+        TilesType typeTemp;
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
-                maxTile = PlaceTile(i, j, startPoint, sortingTile(tilesMap[i, j]));
+                //sortingTile sẽ trả về gameObject dựa trên kí tự đọc được ở file Level.txt
+                GameObject tileNeedPlace = sortingTile(tilesMap[i,j],out typeTemp);
+                maxTile = PlaceTile(i, j, startPoint,tileNeedPlace,typeTemp);
             }
         }
-
+        //Đặt giới hạn cho camera có thể di chuyển
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
-    //Tách chuỗi đọc được thành các kí tự để phân thành Tile
+    //Tách chuỗi đọc được thành các kí tự để phân thành Tile 
     private string[,] SplitString(string[] mapData)
     {
         char separator = ',';
@@ -107,6 +119,7 @@ public class LevelManager : MonoBehaviour
         return allToken;
     }
 
+    //Hàm đọc file text lên và trả về ma trận string
     private string[] ReadLevelText()
     {
         TextAsset bindData = Resources.Load("Level1") as TextAsset;
@@ -115,12 +128,15 @@ public class LevelManager : MonoBehaviour
     }
 
     //Hàm dùng để phân loại các loại Tile
-    private GameObject sortingTile(string tileCode)
+    private GameObject sortingTile(string tileCode,out TilesType typeofTile)
     {
+        
         GameObject selectedTile;
         TilesType tileType;
+        //Parse string đọc được ra kiểu enum TilesType và so sánh
         if (System.Enum.TryParse(tileCode, out tileType))
         {
+            typeofTile = tileType;
             switch (tileType)
             {
                 case TilesType.G:
@@ -172,26 +188,14 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            typeofTile = 0 ;
             selectedTile = null;
         }
         return selectedTile;
-        // if (tileType == "P")
-        // {
-        //     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
-        // }
-        // else if (tileType == "G")
-        // {
-        //     selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
-        // }
-        // else
-        // {
-        //     selectedTile = edgeTiles[Random.Range(0, edgeTiles.Length)];
-        // }
-        // return selectedTile;
     }
 
     //Hàm đặt các Tile lên màn hình
-    private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile)
+    private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile,TilesType type)
     {
         //Tạo kiểu tile
         Tile currentTile;
@@ -200,8 +204,12 @@ public class LevelManager : MonoBehaviour
         //Cho các ô được tạo vào tilesHolder
         currentTile.transform.SetParent(tilesHolder);
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
-        //Sử dụng line và column để làm toạ độ x,y của tile; Vị trí thật trên world thì dùng cho vào worldPos của tile
-        currentTile.Setup(new Point(line,column), new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0));
+        //Sử dụng line và column để làm toạ độ x,y của tile; Vị trí thật trên world thì dùng cho vào worldPos của tile để set
+        Point point = new Point(line, column);
+        currentTile.Setup( point, new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0),type);
+        
+        TilesDictionary.Add(point,currentTile);
+        //Debug.Log("Locate: " + TilesDictionary[point].GridPosition.X +","+ TilesDictionary[point].GridPosition.Y + " " + TilesDictionary[point].type );
         return currentTile.transform.position;
 
     }

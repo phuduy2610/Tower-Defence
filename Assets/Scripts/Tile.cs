@@ -22,17 +22,19 @@ public enum TilesType
 public class Tile : MonoBehaviour
 {
     public Point GridPosition{get; private set;}
-    
+    public TilesType type{get;private set;}
     private void Start() {
     }
 
     private void Update() {
-        
     }
 
-    public void Setup(Point gridPos,Vector3 worldPos){
+    public void Setup(Point gridPos,Vector3 worldPos,TilesType type){
         this.GridPosition = gridPos;
-        Debug.Log(this.GridPosition.X + ";" + this.GridPosition.Y );
+        this.type = type;
+        //Debug.Log(this.GridPosition.X + ";" + this.GridPosition.Y + "type:" + type );
+        
         transform.position = worldPos;
+        
     }
 }
