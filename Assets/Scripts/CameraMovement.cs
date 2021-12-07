@@ -10,10 +10,14 @@ public class CameraMovement : MonoBehaviour
     private float panBorderThickness = 10f;
 
     Vector2 panLimit;
+    Vector2 startPos;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        startPos.x = transform.position.x;
+        startPos.y = transform.position.y;
 
     }
 
@@ -40,7 +44,7 @@ public class CameraMovement : MonoBehaviour
             transform.Translate(Vector3.left*cameraSpeed*Time.deltaTime);
         }
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x,0,panLimit.x),Mathf.Clamp(transform.position.y,panLimit.y,0),-10);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x,startPos.x,panLimit.x),Mathf.Clamp(transform.position.y,panLimit.y,startPos.y),-10);
     }
 
     public void SetLimits(Vector3 maxTile){
