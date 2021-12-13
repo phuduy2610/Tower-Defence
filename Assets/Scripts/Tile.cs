@@ -23,6 +23,8 @@ public class Tile : MonoBehaviour
 {
     public Point GridPosition{get; private set;}
     public TilesType type{get;private set;}
+
+    public Vector3 WorldPos{get;private set;}
     private void Start() {
     }
 
@@ -35,6 +37,6 @@ public class Tile : MonoBehaviour
         //Debug.Log(this.GridPosition.X + ";" + this.GridPosition.Y + "type:" + type );
         
         transform.position = worldPos;
-        
+        WorldPos = worldPos;
     }
 }

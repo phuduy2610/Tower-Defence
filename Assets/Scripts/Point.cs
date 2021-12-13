@@ -11,4 +11,7 @@ public struct Point
         this.X = X;
         this.Y = Y;
     }   
+    public Point(Point point){
+        this = point;
+    }
 }
