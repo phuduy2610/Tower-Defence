@@ -14,6 +14,9 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private GameObject[] edgeTiles;
 
+    [SerializeField]
+    private GameObject[] portals;
+
     //Object camera dùng để lấy kích thước màn hình
     Camera cameraView;
 
@@ -28,7 +31,7 @@ public class LevelCreator : MonoBehaviour
     private CameraMovement cameraMovement;
 
     //Chứa toạ độ của tile tương ứng với tile đó ( ví dụ lấy Point(0,1) thì ra tile nào)
-    public static Dictionary<Point, Tile> TilesDictionary { get; private set; }= new Dictionary<Point, Tile>();
+    public static Dictionary<Point, Tile> TilesDictionary { get; private set; } = new Dictionary<Point, Tile>();
 
     //Trả về size của map cho camera
 
@@ -40,6 +43,8 @@ public class LevelCreator : MonoBehaviour
             return pathTiles[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
         }
     }
+
+    public GameObject portal{get;private set;}
 
 
     // Start is called before the first frame update
@@ -75,12 +80,14 @@ public class LevelCreator : MonoBehaviour
             for (int j = 0; j < columns; j++)
             {
                 //sortingTile sẽ trả về gameObject dựa trên kí tự đọc được ở file Level.txt
-                GameObject tileNeedPlace = sortingTile(tilesMap[i,j],out typeTemp);
-                maxTile = PlaceTile(i, j, startPoint,tileNeedPlace,typeTemp);
+                GameObject tileNeedPlace = sortingTile(tilesMap[i, j], out typeTemp);
+                maxTile = PlaceTile(i, j, startPoint, tileNeedPlace, typeTemp);
             }
         }
         //Đặt giới hạn cho camera có thể di chuyển
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+        //Tạo portal
+        SpawnPortals();
     }
 
     //Tách chuỗi đọc được thành các kí tự để phân thành Tile 
@@ -123,9 +130,9 @@ public class LevelCreator : MonoBehaviour
     }
 
     //Hàm dùng để phân loại các loại Tile
-    private GameObject sortingTile(string tileCode,out TilesType typeofTile)
+    private GameObject sortingTile(string tileCode, out TilesType typeofTile)
     {
-        
+
         GameObject selectedTile;
         TilesType tileType;
         //Parse string đọc được ra kiểu enum TilesType và so sánh
@@ -183,14 +190,14 @@ public class LevelCreator : MonoBehaviour
         }
         else
         {
-            typeofTile = 0 ;
+            typeofTile = 0;
             selectedTile = null;
         }
         return selectedTile;
     }
 
     //Hàm đặt các Tile lên màn hình
-    private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile,TilesType type)
+    private Vector3 PlaceTile(int line, int column, Vector3 startPoint, GameObject tile, TilesType type)
     {
         //Tạo kiểu tile
         Tile currentTile;
@@ -201,9 +208,9 @@ public class LevelCreator : MonoBehaviour
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
         //Sử dụng line và column để làm toạ độ x,y của tile; Vị trí thật trên world thì dùng cho vào worldPos của tile để set
         Point point = new Point(line, column);
-        currentTile.Setup( point, new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0),type);
-        
-        TilesDictionary.Add(point,currentTile);
+        currentTile.Setup(point, new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0), type);
+
+        TilesDictionary.Add(point, currentTile);
         //Debug.Log("Locate: " + TilesDictionary[point].GridPosition.X +","+ TilesDictionary[point].GridPosition.Y + " " + TilesDictionary[point].type );
         return currentTile.transform.position;
 
@@ -214,4 +221,15 @@ public class LevelCreator : MonoBehaviour
     {
         return cameraView.ViewportToWorldPoint(new Vector3(0, 1, cameraView.nearClipPlane));
     }
+
+    private void SpawnPortals()
+    {
+        Point portalPoint = new Point(5, 1);
+        Tile portalTile;
+        if (TilesDictionary.TryGetValue(portalPoint, out portalTile))
+        {
+            portal = Instantiate(portals[0], portalTile.WorldPos, Quaternion.identity);
+        }
+    }
+
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7857842520723653577}
   - component: {fileID: 7857842520723653576}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7857842520723653590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.1932, y: 0.9814, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -139,18 +139,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.16464722, y: -0.5329927}
+  m_Offset: {x: 0.36623764, y: -0.66467065}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9, y: 9}
+    pivot: {x: 0.4029186, y: 0.6612802}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 9, y: 9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.6538675, y: 3.374635}
+  m_Size: {x: 0.8989315, y: 1.4876205}
   m_EdgeRadius: 0
 --- !u!114 &7857842520723653576
 MonoBehaviour:
@@ -166,4 +166,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   moveSpeed: 2
-  pathHolder: {fileID: 8566286945529734019, guid: 692de623edbd1a14f904938bcca3119f, type: 3}

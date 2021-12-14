@@ -10,14 +10,11 @@ public class Enemy : Entity
     //Tile đang đi trên 
     private Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
-    private Vector3 nextWaypoints;
+    private Vector3 nextWaypoints = Vector3.zero;
     //List các vị trí đã đi qua
-    private List<Point> alreadyThrough;
+    private List<Point> alreadyThrough = new List<Point>();
     private void Start()
     {
-        alreadyThrough = new List<Point>();
-        nextWaypoints = Vector3.zero;
-
     }
 
     private void Update()
@@ -55,6 +52,8 @@ public class Enemy : Entity
         }
     }
 
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Xem đang đứng trên tile nào
@@ -63,7 +62,7 @@ public class Enemy : Entity
         //Nếu nextWaypoints chưa được khởi tạo thì bắt đầu tìm
         if (nextWaypoints == Vector3.zero)
         {
-            Debug.Log("First");
+            //Debug.Log("First");
             nextWaypoints = FindNextWaypoint();
         }
         //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
@@ -91,7 +90,7 @@ public class Enemy : Entity
                     //Nếu đi qua rồi thì skip còn không thì đó sẽ là ô tiếp theo cần đi đến
                     if (!alreadyThrough.Contains(nextTile.GridPosition))
                     {
-                        Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
+                        //Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
                         alreadyThrough.Add(nextTile.GridPosition);
                         return nextTile.WorldPos;
                     }
