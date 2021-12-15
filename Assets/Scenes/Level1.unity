@@ -2741,6 +2741,7 @@ MonoBehaviour:
   - {fileID: 2477539876712111788, guid: ed0a043d0d4636445ac59f5e8a8e46e0, type: 3}
   portals:
   - {fileID: 3964180403979418651, guid: 0d843dc23557a3543aebb72bc907dbf7, type: 3}
+  - {fileID: 3389546397440450065, guid: da98976f4b9cc19408cfa6fe55c5442b, type: 3}
   characterObject: {fileID: 9148708168931028392, guid: 6afbe844a6c3d064b96892a5833ced91, type: 3}
   cameraMovement: {fileID: 719652928}
 --- !u!4 &1797455926

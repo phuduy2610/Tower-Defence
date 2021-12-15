@@ -49,9 +49,12 @@ public class LevelCreator : Singelton<LevelCreator>
     //Các Object spawn trên màn hình
     public GameObject portal { get; private set; }
     public GameObject character { get; private set; }
+    public GameObject gate { get; private set; }
+
 
     //Điểm spawn cổng enemy
     Point portalPoint;
+    Point gatePoint;
 
     //Điểm spawn character
     Point characterPoint;
@@ -252,6 +255,11 @@ public class LevelCreator : Singelton<LevelCreator>
         {
             portal = Instantiate(portals[0], portalTile.WorldPos, Quaternion.identity);
         }
+        Tile gateTile;
+        if (TilesDictionary.TryGetValue(gatePoint, out gateTile))
+        {
+            gate = Instantiate(portals[1], gateTile.WorldPos, Quaternion.identity);
+        }
     }
 
     private void CheckObject(Tile objectTile)
@@ -260,11 +268,16 @@ public class LevelCreator : Singelton<LevelCreator>
         {
             portalPoint = new Point(objectTile.GridPosition);
         }
+        if (objectTile.type == TilesType.P2)
+        {
+            gatePoint = new Point(objectTile.GridPosition);
+        }
         //Xét vị trí thành tương tự dưới đây
     }
 
-    private void SpawnCharacter(){
-        characterPoint = new Point(5,8);
+    private void SpawnCharacter()
+    {
+        characterPoint = new Point(5, 8);
         Tile characterTile;
         if (TilesDictionary.TryGetValue(characterPoint, out characterTile))
         {
