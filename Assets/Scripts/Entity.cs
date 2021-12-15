@@ -10,11 +10,15 @@ public abstract class Entity : MonoBehaviour
     [SerializeField]
     protected float moveSpeed;
 
+    public float Hp { get => hp; set => hp = value; }
+
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
     protected abstract void Move();
 
     protected abstract void Attack();
 
-    protected virtual void OnGetAttack(float damage)
+    public virtual void OnGetAttack(float damage)
     { 
         this.hp -= damage;
     }

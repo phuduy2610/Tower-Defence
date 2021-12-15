@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class CameraMovement : MonoBehaviour
     Vector2 panLimit;
     Vector2 startPos;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,22 +24,22 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.mousePosition.y >= Screen.height - panBorderThickness)
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        if (mousePos.y >= Screen.height - panBorderThickness)
         {
             transform.Translate(Vector3.up*cameraSpeed*Time.deltaTime);
         }
 
-        if (Input.mousePosition.y <= panBorderThickness)
+        if (mousePos.y <= panBorderThickness)
         {
             transform.Translate(Vector3.down*cameraSpeed*Time.deltaTime);
         }
 
-        if (Input.mousePosition.x >= Screen.width - panBorderThickness)
+        if (mousePos.x >= Screen.width - panBorderThickness)
         {
             transform.Translate(Vector3.right*cameraSpeed*Time.deltaTime);
         }
-        if (Input.mousePosition.x <= panBorderThickness)
+        if (mousePos.x <= panBorderThickness)
         {
             transform.Translate(Vector3.left*cameraSpeed*Time.deltaTime);
         }
