@@ -7,6 +7,8 @@ public enum TilesType
     G, //Kiểu có thể đặt Máy bắn
     P, //Enemy có thể di chuyển và đặt trap
     E0, // Các E là để cho map đẹp hơn không thể tương tác
+    P1, // Chỗ spawn portal
+    P2, // Chỗ spawn tháp để thủ
     E1,
     E2,
     E3,

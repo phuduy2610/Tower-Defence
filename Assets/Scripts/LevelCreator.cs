@@ -17,6 +17,8 @@ public class LevelCreator : Singelton<LevelCreator>
     [SerializeField]
     private GameObject[] portals;
 
+    [SerializeField]
+    private GameObject characterObject;
     //Object camera dùng để lấy kích thước màn hình
     Camera cameraView;
 
@@ -44,8 +46,15 @@ public class LevelCreator : Singelton<LevelCreator>
         }
     }
 
-    public GameObject portal{get;private set;}
+    //Các Object spawn trên màn hình
+    public GameObject portal { get; private set; }
+    public GameObject character { get; private set; }
 
+    //Điểm spawn cổng enemy
+    Point portalPoint;
+
+    //Điểm spawn character
+    Point characterPoint;
 
     // Start is called before the first frame update
 
@@ -88,6 +97,7 @@ public class LevelCreator : Singelton<LevelCreator>
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
         //Tạo portal
         SpawnPortals();
+        SpawnCharacter();
     }
 
     //Tách chuỗi đọc được thành các kí tự để phân thành Tile 
@@ -147,6 +157,12 @@ public class LevelCreator : Singelton<LevelCreator>
                 case TilesType.P:
                     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
                     break;
+                case TilesType.P1:
+                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    break;
+                case TilesType.P2:
+                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    break;
                 case TilesType.E0:
                     selectedTile = edgeTiles[0];
                     break;
@@ -203,6 +219,8 @@ public class LevelCreator : Singelton<LevelCreator>
         Tile currentTile;
         //Tạo ra tile bằng instantiate
         currentTile = Instantiate(tile).GetComponent<Tile>();
+
+
         //Cho các ô được tạo vào tilesHolder
         currentTile.transform.SetParent(tilesHolder);
         //Ô tiếp theo thì kế bên ô hiện tại nên += tích của hệ số i và j
@@ -210,7 +228,12 @@ public class LevelCreator : Singelton<LevelCreator>
         Point point = new Point(line, column);
         currentTile.Setup(point, new Vector3(startPoint.x + column * TileSize, startPoint.y - line * TileSize, 0), type);
 
+        //Xét xem phải tile object không
+        CheckObject(currentTile);
+
         TilesDictionary.Add(point, currentTile);
+
+
         //Debug.Log("Locate: " + TilesDictionary[point].GridPosition.X +","+ TilesDictionary[point].GridPosition.Y + " " + TilesDictionary[point].type );
         return currentTile.transform.position;
 
@@ -224,7 +247,6 @@ public class LevelCreator : Singelton<LevelCreator>
 
     private void SpawnPortals()
     {
-        Point portalPoint = new Point(5, 1);
         Tile portalTile;
         if (TilesDictionary.TryGetValue(portalPoint, out portalTile))
         {
@@ -232,4 +254,21 @@ public class LevelCreator : Singelton<LevelCreator>
         }
     }
 
+    private void CheckObject(Tile objectTile)
+    {
+        if (objectTile.type == TilesType.P1)
+        {
+            portalPoint = new Point(objectTile.GridPosition);
+        }
+        //Xét vị trí thành tương tự dưới đây
+    }
+
+    private void SpawnCharacter(){
+        characterPoint = new Point(5,8);
+        Tile characterTile;
+        if (TilesDictionary.TryGetValue(characterPoint, out characterTile))
+        {
+            character = Instantiate(characterObject, characterTile.WorldPos, Quaternion.identity);
+        }
+    }
 }
