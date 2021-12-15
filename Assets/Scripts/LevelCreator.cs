@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCreator : MonoBehaviour
+public class LevelCreator : Singelton<LevelCreator>
 {
     //Các mảng game Object sẽ chứa các prefab của tile để vẽ lên màn hình (chia theo 3 loại)
     [SerializeField]
