@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class Player : Entity
 {
     private Vector2 direction = Vector2.zero;
-    private Rigidbody2D physicBody;
+    private Animator animator;
+    private int MOVE = Animator.StringToHash("Move");
     protected override void Attack()
     {
         throw new System.NotImplementedException();
@@ -15,20 +16,27 @@ public class Player : Entity
     // Postcondition: none
     protected override void Move()
     {
-        if (direction.x < 0)
+        if(direction == Vector2.zero)
         {
-            transform.localScale = new Vector2(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y);
-        }
-        else if (direction.x > 0)
+            animator.SetBool(MOVE, false);
+        } else
         {
-            transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            animator.SetBool(MOVE, true);
+            if (direction.x < 0)
+            {
+                transform.localScale = new Vector2(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            }
+            else if (direction.x > 0)
+            {
+                transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            }
         }
-        physicBody.transform.position += new Vector3(direction.x, direction.y) * Time.deltaTime * MoveSpeed;
+        gameObject.transform.position += new Vector3(direction.x, direction.y) * Time.deltaTime * MoveSpeed;
     }
 
     private void Awake()
     {
-        physicBody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()

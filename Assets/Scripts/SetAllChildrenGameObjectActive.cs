@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SetChildGameObjectActive : MonoBehaviour
+public class SetAllChildrenGameObjectActive : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> gameObjects;
