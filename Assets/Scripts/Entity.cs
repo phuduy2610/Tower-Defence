@@ -5,10 +5,10 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField]
-    float hp;
+    protected float hp;
 
     [SerializeField]
-    float moveSpeed;
+    protected float moveSpeed;
 
     public float Hp { get => hp; set => hp = value; }
 
