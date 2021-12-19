@@ -1,12 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class LevelManager : MonoBehaviour
+using UnityEngine.InputSystem;
+public class LevelManager : Singelton<LevelManager>
 {
     public ObjectPool myPool { get; set; }
     Animator portalAnimator;
     bool isSpawn = true;
+
+    RaycastHit2D hit;
+    Tile tileMouseOn;
+
+    //Temp before button happend
+    [SerializeField]
+    private GameObject towerPrefab;
+    public GameObject TowerPrefab{
+        get{
+            return towerPrefab;
+        }
+    }
+
     private void Awake()
     {
         LevelCreator.Instance.CreateLevel(1);
@@ -31,6 +44,7 @@ public class LevelManager : MonoBehaviour
             StartWave();
             isSpawn = false;
         }
+        SpawnTower();
 
     }
     private void StartWave()
@@ -55,8 +69,22 @@ public class LevelManager : MonoBehaviour
         yield return null;
     }
 
-    // private void IsStartSpawning()
-    // {
-
-    // }
+    private void SpawnTower(){
+        hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+        if (hit.collider != null)
+        {
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                tileMouseOn = hit.collider.gameObject.GetComponent<Tile>();
+                if (tileMouseOn != null)
+                {
+                    if (tileMouseOn.type == TilesType.G)
+                    {
+                        Instantiate(towerPrefab,tileMouseOn.WorldPos,Quaternion.identity);
+                        Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
+                    }
+                }
+            }
+        }
+    }
 }

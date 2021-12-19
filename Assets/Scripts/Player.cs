@@ -6,6 +6,7 @@ public class Player : Entity
     private Vector2 direction = Vector2.zero;
     private Animator animator;
     private int MOVE = Animator.StringToHash("Move");
+
     protected override void Attack()
     {
         throw new System.NotImplementedException();
@@ -16,10 +17,11 @@ public class Player : Entity
     // Postcondition: none
     protected override void Move()
     {
-        if(direction == Vector2.zero)
+        if (direction == Vector2.zero)
         {
             animator.SetBool(MOVE, false);
-        } else
+        }
+        else
         {
             animator.SetBool(MOVE, true);
             if (direction.x < 0)
@@ -42,6 +44,7 @@ public class Player : Entity
     private void Update()
     {
         Move();
+
     }
 
     // Get player movement input. Must only be called by player input. 
@@ -52,10 +55,12 @@ public class Player : Entity
         direction = callbackContext.ReadValue<Vector2>();
     }
 
+
+
     // example
     // Sorts an array into ascending order.
     // Precondition: anArray is an array of num integers and 1 <= num <= MAX_ARRAY,
     // where MAX_ARRAY is a global constant that specifi es the maximum size of anArray .
-    // Postcondition: anArray[0]<= anArray[1]<= … <= anArray[num - 1];
+    // Postcondition: anArray[0]<= anArray[1]<= ï¿½ <= anArray[num - 1];
     // num is unchanged.
 }

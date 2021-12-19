@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum TilesType
 {
@@ -23,22 +24,34 @@ public enum TilesType
 }
 public class Tile : MonoBehaviour
 {
-    public Point GridPosition{get; private set;}
-    public TilesType type{get;private set;}
+    public Point GridPosition { get; private set; }
+    public TilesType type { get; private set; }
 
-    public Vector3 WorldPos{get;private set;}
-    private void Start() {
+    public Vector3 WorldPos { get; private set; }
+    private void Start()
+    {
     }
 
-    private void Update() {
+    private void Update()
+    {
+
     }
 
-    public void Setup(Point gridPos,Vector3 worldPos,TilesType type){
+    public void Setup(Point gridPos, Vector3 worldPos, TilesType type)
+    {
         this.GridPosition = gridPos;
         this.type = type;
-        //Debug.Log(this.GridPosition.X + ";" + this.GridPosition.Y + "type:" + type );
-        
+
         transform.position = worldPos;
         WorldPos = worldPos;
+    }
+
+    private void OnMouseEnter()
+    {
+    }
+
+    private void OnMouseOver()
+    {
+
     }
 }
