@@ -2,26 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 public class LevelManager : Singelton<LevelManager>
 {
     public ObjectPool myPool { get; set; }
     Animator portalAnimator;
     bool isSpawn = true;
-
+    public TowerBtn ClickedBtn { get; private set; }
+    public Transform towersHolder;
     RaycastHit2D hit;
     Tile tileMouseOn;
+    //Temp before button happend
+
+
 
     //Giữ các Tháp
-     private Transform towersHolder;
-
-    //Temp before button happend
-    [SerializeField]
-    private GameObject towerPrefab;
-    public GameObject TowerPrefab{
-        get{
-            return towerPrefab;
-        }
-    }
 
     private void Awake()
     {
@@ -32,7 +27,7 @@ public class LevelManager : Singelton<LevelManager>
         myPool = GetComponent<ObjectPool>();
         portalAnimator = LevelCreator.Instance.portal.GetComponent<Animator>();
         towersHolder = new GameObject("Towers Holder").transform;
-        
+
         // foreach(KeyValuePair<Point,Tile> item in LevelCreator.TilesDictionary){
         //     Debug.Log(item.Key.X +";" + item.Key.Y + "\ntype:" +  item.Value.type );
         //     Debug.Log(item.Value.WorldPos);
@@ -47,7 +42,19 @@ public class LevelManager : Singelton<LevelManager>
             StartWave();
             isSpawn = false;
         }
-        SpawnTower();
+
+
+        if (!EventSystem.current.IsPointerOverGameObject() && ClickedBtn != null)
+        {
+            hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+            if (hit.collider != null)
+            {
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    PlaceTower();
+                }
+            }
+        }
 
     }
     private void StartWave()
@@ -72,24 +79,31 @@ public class LevelManager : Singelton<LevelManager>
         yield return null;
     }
 
-    private void SpawnTower(){
-        hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
-        if (hit.collider != null)
+    public void pickTower(TowerBtn towerBtn)
+    {
+        this.ClickedBtn = towerBtn;
+        //Debug.Log(ClickedBtn);
+    }
+
+    private void PlaceTower()
+    {
+        tileMouseOn = hit.collider.gameObject.GetComponent<Tile>();
+        if (tileMouseOn != null)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (tileMouseOn.type == TilesType.G)
             {
-                tileMouseOn = hit.collider.gameObject.GetComponent<Tile>();
-                if (tileMouseOn != null)
-                {
-                    if (tileMouseOn.type == TilesType.G)
-                    {
-                        GameObject tower = (GameObject)Instantiate(towerPrefab,tileMouseOn.WorldPos,Quaternion.identity);
-                        tower.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
-                        //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
-                        tower.transform.SetParent(towersHolder);
-                    }
-                }
+                GameObject tower = (GameObject)Instantiate(ClickedBtn.TowerPrefab, tileMouseOn.WorldPos, Quaternion.identity,towersHolder);
+                tower.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
+                //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
+                BuyTower();
             }
         }
     }
+
+    private void BuyTower()
+    {
+        ClickedBtn = null;
+    }
+
+
 }
