@@ -11,6 +11,9 @@ public class LevelManager : Singelton<LevelManager>
     RaycastHit2D hit;
     Tile tileMouseOn;
 
+    //Giữ các Tháp
+     private Transform towersHolder;
+
     //Temp before button happend
     [SerializeField]
     private GameObject towerPrefab;
@@ -28,7 +31,7 @@ public class LevelManager : Singelton<LevelManager>
     {
         myPool = GetComponent<ObjectPool>();
         portalAnimator = LevelCreator.Instance.portal.GetComponent<Animator>();
-        
+        towersHolder = new GameObject("Towers Holder").transform;
         
         // foreach(KeyValuePair<Point,Tile> item in LevelCreator.TilesDictionary){
         //     Debug.Log(item.Key.X +";" + item.Key.Y + "\ntype:" +  item.Value.type );
@@ -80,8 +83,10 @@ public class LevelManager : Singelton<LevelManager>
                 {
                     if (tileMouseOn.type == TilesType.G)
                     {
-                        Instantiate(towerPrefab,tileMouseOn.WorldPos,Quaternion.identity);
-                        Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
+                        GameObject tower = (GameObject)Instantiate(towerPrefab,tileMouseOn.WorldPos,Quaternion.identity);
+                        tower.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
+                        //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
+                        tower.transform.SetParent(towersHolder);
                     }
                 }
             }
