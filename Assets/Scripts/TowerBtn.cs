@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 public class TowerBtn : MonoBehaviour
 {
 
@@ -27,10 +25,20 @@ public class TowerBtn : MonoBehaviour
             return towerPrefab;
         }
     }
+    [SerializeField]
+    private int price;
+    public int Price{
+        get{
+            return price;
+        }
+    }
 
+    [SerializeField]
+    private Text priceTxt;
     // Start is called before the first frame update
     void Start()
     {
+        priceTxt.text = price.ToString() ;
 
     }
 

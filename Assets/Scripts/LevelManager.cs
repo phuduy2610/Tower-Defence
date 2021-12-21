@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 public class LevelManager : Singelton<LevelManager>
 {
     //Biến giữ các bool Object
@@ -14,13 +15,27 @@ public class LevelManager : Singelton<LevelManager>
     //Nút tower nào được click
     public TowerBtn ClickedBtn { get; set; }
     //Object giữ các tower cho đỡ rối giao diện
+    [HideInInspector]
     public Transform towersHolder;
     //Dùng để xác định vị trí của chuột trên tile nào
     RaycastHit2D hit;
     Tile tileMouseOn;
     //Temp before button happend
-
-
+    private int energyCount;
+    [SerializeField]
+    Text energyText;
+    public int EnergyCount
+    {
+        get
+        {
+            return energyCount;
+        }
+        set
+        {
+            this.energyCount = value;
+            this.energyText.text = value.ToString();
+        }
+    }
 
 
     //Giữ các Tháp
@@ -39,7 +54,7 @@ public class LevelManager : Singelton<LevelManager>
         //     Debug.Log(item.Key.X +";" + item.Key.Y + "\ntype:" +  item.Value.type );
         //     Debug.Log(item.Value.WorldPos);
         // }
-
+        EnergyCount = 200;
     }
 
     private void Update()
@@ -91,13 +106,18 @@ public class LevelManager : Singelton<LevelManager>
         yield return null;
     }
 
-    public void pickTower(TowerBtn towerBtn)
+    public void PickTower(TowerBtn towerBtn)
     {
-        //Gán nút đang chọn 
-        this.ClickedBtn = towerBtn;
-        //Bật icon
-        Hover.Instance.Activate(towerBtn.Icon);
-        //Debug.Log(ClickedBtn);
+        if (EnergyCount >= towerBtn.Price)
+        {
+            //Gán nút đang chọn 
+            this.ClickedBtn = towerBtn;
+            //Bật icon
+            Hover.Instance.Activate(towerBtn.Icon);
+            //Debug.Log(ClickedBtn);
+        }
+
+
     }
 
     private void PlaceTower()
@@ -120,9 +140,14 @@ public class LevelManager : Singelton<LevelManager>
 
     private void BuyTower()
     {
+        if (EnergyCount >= ClickedBtn.Price)
+        {
+            EnergyCount -= ClickedBtn.Price;
+            Hover.Instance.DeActivate();
+            tileMouseOn.TurnColorWhite();
+        }
         //Khi đặt r thì tắt icon đi và cho tile về màu trắng
-        Hover.Instance.DeActivate();
-        tileMouseOn.TurnColorWhite();
+
     }
 
     private void DroppingTower()
