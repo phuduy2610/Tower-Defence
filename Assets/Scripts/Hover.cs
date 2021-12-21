@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+public class Hover : Singelton<Hover>
+{
+    private SpriteRenderer spriteRenderer;
+    // Start is called before the first frame update
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        FollowMouse();
+    }
+
+private void FollowMouse()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = 10;
+        transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+    }
+
+    public void Activate(Sprite sprite){
+        this.spriteRenderer.enabled = true;
+        this.spriteRenderer.sprite = sprite;
+    }
+
+    public void DeActivate(){
+        this.spriteRenderer.enabled = false;
+    }
+}

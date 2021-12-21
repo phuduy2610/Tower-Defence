@@ -10,6 +10,16 @@ public class TowerBtn : MonoBehaviour
     //Temp before button happend
     [SerializeField]
     private GameObject towerPrefab;
+
+    [SerializeField]
+    private Sprite icon;
+    public Sprite Icon
+    {
+        get
+        {
+            return icon;
+        }
+    }
     public GameObject TowerPrefab
     {
         get

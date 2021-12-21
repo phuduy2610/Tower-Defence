@@ -82,6 +82,7 @@ public class LevelManager : Singelton<LevelManager>
     public void pickTower(TowerBtn towerBtn)
     {
         this.ClickedBtn = towerBtn;
+        Hover.Instance.Activate(towerBtn.Icon); 
         //Debug.Log(ClickedBtn);
     }
 
@@ -96,6 +97,7 @@ public class LevelManager : Singelton<LevelManager>
                 tower.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
                 //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
                 BuyTower();
+                Hover.Instance.DeActivate();
             }
         }
     }
