@@ -5,14 +5,21 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 public class LevelManager : Singelton<LevelManager>
 {
+    //Biến giữ các bool Object
     public ObjectPool myPool { get; set; }
+    //Biến đợi animation của cổng xong trước khi spawn quái
     Animator portalAnimator;
+    //Cờ bắt đầu spawn
     bool isSpawn = true;
-    public TowerBtn ClickedBtn { get; private set; }
+    //Nút tower nào được click
+    public TowerBtn ClickedBtn { get; set; }
+    //Object giữ các tower cho đỡ rối giao diện
     public Transform towersHolder;
+    //Dùng để xác định vị trí của chuột trên tile nào
     RaycastHit2D hit;
     Tile tileMouseOn;
     //Temp before button happend
+
 
 
 
@@ -37,23 +44,28 @@ public class LevelManager : Singelton<LevelManager>
 
     private void Update()
     {
+        //Đợi animation chạy xong thì thả quái
         if (portalAnimator.GetCurrentAnimatorStateInfo(0).IsName("portalIdle") && isSpawn)
         {
             StartWave();
             isSpawn = false;
         }
 
-
+        //Check xem có ấn vào nút hay không
         if (!EventSystem.current.IsPointerOverGameObject() && ClickedBtn != null)
         {
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.gameObject.tag == "Tile")
             {
-                if (Mouse.current.leftButton.wasPressedThisFrame)
-                {
-                    PlaceTower();
-                }
+                //Nếu ấn vào sẽ gọi hàm để bắt đầu xử lí
+                TowerHandle();
             }
+        }
+
+        //Ấn chuột phải để bỏ tower đang chọn
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            DroppingTower();
         }
 
     }
@@ -81,31 +93,69 @@ public class LevelManager : Singelton<LevelManager>
 
     public void pickTower(TowerBtn towerBtn)
     {
+        //Gán nút đang chọn 
         this.ClickedBtn = towerBtn;
-        Hover.Instance.Activate(towerBtn.Icon); 
+        //Bật icon
+        Hover.Instance.Activate(towerBtn.Icon);
         //Debug.Log(ClickedBtn);
     }
 
     private void PlaceTower()
     {
-        tileMouseOn = hit.collider.gameObject.GetComponent<Tile>();
         if (tileMouseOn != null)
         {
-            if (tileMouseOn.type == TilesType.G)
+            //Check xem có đúng là ô loại G không và có trống không
+            if (tileMouseOn.type == TilesType.G && tileMouseOn.IsEmpty)
             {
-                GameObject tower = (GameObject)Instantiate(ClickedBtn.TowerPrefab, tileMouseOn.WorldPos, Quaternion.identity,towersHolder);
+                //Tạo tower 
+                GameObject tower = (GameObject)Instantiate(ClickedBtn.TowerPrefab, tileMouseOn.WorldPos, Quaternion.identity, towersHolder);
                 tower.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
+                tileMouseOn.IsEmpty = false;
                 //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
                 BuyTower();
-                Hover.Instance.DeActivate();
             }
         }
     }
 
+
     private void BuyTower()
     {
-        ClickedBtn = null;
+        //Khi đặt r thì tắt icon đi và cho tile về màu trắng
+        Hover.Instance.DeActivate();
+        tileMouseOn.TurnColorWhite();
     }
 
+    private void DroppingTower()
+    {
+        //Bỏ tower đang chọn
+        Hover.Instance.DeActivate();
+        tileMouseOn.TurnColorWhite();
+    }
 
+    private void TowerHandle()
+    {
+        //Xét nếu không được chuột trỏ vào thì thành màu trắng
+        if (tileMouseOn != null)
+        {
+            tileMouseOn.TurnColorWhite();
+        }
+        //Lấy ra tile được trỏ vào
+        tileMouseOn = hit.collider.gameObject.GetComponent<Tile>();
+        //Đúng kiểu và trống mới được đặt (hiện xanh)
+        if (tileMouseOn.IsEmpty && tileMouseOn.type == TilesType.G)
+        {
+            tileMouseOn.TurnColorGreen();
+        }
+        else
+        {
+            //Không được đặt hiện đỏ
+            tileMouseOn.TurnColorRed();
+        }
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            //Bấm chuột trái để đặt
+            PlaceTower();
+        }
+
+    }
 }

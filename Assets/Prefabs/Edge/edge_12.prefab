@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3529147256809868594}
   m_Layer: 6
   m_Name: edge_12
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

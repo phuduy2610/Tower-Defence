@@ -17,19 +17,28 @@ public class Hover : Singelton<Hover>
         FollowMouse();
     }
 
-private void FollowMouse()
+    //Hàm để hiện lên icon khi chọn tháp
+    private void FollowMouse()
     {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = 10;
-        transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+        if (spriteRenderer.enabled)
+        {
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+            mousePos.z = 10;
+            transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+        }
     }
 
-    public void Activate(Sprite sprite){
+    //Bật sprite lên khi tháp được chọn
+    public void Activate(Sprite sprite)
+    {
         this.spriteRenderer.enabled = true;
         this.spriteRenderer.sprite = sprite;
     }
 
-    public void DeActivate(){
+    //Tắt đi khi đặt xong
+    public void DeActivate()
+    {
+        LevelManager.Instance.ClickedBtn = null;
         this.spriteRenderer.enabled = false;
     }
 }

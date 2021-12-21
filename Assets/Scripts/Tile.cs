@@ -24,12 +24,20 @@ public enum TilesType
 }
 public class Tile : MonoBehaviour
 {
+
     public Point GridPosition { get; private set; }
     public TilesType type { get; private set; }
-
     public Vector3 WorldPos { get; private set; }
+    private Color32 fullColor = new Color32(255, 74, 0, 225);
+    private Color32 emptyColor = new Color32(0, 225, 56, 225);
+    private SpriteRenderer spriteRenderer;
+
+    public bool IsEmpty{get;set;} = true;
+
+    public bool isHitbyRay { get; set; } = false;
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -46,12 +54,23 @@ public class Tile : MonoBehaviour
         WorldPos = worldPos;
     }
 
-    private void OnMouseEnter()
+
+    public void ColorTile(Color newColor)
     {
+        spriteRenderer.color = newColor;
     }
 
-    private void OnMouseOver()
+    public void TurnColorGreen()
     {
-
+        ColorTile(emptyColor);
     }
+
+    public void TurnColorRed(){
+        ColorTile(fullColor);
+    }
+
+    public void TurnColorWhite(){
+        ColorTile(Color.white);
+    }
+
 }
