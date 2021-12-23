@@ -4,29 +4,76 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-
+    //die trigger parameter
+    private const string DIETRIGGER = "Die";
+    //attack trigger parameter
+    private const string ATTACKTRIGGER = "Attack";
+    //attack string
+    private const string ATTACKSTRING = "enemyAttack";
+    //Gate tag
+    private const string GATETAG = "Gate";
+    //Gate tag
+    private const string PLAYERTAG = "Player";
+    //Arrow tag
+    private const string ARROWTAG = "Arrow";
+    //attack hash
+    private int ATTACKHASH = Animator.StringToHash(ATTACKTRIGGER);
+    //die hash
+    private int DIEHASH = Animator.StringToHash(DIETRIGGER);
     //Flag để stop di chuyển khi đã đi hết map (Sửa sau khi có thành hoặc người chơi để tấn công)
     bool stopFlag = false;
+    //Flag để thông báo chết :))) 
+    bool deadFlag = false;
     //Tile đang đi trên 
     private Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
     private Vector3 nextWaypoints = Vector3.zero;
     //List các vị trí đã đi qua
     private List<Point> alreadyThrough = new List<Point>();
-    private void Start()
+    //Enemy đang attack
+    private Entity attackedEntity = null;
+    //Animator
+    private Animator animator;
+    //
+    [SerializeField]
+    private OnAttackedEffect AttackedEffect;
+
+    //[SerializeField]
+    //private GameObject hitBox;
+    private void Awake()
     {
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (deadFlag)
+        {
+            return;
+        }
         //Nếu cờ bật lên thì dừng không đi nữa
         if (!stopFlag)
         {
             Move();
+        } else
+        {
+            Attack();
         }
     }
     protected override void Attack()
     {
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName(ATTACKSTRING))
+        {
+            if (attackedEntity != null)
+                animator.SetTrigger(ATTACKHASH);
+            else
+                stopFlag = false;
+        }
+    }
+
+    private void DealDamage()
+    {
+        attackedEntity?.OnGetAttacked(this.damage);
     }
 
     protected override void Move()
@@ -48,24 +95,53 @@ public class Enemy : Entity
             {
                 //Tìm waypoint tiếp theo
                 nextWaypoints = FindNextWaypoint();
+
+                //var tempPos = Vector3.ClampMagnitude(nextWaypoints - tileWalkingOn.transform.position,1f);
+                //hitBox.transform.localPosition = tempPos;
             }
         }
     }
 
-
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag(PLAYERTAG))
+        {
+            attackedEntity = null;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Xem đang đứng trên tile nào
-        tileWalkingOn = other.gameObject.GetComponent<Tile>();
-
-        //Nếu nextWaypoints chưa được khởi tạo thì bắt đầu tìm
-        if (nextWaypoints == Vector3.zero)
+        string otherTag = other.gameObject.tag;
+        switch (otherTag)
         {
-            //Debug.Log("First");
-            nextWaypoints = FindNextWaypoint();
+            case ARROWTAG:
+                break;
+            case GATETAG:
+                //đã phát hiện đối phương nên tấn công
+                stopFlag = true;
+                //lấy thông tin đối phương
+                attackedEntity = other.gameObject.GetComponentInParent<Gate>();
+                break;
+            case PLAYERTAG:
+                //đã phát hiện đối phương nên tấn công
+                stopFlag = true;
+                //lấy thông tin đối phương
+                attackedEntity = other.gameObject.GetComponentInParent<Player>();
+                break;
+            default:
+                //Xem đang đứng trên tile nào
+                tileWalkingOn = other.gameObject.GetComponent<Tile>();
+
+                //Nếu nextWaypoints chưa được khởi tạo thì bắt đầu tìm
+                if (nextWaypoints == Vector3.zero)
+                {
+                    //Debug.Log("First");
+                    nextWaypoints = FindNextWaypoint();
+                }
+                //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
+                break;
         }
-        //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
     }
 
     private Vector3 FindNextWaypoint()
@@ -109,4 +185,20 @@ public class Enemy : Entity
 
     }
 
+    protected override void OnKilled()
+    {
+        deadFlag = true;
+        animator.SetTrigger(DIEHASH);
+    }
+
+    public void KillOff()
+    {
+        Destroy(gameObject);
+    }
+
+    public override void OnGetAttacked(float damage)
+    {
+        AttackedEffect.StartEffect();
+        base.OnGetAttacked(damage);
+    }
 }

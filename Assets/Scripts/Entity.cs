@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -8,9 +6,15 @@ public abstract class Entity : MonoBehaviour
     protected float hp;
 
     [SerializeField]
+    protected float damage;
+
+    [SerializeField]
     protected float moveSpeed;
 
-    public float Hp { get => hp; set => hp = value; }
+    [SerializeField]
+    protected ResourceBar hpShow;
+
+    public float Hp { get => hp; }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
@@ -18,8 +22,16 @@ public abstract class Entity : MonoBehaviour
 
     protected abstract void Attack();
 
-    public virtual void OnGetAttack(float damage)
-    { 
-        this.hp -= damage;
+    protected abstract void OnKilled();
+
+    public virtual void OnGetAttacked(float damage)
+    {
+        hp -= damage; 
+        hpShow?.SetVal(this.hp);
+        if (hp <= 0) 
+        {
+            OnKilled();
+        }
+        Debug.Log(hp);
     }
 }

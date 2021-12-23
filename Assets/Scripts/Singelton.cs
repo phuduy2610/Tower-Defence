@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Singelton<T> : MonoBehaviour where T: MonoBehaviour
 {
     private static T instance;
+
     public static T Instance{
         get{
             if(instance==null){

@@ -1,61 +1,210 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
+    //bien arrow
+    private GameObject arrow;
+    // bien the hien viec bat dau ban de thay doi animation
+    private bool startFire = false;
+    // tinh trang nut ban
+    private float fire = 0;
+    // huong di chuyen cua nhan vat
     private Vector2 direction = Vector2.zero;
+    // bien luc ban
+    private float currPower = 0;
+    // animator cua nhan vat
     private Animator animator;
-    private int MOVE = Animator.StringToHash("Move");
+    // lay hash cua para move trong animator
+    private int MOVEHASH = Animator.StringToHash("Move");
+    // lay hash cua para charge trong animator
+    private int CHARGEHASH = Animator.StringToHash("Charge");
+    // lay hash cua para fire trong animator
+    private int FIREHASH = Animator.StringToHash("Fire");
+    // UI luc ban
+    [SerializeField]
+    private ResourceBar powerShow;
+    // vi tri hitbox ( noi spawn arrow )
+    [SerializeField]
+    private Transform hitbox;
+    // bien arrow prefab
+    [SerializeField]
+    private GameObject arrowPrefab;
+    // luc ban toi da
+    [Min(0)]
+    [SerializeField]
+    private float maxPower;
+    // toc do tang cua thanh luc
+    [Min(1)]
+    [SerializeField]
+    private float powerIncRate;
+    [SerializeField]
+    private Image flashImage;
+
+    private SpriteRenderer spriteRenderer;
+
+    private float halfPlayerSide;
+
+    private float halfPlayerHeight;
+
+    private Vector2 topLeftTilePos;
+
+    private Vector2 bottomRightTilePos;
+
+    public enum FACEDIRECTION { LEFT, RIGHT}
+
     protected override void Attack()
     {
-        throw new System.NotImplementedException();
+        if (fire > 0)
+        {
+            if (!startFire)
+            {
+                startFire = true;
+                Pointer.Instance.switchPointer(Pointer.PointerType.attack);
+                animator.SetBool(MOVEHASH, false);
+                animator.SetBool(CHARGEHASH, true);
+                powerShow.gameObject.SetActive(true);
+            }
+            currPower = Mathf.Clamp(currPower + powerIncRate * Time.deltaTime, 0, maxPower);
+            powerShow.SetVal(currPower);
+        }
+        else if (currPower > 0)
+        {
+            Pointer.Instance.switchPointer(Pointer.PointerType.@default);
+            animator.SetBool(CHARGEHASH, false);
+            animator.SetTrigger(FIREHASH);
+            powerShow.gameObject.SetActive(false);
+            startFire = false;
+
+            // spawn arrow
+            var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            arrow = Instantiate(arrowPrefab, hitbox.position, Quaternion.identity);
+            arrow.SetActive(false);
+            arrow.GetComponent<ArrowBehaviour>().Setup(mousePos, currPower, damage);
+
+            if (mousePos.x > transform.position.x)
+                ChangeFacingDirection(arrow.transform, FACEDIRECTION.RIGHT);
+            else
+                ChangeFacingDirection(arrow.transform, FACEDIRECTION.LEFT);
+
+            //
+            currPower = 0;
+            powerShow.SetVal(0);
+        }
     }
 
-    // Move player on screen. 
-    // Precondition: none
-    // Postcondition: none
     protected override void Move()
     {
         if(direction == Vector2.zero)
         {
-            animator.SetBool(MOVE, false);
+            animator.SetBool(MOVEHASH, false);
         } else
         {
-            animator.SetBool(MOVE, true);
+            animator.SetBool(MOVEHASH, true);
             if (direction.x < 0)
             {
-                transform.localScale = new Vector2(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+                ChangeFacingDirection(transform,FACEDIRECTION.LEFT);
             }
             else if (direction.x > 0)
             {
-                transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+                ChangeFacingDirection(transform,FACEDIRECTION.RIGHT);
             }
         }
-        gameObject.transform.position += new Vector3(direction.x, direction.y) * Time.deltaTime * MoveSpeed;
+        var temp = gameObject.transform.position;
+        temp += new Vector3(direction.x, direction.y) * Time.deltaTime * MoveSpeed;
+        gameObject.transform.position = new Vector2(Mathf.Clamp(temp.x, topLeftTilePos.x, bottomRightTilePos.x), Mathf.Clamp(temp.y, bottomRightTilePos.y, topLeftTilePos.y));
+    }
+
+    // doi huong nhin cua nhan vat
+    private void ChangeFacingDirection(Transform trans, FACEDIRECTION direction)
+    {
+        switch (direction)
+        {
+            case FACEDIRECTION.LEFT:
+                trans.localScale = new Vector2(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+                break;
+            case FACEDIRECTION.RIGHT:
+                trans.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+                break;
+            default:
+                break;
+        };
     }
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        hpShow.SetMax(hp);
+        powerShow.SetMax(maxPower);
+        powerShow.SetVal(0);
+
+        halfPlayerSide = spriteRenderer.bounds.extents.x;
+        halfPlayerHeight = spriteRenderer.bounds.extents.y;
+        var tileSize = LevelCreator.Instance.TileSize;
+
+        topLeftTilePos.x = LevelCreator.Instance.topLeftTile.x + halfPlayerSide;
+        topLeftTilePos.y = LevelCreator.Instance.topLeftTile.y - halfPlayerHeight;
+        bottomRightTilePos.x = LevelCreator.Instance.bottomRightTile.x + tileSize - halfPlayerSide;
+        bottomRightTilePos.y = LevelCreator.Instance.bottomRightTile.y + tileSize - halfPlayerHeight;
     }
 
     private void Update()
     {
-        Move();
+        // fire == 1 la dang nhan nut ban
+        if (fire != 1) 
+        {
+            Move();
+        } else
+        {
+            // dang nhan nut ban thi huong cua nhan vat se thay doi theo con tro chuot
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+            if(mousePos.x > transform.position.x)
+                ChangeFacingDirection(transform,FACEDIRECTION.RIGHT);
+            else
+                ChangeFacingDirection(transform,FACEDIRECTION.LEFT);
+        }
+        Attack();
     }
 
-    // Get player movement input. Must only be called by player input. 
-    // Precondition: none
-    // Postcondition: none
+    // lay input di chuyen
     public void GetMovementInput(InputAction.CallbackContext callbackContext)
     {
         direction = callbackContext.ReadValue<Vector2>();
     }
 
-    // example
-    // Sorts an array into ascending order.
-    // Precondition: anArray is an array of num integers and 1 <= num <= MAX_ARRAY,
-    // where MAX_ARRAY is a global constant that specifi es the maximum size of anArray .
-    // Postcondition: anArray[0]<= anArray[1]<= … <= anArray[num - 1];
-    // num is unchanged.
+    // lay input ban
+    public void GetFireInput(InputAction.CallbackContext callbackContext)
+    {
+        fire = callbackContext.ReadValue<float>();
+    }
+
+    protected override void OnKilled()
+    {
+        Destroy(gameObject);
+    }
+
+    public void FireArrow()
+    {
+        arrow.SetActive(true);
+    }
+
+    public override void OnGetAttacked(float damage)
+    {
+        StartCoroutine(FlashColorOnAttacked());
+        base.OnGetAttacked(damage);
+    }
+
+
+    private IEnumerator FlashColorOnAttacked()
+    {
+        flashImage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.05f);
+
+        flashImage.gameObject.SetActive(false);
+    }
 }

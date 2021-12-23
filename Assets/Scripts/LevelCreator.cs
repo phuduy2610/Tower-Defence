@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LevelCreator : Singelton<LevelCreator>
 {
+    public Vector2 topLeftTile = Vector2.zero;
+
+    public Vector2 bottomRightTile = Vector2.zero;
+
     //Các mảng game Object sẽ chứa các prefab của tile để vẽ lên màn hình (chia theo 3 loại)
     [SerializeField]
     private GameObject[] pathTiles;
@@ -84,6 +88,9 @@ public class LevelCreator : Singelton<LevelCreator>
         //maxTile để lấy toạ độ của tile cuối cùng, mục đích để set limit cho camera
         Vector3 maxTile = Vector3.zero;
 
+        //maxTile để lấy toạ độ của tile đầu
+        Vector3 minTile = Vector3.zero;
+
         //Biến tạm để lưu loại của tile
         TilesType typeTemp;
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
@@ -94,8 +101,16 @@ public class LevelCreator : Singelton<LevelCreator>
                 //sortingTile sẽ trả về gameObject dựa trên kí tự đọc được ở file Level.txt
                 GameObject tileNeedPlace = sortingTile(tilesMap[i, j], out typeTemp);
                 maxTile = PlaceTile(i, j, startPoint, tileNeedPlace, typeTemp);
+                if (i == 0 && j == 0)
+                {
+                    minTile = maxTile;
+                }
             }
         }
+
+        topLeftTile = minTile;
+        bottomRightTile = maxTile;
+
         //Đặt giới hạn cho camera có thể di chuyển
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
         //Tạo portal

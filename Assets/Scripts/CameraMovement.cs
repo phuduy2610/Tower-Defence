@@ -18,7 +18,6 @@ public class CameraMovement : MonoBehaviour
     {
         startPos.x = transform.position.x;
         startPos.y = transform.position.y;
-
     }
 
     // Update is called once per frame
@@ -52,7 +51,6 @@ public class CameraMovement : MonoBehaviour
         //Khoảng cách có thể move là từ limit của camera tới chỗ tile xa nhất
         panLimit.x = maxTile.x - wp.x; 
         panLimit.y = maxTile.y - wp.y;
-
     }
 
 }
