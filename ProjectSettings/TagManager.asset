@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Arrow
   - Enemy
   - Tile
   - Portal
   - Tower
+  - Gate
   layers:
   - Default
   - TransparentFX
