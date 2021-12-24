@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class Enemy : Entity
     //attack string
     private const string ATTACKSTRING = "enemyAttack";
     //Gate tag
-    private const string GATETAG = "Gate";
+    private const string PORTALTAG = "Portal";
     //Gate tag
     private const string PLAYERTAG = "Player";
     //Arrow tag
@@ -117,7 +116,7 @@ public class Enemy : Entity
         {
             case ARROWTAG:
                 break;
-            case GATETAG:
+            case PORTALTAG:
                 //đã phát hiện đối phương nên tấn công
                 stopFlag = true;
                 //lấy thông tin đối phương

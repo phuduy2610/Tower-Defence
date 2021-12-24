@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1942728270791340213}
   - component: {fileID: 1942728270791340212}
   - component: {fileID: 5777363402179273346}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: edge_14
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 691413509
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -4294464135343857242, guid: f180bdf62b86c2d4ebd2f1b1f0de3400, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

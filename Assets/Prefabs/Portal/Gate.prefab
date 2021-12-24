@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 370497038}
   - component: {fileID: 370497037}
   - component: {fileID: 370497036}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: End Portal
   m_TagString: Gate
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 75476249
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 11
   m_Sprite: {fileID: -7590852279806083750, guid: 728120a0689658e4689ac1cb3e9ab2f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 3389546396363405472}
   - component: {fileID: 3389546396363405470}
   - component: {fileID: 3389546396363405473}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: HP
   m_TagString: Gate
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 3389546396723783780}
   - component: {fileID: 3389546396723783783}
   - component: {fileID: 3389546396723783782}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: UI
   m_TagString: Gate
   m_Icon: {fileID: 0}
@@ -526,7 +526,8 @@ GameObject:
   - component: {fileID: 3389546397440450063}
   - component: {fileID: 3389546397440450062}
   - component: {fileID: 1346148469}
-  m_Layer: 7
+  - component: {fileID: 4579636853915467582}
+  m_Layer: 11
   m_Name: Gate
   m_TagString: Portal
   m_Icon: {fileID: 0}
@@ -588,7 +589,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 75476249
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_Sprite: {fileID: 1921053324792869636, guid: b21b1b6d0b9f33b4583f9c10ec405938, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8596077146152643474}
   - component: {fileID: 1563665680056370197}
   - component: {fileID: 6068517903671953081}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: ground_18
   m_TagString: Tile
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 691413509
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 3811016406798019451, guid: f180bdf62b86c2d4ebd2f1b1f0de3400, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
