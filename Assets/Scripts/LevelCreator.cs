@@ -88,9 +88,6 @@ public class LevelCreator : Singelton<LevelCreator>
         //maxTile để lấy toạ độ của tile cuối cùng, mục đích để set limit cho camera
         Vector3 maxTile = Vector3.zero;
 
-        //maxTile để lấy toạ độ của tile đầu
-        Vector3 minTile = Vector3.zero;
-
         //Biến tạm để lưu loại của tile
         TilesType typeTemp;
         //Chạy vòng trên ma trận tạo ở trên để đặt các tile
@@ -103,12 +100,10 @@ public class LevelCreator : Singelton<LevelCreator>
                 maxTile = PlaceTile(i, j, startPoint, tileNeedPlace, typeTemp);
                 if (i == 0 && j == 0)
                 {
-                    minTile = maxTile;
+                    topLeftTile = maxTile;
                 }
             }
         }
-
-        topLeftTile = minTile;
         bottomRightTile = maxTile;
 
         //Đặt giới hạn cho camera có thể di chuyển

@@ -48,6 +48,9 @@ public class LevelManager : MonoBehaviour
             case 0:
                 type = "Normal";
                 break;
+                //case 0:
+                //    type = "Tank";
+                //    break;
         }
         GameObject enemy = myPool.GetObject(type);
         enemy.transform.position = LevelCreator.Instance.portal.transform.position;
