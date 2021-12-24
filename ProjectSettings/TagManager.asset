@@ -7,6 +7,10 @@ TagManager:
   - Gate
   - Enemy
   - Arrow
+  - Enemy
+  - Tile
+  - Portal
+  - Tower
   layers:
   - Default
   - TransparentFX
@@ -18,6 +22,10 @@ TagManager:
   - AllyHurtbox
   - EnemyHurtbox
   - AllyHitbox
+  - Map
+  - Portal
+  - Character
+  - 
   - 
   - 
   - 
@@ -46,4 +54,15 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3924978539
+  - name: Map
+    uniqueID: 691413509
+    locked: 0
+  - name: Portal
+    uniqueID: 75476249
+    locked: 0
+  - name: Tower
+    uniqueID: 2379280313
+    locked: 0
+  - name: Character
+    uniqueID: 2247690001
     locked: 0

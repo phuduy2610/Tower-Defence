@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1795593178230986164}
   - component: {fileID: 1795593178230986167}
   - component: {fileID: -3529147256809868594}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: edge_12
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 691413509
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7669233180467344920, guid: f180bdf62b86c2d4ebd2f1b1f0de3400, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -97,7 +97,7 @@ public class Player : Entity
 
     protected override void Move()
     {
-        if(direction == Vector2.zero)
+        if (direction == Vector2.zero)
         {
             animator.SetBool(MOVEHASH, false);
         } else
