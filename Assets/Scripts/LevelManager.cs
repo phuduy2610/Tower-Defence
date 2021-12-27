@@ -91,8 +91,8 @@ public class LevelManager : Singelton<LevelManager>
 
     private IEnumerator SpawnWave()
     {
-        // for (int i = 0; i < 5; i++)
-        // {
+        for (int i = 0; i < 5; i++)
+        {
             //Nhớ update khi thêm enemy
             int monsterIndex = 0;
             string type = string.Empty;
@@ -109,7 +109,7 @@ public class LevelManager : Singelton<LevelManager>
             enemy.transform.position = LevelCreator.Instance.portal.transform.position;
 
             yield return new WaitForSeconds(5.0f);
-        // }
+        }
     }
 
     public void PickTower(TowerBtn towerBtn)

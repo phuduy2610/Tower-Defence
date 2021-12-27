@@ -15,6 +15,8 @@ public class Enemy : Entity
     private const string PLAYERTAG = "Player";
     //Arrow tag
     private const string ARROWTAG = "Arrow";
+
+    private const string ENEMYTAG = "Enemy";
     //attack hash
     private int ATTACKHASH = Animator.StringToHash(ATTACKTRIGGER);
     //die hash
@@ -27,6 +29,7 @@ public class Enemy : Entity
     private Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
     private Vector3 nextWaypoints = Vector3.zero;
+    private Vector3 firstWaypoints = Vector3.zero;
     //List các vị trí đã đi qua
     private List<Point> alreadyThrough = new List<Point>();
     //Enemy đang attack
@@ -51,11 +54,6 @@ public class Enemy : Entity
             return;
         }
         //Nếu cờ bật lên thì dừng không đi nữa
-
-    }
-
-    private void FixedUpdate()
-    {
         if (!stopFlag)
         {
             Move();
@@ -126,6 +124,8 @@ public class Enemy : Entity
                 //lấy thông tin đối phương
                 attackedEntity = other.gameObject.GetComponentInParent<Player>();
                 break;
+            case ENEMYTAG:
+                break;
             default:
                 //Xem đang đứng trên tile nào
                 tileWalkingOn = other.gameObject.GetComponent<Tile>();
@@ -135,6 +135,8 @@ public class Enemy : Entity
                 {
                     //Debug.Log("First");
                     nextWaypoints = FindNextWaypoint();
+                    firstWaypoints = nextWaypoints;
+
                 }
                 //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
                 break;
@@ -147,10 +149,9 @@ public class Enemy : Entity
         Point currentPoint = new Point(tileWalkingOn.GridPosition.X, tileWalkingOn.GridPosition.Y);
         Point upPoint = new Point(currentPoint.X - 1, currentPoint.Y);
         Point rightPoint = new Point(currentPoint.X, currentPoint.Y + 1);
-        Debug.Log(rightPoint.X +";"+rightPoint.Y);
         Point downPoint = new Point(currentPoint.X + 1, currentPoint.Y);
         //Tạo mảng để đi lần lượt qua
-        Point[] pointsToCheck = { upPoint, rightPoint, downPoint };
+        Point[] pointsToCheck = { rightPoint, upPoint, downPoint };
 
         for (int i = 0; i < pointsToCheck.Length; i++)
         {
@@ -191,8 +192,19 @@ public class Enemy : Entity
 
     public void KillOff()
     {
+        //Reset lại các cờ
         deadFlag = false;
+        stopFlag = false;
+        //Fix dis shet shibe :33
+        this.hp = 100.0f;
+
+        //Reset lại thuật toán tìm đường đi
+        nextWaypoints = firstWaypoints;
+        alreadyThrough.Clear();
+
+        //Nhả lại object này về Level
         LevelManager.Instance.myPool.ReleaseObject(gameObject);
+
     }
 
     public override void OnGetAttacked(float damage)
