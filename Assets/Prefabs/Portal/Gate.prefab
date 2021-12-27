@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 370497036}
   m_Layer: 11
   m_Name: End Portal
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7183037373212368669}
   m_Layer: 7
   m_Name: Hurtbox
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 3389546395794649749}
   m_Layer: 7
   m_Name: Fill
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 3389546396363405473}
   m_Layer: 11
   m_Name: HP
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 3389546396723783782}
   m_Layer: 11
   m_Name: UI
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 3389546396844011112}
   m_Layer: 7
   m_Name: Background
-  m_TagString: Gate
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
