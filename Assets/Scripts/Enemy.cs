@@ -51,17 +51,24 @@ public class Enemy : Entity
             return;
         }
         //Nếu cờ bật lên thì dừng không đi nữa
+
+    }
+
+    private void FixedUpdate()
+    {
         if (!stopFlag)
         {
             Move();
-        } else
+        }
+        else
         {
             Attack();
         }
     }
+
     protected override void Attack()
     {
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName(ATTACKSTRING))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(ATTACKSTRING))
         {
             if (attackedEntity != null)
                 animator.SetTrigger(ATTACKHASH);
@@ -77,15 +84,6 @@ public class Enemy : Entity
 
     protected override void Move()
     {
-        // if (waypointIndex < waypoints.Length)
-        // {
-        //     transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex], moveSpeed * Time.deltaTime);
-        //     if ((Vector2)transform.position == waypoints[waypointIndex])
-        //     {
-        //         waypointIndex++;
-        //     }
-        // }
-
         if (nextWaypoints != Vector3.zero)
         {
             //Di chuyển tới waypoint tiếp theo
@@ -149,6 +147,7 @@ public class Enemy : Entity
         Point currentPoint = new Point(tileWalkingOn.GridPosition.X, tileWalkingOn.GridPosition.Y);
         Point upPoint = new Point(currentPoint.X - 1, currentPoint.Y);
         Point rightPoint = new Point(currentPoint.X, currentPoint.Y + 1);
+        Debug.Log(rightPoint.X +";"+rightPoint.Y);
         Point downPoint = new Point(currentPoint.X + 1, currentPoint.Y);
         //Tạo mảng để đi lần lượt qua
         Point[] pointsToCheck = { upPoint, rightPoint, downPoint };
@@ -192,7 +191,8 @@ public class Enemy : Entity
 
     public void KillOff()
     {
-        Destroy(gameObject);
+        deadFlag = false;
+        LevelManager.Instance.myPool.ReleaseObject(gameObject);
     }
 
     public override void OnGetAttacked(float damage)

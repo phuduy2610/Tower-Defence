@@ -91,22 +91,25 @@ public class LevelManager : Singelton<LevelManager>
 
     private IEnumerator SpawnWave()
     {
-        //Nhớ update khi thêm enemy
-        int monsterIndex = 0;
-        string type = string.Empty;
-        switch (monsterIndex)
-        {
-            case 0:
-                type = "Normal";
-                break;
-                //case 0:
-                //    type = "Tank";
-                //    break;
-        }
-        GameObject enemy = myPool.GetObject(type);
-        enemy.transform.position = LevelCreator.Instance.portal.transform.position;
+        // for (int i = 0; i < 5; i++)
+        // {
+            //Nhớ update khi thêm enemy
+            int monsterIndex = 0;
+            string type = string.Empty;
+            switch (monsterIndex)
+            {
+                case 0:
+                    type = "Normal";
+                    break;
+                    //case 0:
+                    //    type = "Tank";
+                    //    break;
+            }
+            GameObject enemy = myPool.GetObject(type);
+            enemy.transform.position = LevelCreator.Instance.portal.transform.position;
 
-        yield return null;
+            yield return new WaitForSeconds(5.0f);
+        // }
     }
 
     public void PickTower(TowerBtn towerBtn)
