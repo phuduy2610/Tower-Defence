@@ -4388,6 +4388,7 @@ GameObject:
   - component: {fileID: 1797455925}
   - component: {fileID: 1797455927}
   - component: {fileID: 1797455928}
+  - component: {fileID: 1797455929}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -4485,6 +4486,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 7857842520723653590, guid: 504e06ca14484d943b37b6992f979ac9, type: 3}
+--- !u!114 &1797455929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797455924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce28c421b3caf3429fd63bd46585895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - name: First Wave
+    enemy: {fileID: 0}
+    amount: 3
+    rate: 2
+  - name: Second Wave
+    enemy: {fileID: 0}
+    amount: 3
+    rate: 2
+  - name: Final Wave
+    enemy: {fileID: 0}
+    amount: 3
+    rate: 2
 --- !u!1 &1951113309
 GameObject:
   m_ObjectHideFlags: 0

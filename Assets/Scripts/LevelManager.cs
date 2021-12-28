@@ -7,11 +7,9 @@ using UnityEngine.UI;
 public class LevelManager : Singelton<LevelManager>
 {
     //Biến giữ các bool Object
-    public ObjectPool myPool { get; set; }
+
     //Biến đợi animation của cổng xong trước khi spawn quái
-    Animator portalAnimator;
     //Cờ bắt đầu spawn
-    bool isSpawn = true;
     //Nút tower nào được click
     public TowerBtn ClickedBtn { get; set; }
     //Object giữ các tower cho đỡ rối giao diện
@@ -46,8 +44,6 @@ public class LevelManager : Singelton<LevelManager>
     }
     private void Start()
     {
-        myPool = GetComponent<ObjectPool>();
-        portalAnimator = LevelCreator.Instance.portal.GetComponent<Animator>();
         towersHolder = new GameObject("Towers Holder").transform;
 
         // foreach(KeyValuePair<Point,Tile> item in LevelCreator.TilesDictionary){
@@ -60,11 +56,7 @@ public class LevelManager : Singelton<LevelManager>
     private void Update()
     {
         //Đợi animation chạy xong thì thả quái
-        if (portalAnimator.GetCurrentAnimatorStateInfo(0).IsName("portalIdle") && isSpawn)
-        {
-            StartWave();
-            isSpawn = false;
-        }
+
 
         //Check xem có ấn vào nút hay không
         if (!EventSystem.current.IsPointerOverGameObject() && ClickedBtn != null)
@@ -84,33 +76,9 @@ public class LevelManager : Singelton<LevelManager>
         }
 
     }
-    private void StartWave()
-    {
-        StartCoroutine("SpawnWave");
-    }
 
-    private IEnumerator SpawnWave()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            //Nhớ update khi thêm enemy
-            int monsterIndex = 0;
-            string type = string.Empty;
-            switch (monsterIndex)
-            {
-                case 0:
-                    type = "Normal";
-                    break;
-                    //case 0:
-                    //    type = "Tank";
-                    //    break;
-            }
-            GameObject enemy = myPool.GetObject(type);
-            enemy.transform.position = LevelCreator.Instance.portal.transform.position;
 
-            yield return new WaitForSeconds(5.0f);
-        }
-    }
+
 
     public void PickTower(TowerBtn towerBtn)
     {

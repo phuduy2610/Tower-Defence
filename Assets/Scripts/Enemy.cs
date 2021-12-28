@@ -203,7 +203,7 @@ public class Enemy : Entity
         alreadyThrough.Clear();
 
         //Nhả lại object này về Level
-        LevelManager.Instance.myPool.ReleaseObject(gameObject);
+        WaveSpawner.Instance.myPool.ReleaseObject(gameObject);
 
     }
 
