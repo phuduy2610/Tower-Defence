@@ -5,10 +5,17 @@ using UnityEngine;
 public class Wave
 {
     public string name; //Tên của wave
-    public GameObject enemy; //Lấy prefab enemy ra
-    public int amount; //số lượng enemy sẽ spawn
+    public int[] enemies; //Chứa các index loại enemy sẽ xuất hiện trong wave đó
+    public int amount; //số lượng enemy sẽ spawn trong mỗi wave
     public float rate; //tốc độ spawn
 
+    public Wave(string Name, int[] Enemies, int Amount, float Rate)
+    {
+        name = Name;
+        enemies = Enemies;
+        amount = Amount;
+        rate = Rate;
+    }
 }
 public class WaveSpawner : Singelton<WaveSpawner>
 {
@@ -22,7 +29,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
 
 
 
-    public Wave[] waves;
+    public LevelWaveInfo levelWaveInfo;
 
     //index của wave tiếp theo
     private int nextWave = 0;
@@ -42,6 +49,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
     // Start is called before the first frame update
     void Start()
     {
+        levelWaveInfo = new LevelWaveInfo(1);
         myPool = GetComponent<ObjectPool>();
         waveCountdown = timeBetweenWaves;
     }
@@ -98,7 +106,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
     private void StartWave()
     {
         Debug.Log("start");
-        StartCoroutine(SpawnWave(waves[nextWave]));
+        StartCoroutine(SpawnWave(levelWaveInfo.waves[nextWave]));
     }
 
     private IEnumerator SpawnWave(Wave wave)
@@ -109,8 +117,8 @@ public class WaveSpawner : Singelton<WaveSpawner>
         for (int i = 0; i < wave.amount; i++)
         {
             //Spawn kẻ thù
-            wave.enemy = SpawnEnemy(2);
-            wave.enemy.transform.position = LevelCreator.Instance.portal.transform.position;
+            int enemyIndex = wave.enemies[Random.Range(0,wave.enemies.Length)];
+            SpawnEnemy(enemyIndex).transform.position = LevelCreator.Instance.portal.transform.position;
             yield return new WaitForSeconds(wave.rate);
         }
         //Sau khi spawn xong thì vô trạng thái đợi
@@ -146,7 +154,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
 
-        if (nextWave + 1 > waves.Length - 1)
+        if (nextWave + 1 > levelWaveInfo.waves.Count - 1)
         {
             nextWave = 0;
             Debug.Log("Completed all waves");
@@ -157,5 +165,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
 
         }
     }
+
+
 
 }

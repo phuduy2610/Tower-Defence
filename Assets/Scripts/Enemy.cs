@@ -138,7 +138,7 @@ public class Enemy : Entity
                     firstWaypoints = nextWaypoints;
 
                 }
-                Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
+                //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
                 break;
         }
     }

@@ -4502,15 +4502,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - name: First Wave
-    enemy: {fileID: 0}
+    enemies: 
     amount: 3
     rate: 2
   - name: Second Wave
-    enemy: {fileID: 0}
+    enemies: 
     amount: 3
     rate: 2
   - name: Final Wave
-    enemy: {fileID: 0}
+    enemies: 
     amount: 3
     rate: 2
 --- !u!1 &1951113309
