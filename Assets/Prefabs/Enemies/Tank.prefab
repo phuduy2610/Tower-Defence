@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.50980234, y: -0.95592695}
+  m_Offset: {x: -0.5362177, y: -0.95592695}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.81614494, y: 1.4568876}
+  m_Size: {x: 0.76331425, y: 1.4568876}
   m_EdgeRadius: 0
 --- !u!1 &4066507481026025477
 GameObject:
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4066507481026025498}
   - component: {fileID: 4066507481026025499}
   - component: {fileID: 3687757815084522512}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -132,9 +132,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingLayerID: -2047277295
+  m_SortingLayer: 5
+  m_SortingOrder: 2
   m_Sprite: {fileID: 4035959289877228764, guid: b200df3fbf499a142acaa2ed1a74c0a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -199,7 +199,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7745631, y: -0.8990798}
+  m_Offset: {x: 0.7745631, y: -0.78798586}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.1062507, y: 0.8527338}
@@ -210,7 +210,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2921338, y: 2.3496408}
+  m_Size: {x: 1.2921338, y: 2.1274529}
   m_EdgeRadius: 0
 --- !u!114 &4066507481026025499
 MonoBehaviour:
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 500
   damage: 5
-  moveSpeed: 0.3
+  moveSpeed: 1
   hpShow: {fileID: 0}
   AttackedEffect: {fileID: 3687757815084522512}
 --- !u!114 &3687757815084522512
@@ -285,7 +285,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7821248, y: -0.9066415}
+  m_Offset: {x: 0.7821248, y: -0.7745647}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4029186, y: 0.6612802}
@@ -296,5 +296,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.307257, y: 2.3950105}
+  m_Size: {x: 1.307257, y: 2.1308565}
   m_EdgeRadius: 0

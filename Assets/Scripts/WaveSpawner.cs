@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
+public class Wave
+{
+    public string name; //Tên của wave
+    public GameObject enemy; //Lấy prefab enemy ra
+    public int amount; //số lượng enemy sẽ spawn
+    public float rate; //tốc độ spawn
 
+}
 public class WaveSpawner : Singelton<WaveSpawner>
 {
     //Các state khác nhau giữa các wave
@@ -12,15 +20,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
         COUNTING
     }
 
-    [System.Serializable]
-    public class Wave
-    {
-        public string name; //Tên của wave
-        public GameObject enemy; //Lấy prefab enemy ra
-        public int amount; //số lượng enemy sẽ spawn
-        public float rate; //tốc độ spawn
 
-    }
 
     public Wave[] waves;
 
@@ -109,7 +109,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
         for (int i = 0; i < wave.amount; i++)
         {
             //Spawn kẻ thù
-            wave.enemy = SpawnEnemy(0);
+            wave.enemy = SpawnEnemy(2);
             wave.enemy.transform.position = LevelCreator.Instance.portal.transform.position;
             yield return new WaitForSeconds(wave.rate);
         }
@@ -129,9 +129,12 @@ public class WaveSpawner : Singelton<WaveSpawner>
             case 0:
                 type = "Normal";
                 break;
-                //case 0:
-                //    type = "Tank";
-                //    break;
+            case 1:
+                type = "Assassin";
+                break;
+            case 2:
+                type = "Tank";
+                break;
         }
         GameObject enemy = myPool.GetObject(type);
         return enemy;
