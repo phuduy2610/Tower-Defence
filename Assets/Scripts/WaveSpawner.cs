@@ -84,7 +84,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
         else
         {
             waveCountdown -= Time.deltaTime;
-            Debug.Log(waveCountdown);
+            //Debug.Log(waveCountdown);
         }
     }
 

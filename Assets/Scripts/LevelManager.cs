@@ -50,7 +50,7 @@ public class LevelManager : Singelton<LevelManager>
         //     Debug.Log(item.Key.X +";" + item.Key.Y + "\ntype:" +  item.Value.type );
         //     Debug.Log(item.Value.WorldPos);
         // }
-        EnergyCount = 200;
+        EnergyCount = 500;
     }
 
     private void Update()
