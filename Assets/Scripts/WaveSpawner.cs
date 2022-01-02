@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 [System.Serializable]
 public class Wave
 {
@@ -24,18 +25,48 @@ public class WaveSpawner : Singelton<WaveSpawner>
     {
         SPAWNING,
         WAITING,
-        COUNTING
+        COUNTING,
+        FINISH
     }
 
 
+    [SerializeField]
+    private TMP_Text waveTxt;
+    [SerializeField]
+    private GameObject startBtn;
+
+    [SerializeField]
+    private GameObject victoryScene;
+
+    private bool isPressed = false;
 
     public LevelWaveInfo levelWaveInfo;
 
     //index của wave tiếp theo
     private int nextWave = 0;
+    public int NextWave
+    {
+        get
+        {
+            return nextWave;
+        }
+        set
+        {
+            nextWave = value;
+            if (nextWave <= 9)
+            {
+                waveTxt.text = "0" + (nextWave + 1).ToString();
+            }
+            else
+            {
+                waveTxt.text = (nextWave + 1).ToString() + "0";
+
+            }
+        }
+    }
 
     //Thời gian giữa các wave
-    public float timeBetweenWaves { get; private set; } = 3f;
+    public float timeBetweenWaves { get; private set; } = 10f;
     //Đếm ngược đến wave tiếp theo
     public float waveCountdown { get; private set; }
 
@@ -70,21 +101,24 @@ public class WaveSpawner : Singelton<WaveSpawner>
                 return;
             }
         }
-        if (waveCountdown <= 0)
+        if (isPressed)
         {
-            //Đang ở state spawn thì bắt đầu spawn
-            if (state != SpawnState.SPAWNING)
+            if (waveCountdown <= 0)
             {
-                StartWave();
-                //Start Spawning 
-            }
-            //Nếu không thì bắt đầu đếm đến wave tiếp theo 
+                //Đang ở state spawn thì bắt đầu spawn
+                if (state != SpawnState.SPAWNING && state !=SpawnState.FINISH)
+                {
+                    StartWave();
+                    //Start Spawning 
+                }
+                //Nếu không thì bắt đầu đếm đến wave tiếp theo 
 
-        }
-        else
-        {
-            waveCountdown -= Time.deltaTime;
-            //Debug.Log(waveCountdown);
+            }
+            else
+            {
+                waveCountdown -= Time.deltaTime;
+                //Debug.Log(waveCountdown);
+            }
         }
     }
 
@@ -117,7 +151,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
         for (int i = 0; i < wave.amount; i++)
         {
             //Spawn kẻ thù
-            int enemyIndex = wave.enemies[Random.Range(0,wave.enemies.Length)];
+            int enemyIndex = wave.enemies[Random.Range(0, wave.enemies.Length)];
             SpawnEnemy(enemyIndex).transform.position = LevelCreator.Instance.portal.transform.position;
             yield return new WaitForSeconds(wave.rate);
         }
@@ -153,19 +187,25 @@ public class WaveSpawner : Singelton<WaveSpawner>
         Debug.Log("Wave Completed");
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
-
         if (nextWave + 1 > levelWaveInfo.waves.Count - 1)
         {
-            nextWave = 0;
+            victoryScene.SetActive(true);
             Debug.Log("Completed all waves");
+            state = SpawnState.FINISH;
         }
         else
         {
-            nextWave++;
-
+            CountDown.Instance.StartCountDown(((int)timeBetweenWaves));
+            NextWave++;
         }
     }
 
+    public void IsPressStart()
+    {
+        isPressed = true;
+        CountDown.Instance.StartCountDown(((int)timeBetweenWaves));
+        startBtn.SetActive(false);
+    }
 
 
 }
