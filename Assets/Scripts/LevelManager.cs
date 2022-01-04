@@ -22,6 +22,7 @@ public class LevelManager : Singelton<LevelManager>
     private int energyCount;
     [SerializeField]
     Text energyText;
+    private static Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
     public int EnergyCount
     {
         get
@@ -55,7 +56,6 @@ public class LevelManager : Singelton<LevelManager>
 
     private void Update()
     {
-        //Đợi animation chạy xong thì thả quái
 
 
         //Check xem có ấn vào nút hay không
@@ -102,6 +102,7 @@ public class LevelManager : Singelton<LevelManager>
             //Tạo tower 
             GameObject tool = (GameObject)Instantiate(ClickedBtn.TowerPrefab, tileMouseOn.WorldPos, Quaternion.identity, towersHolder);
             tool.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
+            TowerDictionary.Add(tileMouseOn, tool);
             tileMouseOn.IsEmpty = false;
             //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);
             BuyTower();
@@ -128,6 +129,24 @@ public class LevelManager : Singelton<LevelManager>
         tileMouseOn.TurnColorWhite();
     }
 
+    private void DestroyTower()
+    {
+        tileMouseOn.TurnColorGreen();
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Hover.Instance.DeActivate();
+            tileMouseOn.TurnColorWhite();
+            tileMouseOn.IsEmpty = true;
+            GameObject towerDelete;
+            if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
+            {
+                Destroy(towerDelete);
+            }
+            TowerDictionary.Remove(tileMouseOn);
+        }
+    }
+
+
     private void TowerHandle()
     {
         //Xét nếu không được chuột trỏ vào thì thành màu trắng
@@ -150,7 +169,7 @@ public class LevelManager : Singelton<LevelManager>
                 tileMouseOn.TurnColorRed();
             }
         }
-        else
+        else if (ClickedBtn.Type == ToolType.trap)
         {
             if (tileMouseOn.IsEmpty && tileMouseOn.type == TilesType.P)
             {
@@ -159,6 +178,17 @@ public class LevelManager : Singelton<LevelManager>
             else
             {
                 //Không được đặt hiện đỏ
+                tileMouseOn.TurnColorRed();
+            }
+        }
+        else
+        {
+            if (!tileMouseOn.IsEmpty)
+            {
+                DestroyTower();
+            }
+            else
+            {
                 tileMouseOn.TurnColorRed();
             }
         }

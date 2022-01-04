@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public enum ToolType
 {
     tower,
-    trap
+    trap,
+    destroy
 }
 public class TowerBtn : MonoBehaviour
 {
@@ -57,8 +58,10 @@ public class TowerBtn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        priceTxt.text = price.ToString();
-
+        if (type != ToolType.destroy)
+        {
+            priceTxt.text = price.ToString();
+        }
     }
 
     // Update is called once per frame
