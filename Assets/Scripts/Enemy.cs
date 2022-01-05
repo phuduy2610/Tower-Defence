@@ -157,7 +157,7 @@ public class Enemy : Entity
         {
             //Tìm tile đang xét trong Dictionary
             Tile nextTile;
-            if (LevelCreator.TilesDictionary.TryGetValue(pointsToCheck[i], out nextTile))
+            if (LevelCreator.Instance.TilesDictionary.TryGetValue(pointsToCheck[i], out nextTile))
             {
                 //nếu tìm được loại là P thì xét tiếp xem ô đó đã đi qua chưa
                 if (nextTile.type == TilesType.P)

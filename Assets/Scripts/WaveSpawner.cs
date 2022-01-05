@@ -80,7 +80,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
     // Start is called before the first frame update
     void Start()
     {
-        levelWaveInfo = new LevelWaveInfo(1);
+        levelWaveInfo = new LevelWaveInfo(MenuController.Instance.LevelIndex);
         myPool = GetComponent<ObjectPool>();
         waveCountdown = timeBetweenWaves;
     }

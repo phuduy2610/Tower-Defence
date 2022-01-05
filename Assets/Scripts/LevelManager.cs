@@ -22,7 +22,7 @@ public class LevelManager : Singelton<LevelManager>
     private int energyCount;
     [SerializeField]
     Text energyText;
-    private static Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
+    private Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
     public int EnergyCount
     {
         get
@@ -41,7 +41,7 @@ public class LevelManager : Singelton<LevelManager>
 
     private void Awake()
     {
-        LevelCreator.Instance.CreateLevel(1);
+        LevelCreator.Instance.CreateLevel(MenuController.Instance.LevelIndex);
     }
     private void Start()
     {

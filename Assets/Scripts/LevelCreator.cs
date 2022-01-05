@@ -37,7 +37,7 @@ public class LevelCreator : Singelton<LevelCreator>
     private CameraMovement cameraMovement;
 
     //Chứa toạ độ của tile tương ứng với tile đó ( ví dụ lấy Point(0,1) thì ra tile nào)
-    public static Dictionary<Point, Tile> TilesDictionary { get; private set; } = new Dictionary<Point, Tile>();
+    public Dictionary<Point, Tile> TilesDictionary { get; private set; } = new Dictionary<Point, Tile>();
 
     //Trả về size của map cho camera
 
