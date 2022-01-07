@@ -3,28 +3,33 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public bool Grounded() => grounded;
+    [SerializeField]
+    protected bool grounded = false;
     //die trigger parameter
-    private const string DIETRIGGER = "Die";
+    protected const string DIETRIGGER = "Die";
     //attack trigger parameter
-    private const string ATTACKTRIGGER = "Attack";
+    protected const string ATTACKTRIGGER = "Attack";
     //attack string
-    private const string ATTACKSTRING = "enemyAttack";
+    protected const string ATTACKSTRING = "enemyAttack";
     //Gate tag
-    private const string PORTALTAG = "Portal";
+    protected const string PORTALTAG = "Portal";
     //Gate tag
-    private const string PLAYERTAG = "Player";
+    protected const string PLAYERTAG = "Player";
     //Arrow tag
-    private const string ARROWTAG = "Arrow";
-
-    private const string ENEMYTAG = "Enemy";
+    protected const string ARROWTAG = "Arrow";
+    //tower tag
+    protected const string TOWERTAG = "Tower";
+    //enemy tag
+    protected const string ENEMYTAG = "Enemy";
     //attack hash
-    private int ATTACKHASH = Animator.StringToHash(ATTACKTRIGGER);
+    protected int ATTACKHASH = Animator.StringToHash(ATTACKTRIGGER);
     //die hash
-    private int DIEHASH = Animator.StringToHash(DIETRIGGER);
+    protected int DIEHASH = Animator.StringToHash(DIETRIGGER);
     //Flag để stop di chuyển khi đã đi hết map (Sửa sau khi có thành hoặc người chơi để tấn công)
-    bool stopFlag = false;
+    protected bool stopFlag = false;
     //Flag để thông báo chết :))) 
-    bool deadFlag = false;
+    protected bool deadFlag = false;
     //Tile đang đi trên 
     private Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
@@ -35,10 +40,19 @@ public class Enemy : Entity
     //Enemy đang attack
     private Entity attackedEntity = null;
     //Animator
-    private Animator animator;
+    protected Animator animator;
     //
     [SerializeField]
-    private OnAttackedEffect AttackedEffect;
+    protected OnAttackedEffect AttackedEffect;
+    //
+    [SerializeField]
+    protected GameObject hitCenter;
+
+    public GameObject HitCenter
+    {
+        get => hitCenter;
+        private set { }
+    }
 
     //[SerializeField]
     //private GameObject hitBox;
@@ -111,6 +125,8 @@ public class Enemy : Entity
         switch (otherTag)
         {
             case ARROWTAG:
+            case TOWERTAG:
+            case ENEMYTAG:
                 break;
             case PORTALTAG:
                 //đã phát hiện đối phương nên tấn công
@@ -123,8 +139,6 @@ public class Enemy : Entity
                 stopFlag = true;
                 //lấy thông tin đối phương
                 attackedEntity = other.gameObject.GetComponentInParent<Player>();
-                break;
-            case ENEMYTAG:
                 break;
             default:
                 //Xem đang đứng trên tile nào
@@ -190,13 +204,14 @@ public class Enemy : Entity
         animator.SetTrigger(DIEHASH);
     }
 
-    public void KillOff()
+    public virtual void KillOff()
     {
+        AttackedEffect.ClearEffect();
         //Reset lại các cờ
         deadFlag = false;
         stopFlag = false;
         //Fix dis shet shibe :33
-        this.hp = 100.0f;
+        hp = maxHp;
 
         //Reset lại thuật toán tìm đường đi
         nextWaypoints = firstWaypoints;
@@ -209,7 +224,10 @@ public class Enemy : Entity
 
     public override void OnGetAttacked(float damage)
     {
-        AttackedEffect.StartEffect();
+        if (hp > 0)
+        {
+            AttackedEffect.StartEffect();
+        }
         base.OnGetAttacked(damage);
     }
 }

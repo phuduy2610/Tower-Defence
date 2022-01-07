@@ -23,7 +23,7 @@ TagManager:
   - Map
   - Portal
   - Character
-  - 
+  - Tower
   - 
   - 
   - 
@@ -60,4 +60,7 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 2247690001
+    locked: 0
+  - name: Effect
+    uniqueID: 981656973
     locked: 0

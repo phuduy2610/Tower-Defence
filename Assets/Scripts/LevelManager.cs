@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class LevelManager : Singelton<LevelManager>
 {
+    //list để giữ các collider khi dùng để raycast vào scene
+    public ContactFilter2D filter2D;
     //Biến giữ các bool Object
 
     //Biến đợi animation của cổng xong trước khi spawn quái
@@ -23,6 +24,15 @@ public class LevelManager : Singelton<LevelManager>
     [SerializeField]
     Text energyText;
     private static Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
+
+    public static void DestroyTrap(GameObject trap, float time)
+    {
+        var currentTile = trap.GetComponent<TileHolder>().TileIsOn;
+        TowerDictionary.Remove(currentTile);
+        currentTile.TurnColorWhite();
+        currentTile.IsEmpty = true;
+        Destroy(trap, time);
+    }
     public int EnergyCount
     {
         get
@@ -56,25 +66,32 @@ public class LevelManager : Singelton<LevelManager>
 
     private void Update()
     {
-
+        hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
 
         //Check xem có ấn vào nút hay không
-        if (!EventSystem.current.IsPointerOverGameObject() && ClickedBtn != null)
+        if (hit.collider != null && hit.collider.gameObject.layer != LayerMask.NameToLayer("UI"))
         {
-            hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
-            if (hit.collider != null && hit.collider.gameObject.tag == "Tile")
+            if (ClickedBtn != null)
             {
-                //Nếu ấn vào sẽ gọi hàm để bắt đầu xử lí
-                TowerHandle();
+                RaycastHit2D[] raycastHit2Ds = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+                foreach (RaycastHit2D hit in raycastHit2Ds)
+                {
+                    if (hit.collider != null && hit.collider.gameObject.CompareTag("Tile"))
+                    {
+                        //Nếu ấn vào sẽ gọi hàm để bắt đầu xử lí
+                        this.hit = hit;
+                        TowerHandle();
+                        break;
+                    }
+                }
             }
-        }
+        } 
 
         //Ấn chuột phải để bỏ tower đang chọn
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             DroppingTower();
         }
-
     }
 
 
@@ -102,6 +119,7 @@ public class LevelManager : Singelton<LevelManager>
             //Tạo tower 
             GameObject tool = (GameObject)Instantiate(ClickedBtn.TowerPrefab, tileMouseOn.WorldPos, Quaternion.identity, towersHolder);
             tool.GetComponent<SpriteRenderer>().sortingOrder = tileMouseOn.GridPosition.X;
+            tool.GetComponent<TileHolder>().TileIsOn = tileMouseOn;
             TowerDictionary.Add(tileMouseOn, tool);
             tileMouseOn.IsEmpty = false;
             //Debug.Log(tileMouseOn.GridPosition.X + ";" + tileMouseOn.GridPosition.Y);

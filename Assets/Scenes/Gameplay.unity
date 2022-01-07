@@ -449,7 +449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -115.64, y: -154}
+  m_AnchoredPosition: {x: -115.63989, y: -154}
   m_SizeDelta: {x: 185.0799, y: 250.8055}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &366021966
@@ -711,7 +711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -115.64, y: 159.48}
+  m_AnchoredPosition: {x: -115.63989, y: 159.47998}
   m_SizeDelta: {x: 154.09448, y: 116.063}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &685252237
@@ -1061,10 +1061,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 719652927}
+  - component: {fileID: 719652930}
   - component: {fileID: 719652926}
   - component: {fileID: 719652925}
   - component: {fileID: 719652928}
+  - component: {fileID: 719652929}
+  - component: {fileID: 719652927}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1123,20 +1125,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &719652927
-Transform:
+--- !u!114 &719652927
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719652924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  m_MaxRayIntersections: 0
 --- !u!114 &719652928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,6 +1155,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSpeed: 5
   panBorderThickness: 10
+--- !u!223 &719652929
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719652924}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &719652930
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719652924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &794441574
 GameObject:
   m_ObjectHideFlags: 0
@@ -4376,7 +4420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -115.642456, y: -584.5963}
+  m_AnchoredPosition: {x: -115.64258, y: -584.5963}
   m_SizeDelta: {x: 231.28, y: 555.7927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1142213837
@@ -5761,6 +5805,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32788c98fbb3324089509be37fedd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  filter2D:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1024
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   towersHolder: {fileID: 0}
   energyText: {fileID: 1951113311}
 --- !u!114 &1797455928
@@ -5779,6 +5837,7 @@ MonoBehaviour:
   - {fileID: 7857842520723653590, guid: 504e06ca14484d943b37b6992f979ac9, type: 3}
   - {fileID: 4992413638631097897, guid: 577fc7260691614469b19571d9314eaf, type: 3}
   - {fileID: 4066507481026025477, guid: e668d2fb52f8eb84b8f1257d5e5a06b5, type: 3}
+  - {fileID: 7857842520723653590, guid: 99b63b2408c389747892937d4d8ae01f, type: 3}
 --- !u!114 &1797455929
 MonoBehaviour:
   m_ObjectHideFlags: 0

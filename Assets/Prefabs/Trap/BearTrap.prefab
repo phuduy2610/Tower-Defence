@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 7407572257213977126}
   - component: {fileID: 7407572257213977127}
   - component: {fileID: 7407572257213977125}
-  m_Layer: 0
+  - component: {fileID: 2024899439199060083}
+  - component: {fileID: 1639904070528007247}
+  - component: {fileID: 4683606264656991699}
+  m_Layer: 9
   m_Name: BearTrap
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -102,3 +105,56 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2024899439199060083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407572257213977112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9588d4f0f36dc14c9e8d0c503557993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageType: 2
+  damage: 10
+  animator: {fileID: 7407572257213977125}
+--- !u!61 &1639904070528007247
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407572257213977112}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.4642017, y: -0.41019005}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.2070827, y: 0.7764612}
+    oldSize: {x: 1.6, y: 1.6}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8015628, y: 0.3825301}
+  m_EdgeRadius: 0
+--- !u!114 &4683606264656991699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407572257213977112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a87d23a3175f742ac1a2ceb42465a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
