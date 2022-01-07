@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class LevelManager : Singelton<LevelManager>
 {
-    //list để giữ các collider khi dùng để raycast vào scene
-    public ContactFilter2D filter2D;
     //Biến giữ các bool Object
 
     //Biến đợi animation của cổng xong trước khi spawn quái

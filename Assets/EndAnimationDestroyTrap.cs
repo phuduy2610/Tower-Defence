@@ -7,7 +7,7 @@ public class EndAnimationDestroyTrap : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        LevelManager.DestroyTrap(animator.gameObject,stateInfo.length);
+        LevelManager.Instance.DestroyTrap(animator.gameObject,stateInfo.length);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
