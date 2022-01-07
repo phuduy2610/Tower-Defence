@@ -124,9 +124,12 @@ public class LevelManager : Singelton<LevelManager>
 
     private void DroppingTower()
     {
-        //Bỏ tower đang chọn
+        //Bỏ tower đang chọn 
         Hover.Instance.DeActivate();
-        tileMouseOn.TurnColorWhite();
+        if (tileMouseOn != null)
+        {
+            tileMouseOn.TurnColorWhite();
+        }
     }
 
     private void DestroyTower()
