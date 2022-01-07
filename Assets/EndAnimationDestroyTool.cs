@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndAnimationDestroyTrap : StateMachineBehaviour
+public class EndAnimationDestroyTool : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        LevelManager.Instance.DestroyTrap(animator.gameObject,stateInfo.length);
+        LevelManager.Instance.DestroyToolOnTileAfter(animator.gameObject.GetComponent<TileHolder>().TileIsOn,stateInfo.length);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

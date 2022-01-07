@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Collections;
 public class LevelManager : Singelton<LevelManager>
 {
     //Biến giữ các bool Object
@@ -24,13 +25,20 @@ public class LevelManager : Singelton<LevelManager>
 
     private Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
 
-    public void DestroyTrap(GameObject trap, float time)
+    public void DestroyToolOnTileAfter(Tile tile, float time)
     {
-        var currentTile = trap.GetComponent<TileHolder>().TileIsOn;
-        TowerDictionary.Remove(currentTile);
-        currentTile.TurnColorWhite();
-        currentTile.IsEmpty = true;
-        Destroy(trap, time);
+        StartCoroutine(DestroyToolAfter(tile, time));
+    }
+
+    private IEnumerator DestroyToolAfter(Tile tile, float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject tool;
+        TowerDictionary.TryGetValue(tile, out tool);
+        tile.TurnColorWhite();
+        tile.IsEmpty = true;
+        TowerDictionary.Remove(tile); 
+        Destroy(tool);
     }
 
     public int EnergyCount
@@ -150,20 +158,31 @@ public class LevelManager : Singelton<LevelManager>
         }
     }
 
-    private void DestroyTower()
+    private void DestroyTool()
     {
+        //tileMouseOn.TurnColorGreen();
+        //if (Mouse.current.leftButton.wasPressedThisFrame)
+        //{
+        //    Hover.Instance.DeActivate();
+        //    tileMouseOn.TurnColorWhite();
+        //    tileMouseOn.IsEmpty = true;
+        //    GameObject towerDelete;
+        //    if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
+        //    {
+        //        Destroy(towerDelete);
+        //    }
+        //    TowerDictionary.Remove(tileMouseOn);
+        //}
         tileMouseOn.TurnColorGreen();
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Hover.Instance.DeActivate();
             tileMouseOn.TurnColorWhite();
-            tileMouseOn.IsEmpty = true;
             GameObject towerDelete;
             if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
             {
-                Destroy(towerDelete);
+                towerDelete.GetComponent<Tool>().DestroyTool();
             }
-            TowerDictionary.Remove(tileMouseOn);
         }
     }
 
@@ -206,7 +225,7 @@ public class LevelManager : Singelton<LevelManager>
         {
             if (!tileMouseOn.IsEmpty)
             {
-                DestroyTower();
+                DestroyTool();
             }
             else
             {

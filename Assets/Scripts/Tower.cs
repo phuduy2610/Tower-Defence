@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-public class Tower : Entity, IPointerEnterHandler, IPointerExitHandler
+public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private SpriteRenderer rangeSR;
@@ -17,7 +17,9 @@ public class Tower : Entity, IPointerEnterHandler, IPointerExitHandler
     private Animator animator;
 
     private float fireRate;
-    private List<GameObject> enemies = new List<GameObject>(); 
+    private List<GameObject> enemies = new List<GameObject>();
+
+    private bool destroy = false;
 
 
     private GameObject target;
@@ -61,6 +63,10 @@ public class Tower : Entity, IPointerEnterHandler, IPointerExitHandler
 
     private void Update()
     {
+        if (destroy)
+        {
+            this.enabled = false;
+        }
         if (fireRate < 0)
         {
             Attack();
@@ -73,12 +79,10 @@ public class Tower : Entity, IPointerEnterHandler, IPointerExitHandler
 
     protected override void Move()
     {
-        throw new System.NotImplementedException();
     }
 
     protected override void OnKilled()
     {
-        throw new System.NotImplementedException();
     }
 
     private void Awake()
@@ -108,5 +112,11 @@ public class Tower : Entity, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         HideRange();
+    }
+
+    public override void DestroyTool()
+    {
+        animator.SetTrigger("Destroy");
+        destroy = true;
     }
 }
