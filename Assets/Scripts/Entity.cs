@@ -6,10 +6,16 @@ public abstract class Entity : MonoBehaviour
     protected float hp;
 
     [SerializeField]
+    protected float maxHp;
+
+    [SerializeField]
     protected float damage;
 
     [SerializeField]
     protected float moveSpeed;
+
+    [SerializeField]
+    protected float defaultSpeed;
 
     [SerializeField]
     protected ResourceBar hpShow;
@@ -17,6 +23,8 @@ public abstract class Entity : MonoBehaviour
     public float Hp { get => hp; }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
+    public float DefaultSpeed { get => defaultSpeed; set => defaultSpeed = value; }
 
     protected abstract void Move();
 
@@ -32,6 +40,5 @@ public abstract class Entity : MonoBehaviour
         {
             OnKilled();
         }
-        Debug.Log(hp);
     }
 }

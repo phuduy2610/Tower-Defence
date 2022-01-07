@@ -13,7 +13,7 @@ public class Pointer : PersistentSingleton<Pointer>
     protected override void Awake()
     {
         base.Awake();
-        Vector2 offset = new Vector2(defaultPointer.width / 2, defaultPointer.height / 2);
+        Vector2 offset = new Vector2(defaultPointer.width * 0, defaultPointer.height * 0);
         Cursor.SetCursor(defaultPointer, offset, CursorMode.Auto);
     }
 

@@ -177,6 +177,9 @@ public class WaveSpawner : Singelton<WaveSpawner>
             case 2:
                 type = "Tank";
                 break;
+            case 3:
+                type = "Fly";
+                break;
         }
         GameObject enemy = myPool.GetObject(type);
         return enemy;

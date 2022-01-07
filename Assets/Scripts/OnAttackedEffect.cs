@@ -14,6 +14,11 @@ public class OnAttackedEffect : MonoBehaviour
         StartCoroutine(StartEffectCoroutine());
     }
 
+    public void ClearEffect()
+    {
+        StopCoroutine(StartEffectCoroutine());
+    }
+
     private IEnumerator StartEffectCoroutine()
     {
         spriteRenderer.color = Color.red;
