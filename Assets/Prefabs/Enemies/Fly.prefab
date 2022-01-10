@@ -306,3 +306,5 @@ MonoBehaviour:
   grounded: 0
   AttackedEffect: {fileID: 7371835207780878275}
   hitCenter: {fileID: 3009383851889624482}
+  defaultFallTime: 0.4
+  defaultFallSpeed: 4

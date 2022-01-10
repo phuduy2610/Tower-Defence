@@ -27,9 +27,19 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     {
         if (target != null)
         {
-            animator.SetTrigger("Attack");
-            var gameObj = Instantiate(attackBall, transform.position, Quaternion.identity);
-            gameObj.GetComponent<DamageBallScript>().Attack(target, damage);
+            if (target.GetComponentInParent<Entity>().Hp > 0)
+            {
+                animator.SetTrigger("Attack");
+                var gameObj = Instantiate(attackBall, transform.position, Quaternion.identity);
+                gameObj.GetComponent<DamageBallScript>().Attack(target, damage);
+            } else
+            {
+                enemies.Remove(target);
+                if (enemies.Count > 0)
+                    target = enemies[0];
+                else
+                    target = null;
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

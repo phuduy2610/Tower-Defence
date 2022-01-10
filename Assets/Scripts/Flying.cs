@@ -1,25 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Flying : Enemy
 {
+    private const string FALLSTRING = "Fall";
+    private int FALLHASH = Animator.StringToHash(FALLSTRING);
+    [SerializeField]
+    private float defaultFallTime = 0f;
+    [SerializeField]
+    private float defaultFallSpeed = 0f;
+    private float fallSpeed = 0f;
+    private float fallTime = 0f;
+
     GameObject target;
     private void Update()
     {
         if (deadFlag)
         {
+            if (fallTime > -1f)
+            {
+                transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+                fallTime += Time.deltaTime;
+            }
+            if (fallTime > defaultFallTime)
+            {
+                animator.SetTrigger(DIEHASH);
+                animator.SetBool(FALLHASH, false);
+                fallTime = -2f;
+            }
             return;
+        } else
+        {
+            if (!stopFlag)
+                Move();
+            else
+                Attack();
         }
-        if (!stopFlag)
-            Move();
-        else
-            Attack();
     }
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        fallSpeed = defaultFallSpeed;
     }
 
     private void Start()
@@ -52,7 +73,7 @@ public class Flying : Enemy
     protected override void OnKilled()
     {
         deadFlag = true;
-        animator.SetTrigger(DIEHASH);
+        animator.SetBool(FALLHASH, true);
     }
 
     public override void KillOff()
@@ -61,6 +82,7 @@ public class Flying : Enemy
         deadFlag = false;
         stopFlag = false;
         hp = maxHp;
+        fallTime = 0f;
 
         //Nhả lại object này về Level
         WaveSpawner.Instance.myPool.ReleaseObject(gameObject);

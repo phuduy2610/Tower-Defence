@@ -51,7 +51,7 @@ public class DamageBallScript : MonoBehaviour
                 {
                     damageScript.ApplyEffect(damageType, damage);
                 }
-                Instantiate(hitEffect, hitCenter.transform.position, Quaternion.identity);
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }

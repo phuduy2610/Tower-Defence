@@ -25,11 +25,13 @@ public class LevelManager : Singelton<LevelManager>
 
     private Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
 
+    // xóa tool ( tháp, trap ) sau khoảng thời gian time
     public void DestroyToolOnTileAfter(Tile tile, float time)
     {
         StartCoroutine(DestroyToolAfter(tile, time));
     }
 
+    // coroutine của thằng trên =)))
     private IEnumerator DestroyToolAfter(Tile tile, float time)
     {
         yield return new WaitForSeconds(time);

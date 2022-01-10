@@ -1,14 +1,17 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : Tool
+public class OneTimeTrap : Tool
 {
     [SerializeField]
     private DamageTakeBehaviour.DamageType damageType;
 
     [SerializeField]
     private Animator animator;
+
+    [SerializeField]
+    private bool groundedTarget;
 
     private bool damagable = true;
 
@@ -22,7 +25,8 @@ public class Trap : Tool
 
     protected override void Attack()
     {
-        if (attackedEntity.Grounded())
+        // kiểm tra bằng bit xem nó có cùng loại target hay không ( nxor )
+        if (!(groundedTarget ^ attackedEntity.Grounded()))
         {
             animator.SetTrigger("Attack");
             attackedEntity.OnGetAttacked(damage);
