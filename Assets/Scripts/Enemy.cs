@@ -31,12 +31,12 @@ public class Enemy : Entity
     //Flag để thông báo chết :))) 
     protected bool deadFlag = false;
     //Tile đang đi trên 
-    private Tile tileWalkingOn;
+    protected Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
-    private Vector3 nextWaypoints = Vector3.zero;
-    private Vector3 firstWaypoints = Vector3.zero;
+    protected Vector3 nextWaypoints = Vector3.zero;
+    protected Vector3 firstWaypoints = Vector3.zero;
     //List các vị trí đã đi qua
-    private List<Point> alreadyThrough = new List<Point>();
+    protected List<Point> alreadyThrough = new List<Point>();
     //Enemy đang attack
     private Entity attackedEntity = null;
     //Animator
@@ -157,7 +157,7 @@ public class Enemy : Entity
         }
     }
 
-    private Vector3 FindNextWaypoint()
+    protected private Vector3 FindNextWaypoint()
     {
         //Xét các vị trí trên phải và dưới 
         Point currentPoint = new Point(tileWalkingOn.GridPosition.X, tileWalkingOn.GridPosition.Y);
@@ -183,6 +183,7 @@ public class Enemy : Entity
                         alreadyThrough.Add(nextTile.GridPosition);
                         return nextTile.WorldPos;
                     }
+
                 }
             }
             else

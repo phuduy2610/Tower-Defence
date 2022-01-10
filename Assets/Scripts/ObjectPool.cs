@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPool : Singelton<ObjectPool>
 {
     //Dùng để làm pool chứa khi cần tạo thêm object ( enemy, tia bắn ,...)
     [SerializeField]
     private GameObject[] enemyPrefabs;
+    public Transform enemiesHolder;
     private List<GameObject> objectsInPool = new List<GameObject>();
+
+    private void Start() { 
+        enemiesHolder = new GameObject("Enemies Holder").transform;
+
+    }
+
     //Hàm dùng để tạo và trả về object game cần
     public GameObject GetObject(string type)
     {
@@ -31,6 +38,7 @@ public class ObjectPool : MonoBehaviour
                 //Đặt lại tên ( vì tên mặc định sẽ có chữ clone)
                 newObject.name = type;
                 objectsInPool.Add(newObject);
+                newObject.transform.SetParent(enemiesHolder);
                 return newObject;
             }
         }

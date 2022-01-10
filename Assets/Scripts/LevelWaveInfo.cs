@@ -13,7 +13,7 @@ public class LevelWaveInfo
             case 1:
             //Tạo 3 wave cho level đầu
                 for(int i=0;i<3;i++){
-                    int[] enemyIndex = {0,1,2,3};
+                    int[] enemyIndex = {4};
                     Wave temp = new Wave(LevelName(i),enemyIndex,10,1.0f);
                     waves.Add(temp);
                 }

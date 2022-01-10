@@ -180,6 +180,9 @@ public class WaveSpawner : Singelton<WaveSpawner>
             case 3:
                 type = "Fly";
                 break;
+            case 4:
+                type = "Range";
+                break;
         }
         GameObject enemy = myPool.GetObject(type);
         return enemy;

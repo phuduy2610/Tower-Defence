@@ -262,10 +262,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 1, b: 0.37647057, a: 1}
+    m_HighlightedColor: {r: 0, g: 1, b: 0.3764706, a: 1}
+    m_PressedColor: {r: 0.012815933, g: 0.5660378, b: 0.22108768, a: 1}
+    m_SelectedColor: {r: 0, g: 1, b: 0.3764706, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1361,10 +1361,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 1, b: 0.37647057, a: 1}
+    m_HighlightedColor: {r: 0, g: 1, b: 0.3764706, a: 1}
+    m_PressedColor: {r: 0.012815933, g: 0.5660378, b: 0.22108768, a: 1}
+    m_SelectedColor: {r: 0, g: 1, b: 0.3764706, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4609,7 +4609,7 @@ GameObject:
   - component: {fileID: 936127984}
   - component: {fileID: 936127983}
   m_Layer: 5
-  m_Name: Sound
+  m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7061,6 +7061,7 @@ MonoBehaviour:
   - {fileID: 4992413638631097897, guid: 577fc7260691614469b19571d9314eaf, type: 3}
   - {fileID: 4066507481026025477, guid: e668d2fb52f8eb84b8f1257d5e5a06b5, type: 3}
   - {fileID: 7857842520723653590, guid: 99b63b2408c389747892937d4d8ae01f, type: 3}
+  - {fileID: 4992413638631097897, guid: 1682e27e366368646962941be89ae4f5, type: 3}
 --- !u!114 &1797455929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7208,7 +7209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.3764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

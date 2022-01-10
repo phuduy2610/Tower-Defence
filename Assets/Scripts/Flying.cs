@@ -89,12 +89,4 @@ public class Flying : Enemy
 
     }
 
-    public override void OnGetAttacked(float damage)
-    {
-        if (hp > 0)
-        {
-            AttackedEffect.StartEffect();
-        }
-        base.OnGetAttacked(damage);
-    }
 }
