@@ -7,6 +7,9 @@ public class EnergyTower : Tool
     [SerializeField]
     private int bonusEnergy = 10;
 
+    [SerializeField]
+    private Animator animator;
+
     private Gate gate;
     // Start is called before the first frame update
     void Start()
@@ -40,7 +43,7 @@ public class EnergyTower : Tool
     public override void DestroyTool()
     {
         gate.EnergyRate -= bonusEnergy;
-        Destroy(gameObject);
+        animator.SetTrigger("Destroy");
     }
 
 

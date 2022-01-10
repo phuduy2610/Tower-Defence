@@ -135,3 +135,4 @@ MonoBehaviour:
   defaultSpeed: 0
   hpShow: {fileID: 0}
   bonusEnergy: 10
+  animator: {fileID: 3707085654457897285}
