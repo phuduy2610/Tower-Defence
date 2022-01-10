@@ -24,21 +24,21 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         Vector3 mousePos = Mouse.current.position.ReadValue();
-        if (mousePos.y >= Screen.height - panBorderThickness)
+        if (Keyboard.current[Key.UpArrow].IsPressed() || mousePos.y >= Screen.height - panBorderThickness)
         {
             transform.Translate(Vector3.up*cameraSpeed*Time.deltaTime);
         }
 
-        if (mousePos.y <= panBorderThickness)
+        if (Keyboard.current[Key.DownArrow].IsPressed() || mousePos.y <= panBorderThickness)
         {
             transform.Translate(Vector3.down*cameraSpeed*Time.deltaTime);
         }
 
-        if (mousePos.x >= Screen.width - panBorderThickness)
+        if (Keyboard.current[Key.RightArrow].IsPressed() || mousePos.x >= Screen.width - panBorderThickness)
         {
             transform.Translate(Vector3.right*cameraSpeed*Time.deltaTime);
         }
-        if (mousePos.x <= panBorderThickness)
+        if (Keyboard.current[Key.LeftArrow].IsPressed() || mousePos.x <= panBorderThickness)
         {
             transform.Translate(Vector3.left*cameraSpeed*Time.deltaTime);
         }
