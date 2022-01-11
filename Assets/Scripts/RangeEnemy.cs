@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class RangeEnemy : Enemy
 {
-
-    private void Awake() {
+    public float attackDistance;
+    private Rigidbody2D rbd2D;
+    [SerializeField]
+    private GameObject fireBallPrefab;
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
+        rbd2D = GetComponent<Rigidbody2D>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,16 +23,8 @@ public class RangeEnemy : Enemy
             case ENEMYTAG:
                 break;
             case PORTALTAG:
-                //đã phát hiện đối phương nên tấn công
-                // stopFlag = true;
-                // //lấy thông tin đối phương
-                // attackedEntity = other.gameObject.GetComponentInParent<Gate>();
                 break;
             case PLAYERTAG:
-                // //đã phát hiện đối phương nên tấn công
-                // stopFlag = true;
-                // //lấy thông tin đối phương
-                // attackedEntity = other.gameObject.GetComponentInParent<Player>();
                 break;
             default:
                 //Xem đang đứng trên tile nào
@@ -46,12 +43,33 @@ public class RangeEnemy : Enemy
         }
     }
 
+
     private void Start()
     {
 
     }
     private void Update()
     {
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.down*0.1f + Vector3.right*0.1f, transform.right, attackDistance, LayerMask.GetMask(ALLYHURTBOX));
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject.tag == PLAYERTAG)
+            {
+                stopFlag = true;
+                attackedEntity = hit.collider.gameObject.GetComponentInParent<Player>();
+            }
+            else if (hit.collider.gameObject.tag == PORTALTAG)
+            {
+                stopFlag = true;
+                attackedEntity = hit.collider.gameObject.GetComponentInParent<Gate>();
+            }
+        }
+        else
+        {
+            stopFlag = false;
+        }
+
         if (deadFlag)
         {
             return;
@@ -63,7 +81,11 @@ public class RangeEnemy : Enemy
         }
         else
         {
-            //Attack();
+            Attack();
         }
+    }
+
+    private void LauchFireBall(){
+        GameObject fireBall = Instantiate(fireBallPrefab,transform.position - transform.up*0.1f + transform.right,Quaternion.identity);
     }
 }

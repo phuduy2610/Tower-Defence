@@ -22,6 +22,8 @@ public class Enemy : Entity
     protected const string TOWERTAG = "Tower";
     //enemy tag
     protected const string ENEMYTAG = "Enemy";
+    //Ally hurtbox layer
+    protected const string ALLYHURTBOX = "AllyHurtbox";
     //attack hash
     protected int ATTACKHASH = Animator.StringToHash(ATTACKTRIGGER);
     //die hash
@@ -38,7 +40,7 @@ public class Enemy : Entity
     //List các vị trí đã đi qua
     protected List<Point> alreadyThrough = new List<Point>();
     //Enemy đang attack
-    private Entity attackedEntity = null;
+    protected Entity attackedEntity = null;
     //Animator
     protected Animator animator;
     //

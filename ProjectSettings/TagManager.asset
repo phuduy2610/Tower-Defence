@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - Portal
   - Tower
+  - HitCenter
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Portal
   - Character
   - Tower
-  - 
+  - EnemyFireBall
   - 
   - 
   - 
