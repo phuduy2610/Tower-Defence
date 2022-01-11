@@ -19,7 +19,10 @@ public class LevelCreator : Singelton<LevelCreator>
     private GameObject[] edgeTiles;
 
     [SerializeField]
-    private GameObject[] portals;
+    private GameObject gatePrefab;
+
+    [SerializeField]
+    private GameObject portalPrefab;
 
     [SerializeField]
     private GameObject characterObject;
@@ -51,14 +54,14 @@ public class LevelCreator : Singelton<LevelCreator>
     }
 
     //Các Object spawn trên màn hình
-    public GameObject portal { get; private set; }
+    public List<GameObject> portal { get; private set; } = new List<GameObject>();
     public GameObject character { get; private set; }
     public GameObject gate { get; private set; }
 
 
     //Điểm spawn cổng enemy
-    Point portalPoint;
-    Point gatePoint;
+    List<Point> portalPoint = new List<Point>();
+    public Point gatePoint;
 
     //Điểm spawn character
     Point characterPoint;
@@ -76,7 +79,7 @@ public class LevelCreator : Singelton<LevelCreator>
         tilesHolder = new GameObject("Tiles Holder").transform;
 
         //Đọc từ text lên dữ liệu tạo level
-        string[] mapData = ReadLevelText();
+        string[] mapData = ReadLevelText(levelIndex);
 
         //Tạo ra mảng đã cắt các kí tự ra thành từng string nhỏ ( mảng này chứa các kí tự TileType như G,P,E1,...)
         string[,] tilesMap = SplitString(mapData);
@@ -145,9 +148,10 @@ public class LevelCreator : Singelton<LevelCreator>
     }
 
     //Hàm đọc file text lên và trả về ma trận string
-    private string[] ReadLevelText()
+    private string[] ReadLevelText(int levelNum)
     {
-        TextAsset bindData = Resources.Load("Level1") as TextAsset;
+        string levelFileName = "Level" + levelNum.ToString();
+        TextAsset bindData = Resources.Load(levelFileName) as TextAsset;
         string data = bindData.text.Replace(System.Environment.NewLine, string.Empty);
         return data.Split('-');
     }
@@ -261,14 +265,18 @@ public class LevelCreator : Singelton<LevelCreator>
     private void SpawnPortals()
     {
         Tile portalTile;
-        if (TilesDictionary.TryGetValue(portalPoint, out portalTile))
+        foreach (Point portalP in portalPoint)
         {
-            portal = Instantiate(portals[0], portalTile.WorldPos, Quaternion.identity);
+            if (TilesDictionary.TryGetValue(portalP, out portalTile))
+            {
+                portal.Add(Instantiate(portalPrefab, portalTile.WorldPos, Quaternion.identity));
+            }
         }
+
         Tile gateTile;
         if (TilesDictionary.TryGetValue(gatePoint, out gateTile))
         {
-            gate = Instantiate(portals[1], gateTile.WorldPos, Quaternion.identity);
+            gate = Instantiate(gatePrefab, gateTile.WorldPos, Quaternion.identity);
         }
     }
 
@@ -276,7 +284,7 @@ public class LevelCreator : Singelton<LevelCreator>
     {
         if (objectTile.type == TilesType.P1)
         {
-            portalPoint = new Point(objectTile.GridPosition);
+            portalPoint.Add(new Point(objectTile.GridPosition));
         }
         if (objectTile.type == TilesType.P2)
         {

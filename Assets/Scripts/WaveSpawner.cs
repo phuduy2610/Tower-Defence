@@ -106,7 +106,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
             if (waveCountdown <= 0)
             {
                 //Đang ở state spawn thì bắt đầu spawn
-                if (state != SpawnState.SPAWNING && state !=SpawnState.FINISH)
+                if (state != SpawnState.SPAWNING && state != SpawnState.FINISH)
                 {
                     StartWave();
                     //Start Spawning 
@@ -150,9 +150,12 @@ public class WaveSpawner : Singelton<WaveSpawner>
         state = SpawnState.SPAWNING;
         for (int i = 0; i < wave.amount; i++)
         {
-            //Spawn kẻ thù
+            //Lấy random kẻ thù
             int enemyIndex = wave.enemies[Random.Range(0, wave.enemies.Length)];
-            SpawnEnemy(enemyIndex).transform.position = LevelCreator.Instance.portal.transform.position;
+            //Lấy random cổng 
+            int portalIndex = Random.Range(0, LevelCreator.Instance.portal.Count);
+            //Spawn kẻ thù
+            SpawnEnemy(enemyIndex).transform.position = LevelCreator.Instance.portal[portalIndex].transform.position;
             yield return new WaitForSeconds(wave.rate);
         }
         //Sau khi spawn xong thì vô trạng thái đợi

@@ -47,7 +47,6 @@ public class RangeFireBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Hit");
         string otherTag = other.gameObject.tag;
         switch (otherTag)
         {

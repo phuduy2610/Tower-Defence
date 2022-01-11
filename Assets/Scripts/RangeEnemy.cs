@@ -35,8 +35,6 @@ public class RangeEnemy : Enemy
                 {
                     //Debug.Log("First");
                     nextWaypoints = FindNextWaypoint();
-                    firstWaypoints = nextWaypoints;
-
                 }
                 //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
                 break;

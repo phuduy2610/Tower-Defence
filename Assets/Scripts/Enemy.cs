@@ -36,7 +36,6 @@ public class Enemy : Entity
     protected Tile tileWalkingOn;
     //Vị trí tiếp theo cần đi đến
     protected Vector3 nextWaypoints = Vector3.zero;
-    protected Vector3 firstWaypoints = Vector3.zero;
     //List các vị trí đã đi qua
     protected List<Point> alreadyThrough = new List<Point>();
     //Enemy đang attack
@@ -151,7 +150,6 @@ public class Enemy : Entity
                 {
                     //Debug.Log("First");
                     nextWaypoints = FindNextWaypoint();
-                    firstWaypoints = nextWaypoints;
 
                 }
                 //Debug.Log(tileWalkingOn.GridPosition.X + ";" + tileWalkingOn.GridPosition.Y);
@@ -161,43 +159,48 @@ public class Enemy : Entity
 
     protected private Vector3 FindNextWaypoint()
     {
-        //Xét các vị trí trên phải và dưới 
+
         Point currentPoint = new Point(tileWalkingOn.GridPosition.X, tileWalkingOn.GridPosition.Y);
+        //Xét các vị trí trên phải và dưới 
         Point upPoint = new Point(currentPoint.X - 1, currentPoint.Y);
         Point rightPoint = new Point(currentPoint.X, currentPoint.Y + 1);
         Point downPoint = new Point(currentPoint.X + 1, currentPoint.Y);
-        //Tạo mảng để đi lần lượt qua
-        Point[] pointsToCheck = { rightPoint, upPoint, downPoint };
 
+        //Tạo mảng để đi lần lượt qua
+        Point[] pointsToCheck = { upPoint, rightPoint, downPoint };
+        //Tạo List gồm các tile P để xét
+        List<Point> pointsToCheckList = new List<Point>();
         for (int i = 0; i < pointsToCheck.Length; i++)
         {
-            //Tìm tile đang xét trong Dictionary
-            Tile nextTile;
-            if (LevelCreator.Instance.TilesDictionary.TryGetValue(pointsToCheck[i], out nextTile))
+            Tile tempTile;
+            if (LevelCreator.Instance.TilesDictionary.TryGetValue(pointsToCheck[i], out tempTile))
             {
-                //nếu tìm được loại là P thì xét tiếp xem ô đó đã đi qua chưa
-                if (nextTile.type == TilesType.P)
+                if (tempTile.type == TilesType.P)
                 {
-                    //Nếu đi qua rồi thì skip còn không thì đó sẽ là ô tiếp theo cần đi đến
-                    if (!alreadyThrough.Contains(nextTile.GridPosition))
+                    if (!alreadyThrough.Contains(pointsToCheck[i]))
                     {
-                        //Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
-                        alreadyThrough.Add(nextTile.GridPosition);
-                        return nextTile.WorldPos;
+                        pointsToCheckList.Add(pointsToCheck[i]);
                     }
-
                 }
             }
-            else
-            {
-                //Nếu tìm trong dictionary không ra thì có nghĩa đã đi hết map --> Dừng
-                stopFlag = true;
-                return Vector3.zero;
-            }
-            //Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
         }
-        return Vector3.zero;
+        Point nextPoint = findCloserPoint(pointsToCheckList);
 
+        //Tìm tile đang xét trong Dictionary
+        Tile nextTile;
+        if (LevelCreator.Instance.TilesDictionary.TryGetValue(nextPoint, out nextTile))
+        {
+            //Nếu đi qua rồi thì skip còn không thì đó sẽ là ô tiếp theo cần đi đến
+            //Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
+            return nextTile.WorldPos;
+        }
+        else
+        {
+            //Nếu tìm trong dictionary không ra thì có nghĩa đã đi hết map --> Dừng
+            stopFlag = true;
+            return Vector3.zero;
+        }
+        //Debug.Log(nextTile.GridPosition.X + " ; " + nextTile.GridPosition.Y);
 
     }
 
@@ -217,7 +220,7 @@ public class Enemy : Entity
         hp = maxHp;
 
         //Reset lại thuật toán tìm đường đi
-        nextWaypoints = firstWaypoints;
+        nextWaypoints = Vector3.zero;
         alreadyThrough.Clear();
 
         //Nhả lại object này về Level
@@ -232,5 +235,31 @@ public class Enemy : Entity
             AttackedEffect.StartEffect();
         }
         base.OnGetAttacked(damage);
+    }
+
+    protected Point findCloserPoint(List<Point> pointsToCheck)
+    {
+        Point GateTarget = LevelCreator.Instance.gatePoint;
+        List<float> distance = new List<float>();
+        for (int i = 0; i < pointsToCheck.Count; i++)
+        {
+            distance.Add(Mathf.Abs(GateTarget.X - pointsToCheck[i].X) + Mathf.Abs(GateTarget.Y - pointsToCheck[i].Y));
+        }
+        int index = 0;
+        float min = distance[0];
+        if (distance.Count > 1)
+        {
+            for (int i = 1; i < distance.Count; i++)
+            {
+                if (distance[i] < min)
+                {
+                    min = distance[i];
+                    index = i;
+                }
+            }
+        }
+        alreadyThrough.Add(pointsToCheck[index]);
+        return pointsToCheck[index];
+
     }
 }
