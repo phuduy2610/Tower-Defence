@@ -26,6 +26,8 @@ public abstract class Entity : MonoBehaviour
 
     public float DefaultSpeed { get => defaultSpeed; set => defaultSpeed = value; }
 
+    public float Damage { get => damage; set => damage = value; }
+
     protected abstract void Move();
 
     protected abstract void Attack();

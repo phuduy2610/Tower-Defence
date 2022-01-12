@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 [System.Serializable]
 public class Wave
 {
@@ -28,6 +27,10 @@ public class WaveSpawner : Singelton<WaveSpawner>
         COUNTING,
         FINISH
     }
+
+    //warning sign cho random enemy
+    [SerializeField]
+    private GameObject warningSign;
 
 
     [SerializeField]
@@ -155,7 +158,8 @@ public class WaveSpawner : Singelton<WaveSpawner>
             //Lấy random cổng 
             int portalIndex = Random.Range(0, LevelCreator.Instance.portal.Count);
             //Spawn kẻ thù
-            SpawnEnemy(enemyIndex).transform.position = LevelCreator.Instance.portal[portalIndex].transform.position;
+            var result = SpawnEnemy(enemyIndex);
+            SetStartPos(result.Item1,result.Item2,portalIndex);
             yield return new WaitForSeconds(wave.rate);
         }
         //Sau khi spawn xong thì vô trạng thái đợi
@@ -165,10 +169,47 @@ public class WaveSpawner : Singelton<WaveSpawner>
         yield break;
     }
 
+    // set vị trí của enemy , ifRand là nếu quái có được spawn random hay không
+    private void SetStartPos(GameObject enemy, bool ifRand, int portalIndex)
+    {
+        if (ifRand)
+        {
+            float leftSide = LevelCreator.Instance.topLeftTile.x;
+            float topSide = LevelCreator.Instance.topLeftTile.y;
+            float bottomSide = LevelCreator.Instance.bottomRightTile.y;
+            float rightSide = LevelCreator.Instance.bottomRightTile.x;
 
-    private GameObject SpawnEnemy(int monsterIndex)
+            var enemyPos = Vector2.zero;
+
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    //top
+                    enemyPos.y = topSide;
+                    enemyPos.x = Random.Range(leftSide, rightSide);
+                    break;
+                case 1:
+                    //bottom
+                    enemyPos.y = bottomSide - LevelCreator.Instance.TileSize; 
+                    enemyPos.x = Random.Range(leftSide, rightSide);
+                    break;
+                case 2:
+                    //left
+                    enemyPos.x = leftSide;
+                    enemyPos.y = Random.Range(topSide, bottomSide);
+                    break;
+            }
+            enemy.transform.position = enemyPos;
+        } else
+        {
+            enemy.transform.position = LevelCreator.Instance.portal[portalIndex].transform.position;
+        }
+    }
+
+    private (GameObject,bool) SpawnEnemy(int monsterIndex)
     {
         string type = string.Empty;
+        bool rand = false;
         switch (monsterIndex)
         {
             case 0:
@@ -182,13 +223,14 @@ public class WaveSpawner : Singelton<WaveSpawner>
                 break;
             case 3:
                 type = "Fly";
+                rand = true;
                 break;
             case 4:
                 type = "Range";
                 break;
         }
         GameObject enemy = myPool.GetObject(type);
-        return enemy;
+        return (enemy, rand);
     }
 
     private void WaveCompleted()

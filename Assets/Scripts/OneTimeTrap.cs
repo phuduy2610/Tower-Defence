@@ -29,6 +29,13 @@ public class OneTimeTrap : Tool
         if (!(groundedTarget ^ attackedEntity.Grounded()))
         {
             animator.SetTrigger("Attack");
+        }
+    }
+
+    public void DoDamge()
+    {
+        if (attackedEntity != null)
+        {
             attackedEntity.OnGetAttacked(damage);
             var tar = attackedEntity.GetComponentInParent<DamageTakeBehaviour>();
             if (tar != null)

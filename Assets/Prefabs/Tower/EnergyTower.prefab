@@ -134,5 +134,7 @@ MonoBehaviour:
   moveSpeed: 0
   defaultSpeed: 0
   hpShow: {fileID: 0}
+  lvlUpDamageMultiplier: 0
+  sr: {fileID: 3707085654457897284}
   bonusEnergy: 10
   animator: {fileID: 3707085654457897285}
