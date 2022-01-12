@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : Entity
 {
 
+    public event System.Action OnPlayerDeath;
     private bool death = false;
     //bien arrow
     private GameObject arrow;
@@ -60,7 +61,7 @@ public class Player : Entity
 
     private Vector2 bottomRightTilePos;
 
-    public enum FACEDIRECTION { LEFT, RIGHT}
+    public enum FACEDIRECTION { LEFT, RIGHT }
 
     protected override void Attack()
     {
@@ -107,16 +108,17 @@ public class Player : Entity
         if (direction == Vector2.zero)
         {
             animator.SetBool(MOVEHASH, false);
-        } else
+        }
+        else
         {
             animator.SetBool(MOVEHASH, true);
             if (direction.x < 0)
             {
-                ChangeFacingDirection(transform,FACEDIRECTION.LEFT);
+                ChangeFacingDirection(transform, FACEDIRECTION.LEFT);
             }
             else if (direction.x > 0)
             {
-                ChangeFacingDirection(transform,FACEDIRECTION.RIGHT);
+                ChangeFacingDirection(transform, FACEDIRECTION.RIGHT);
             }
         }
         var temp = gameObject.transform.position;
@@ -165,18 +167,19 @@ public class Player : Entity
             return;
         }
         // fire == 1 la dang nhan nut ban
-        if (fire != 1) 
+        if (fire != 1)
         {
             Move();
-        } else
+        }
+        else
         {
             // dang nhan nut ban thi huong cua nhan vat se thay doi theo con tro chuot
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            if(mousePos.x > transform.position.x)
-                ChangeFacingDirection(transform,FACEDIRECTION.RIGHT);
+            if (mousePos.x > transform.position.x)
+                ChangeFacingDirection(transform, FACEDIRECTION.RIGHT);
             else
-                ChangeFacingDirection(transform,FACEDIRECTION.LEFT);
+                ChangeFacingDirection(transform, FACEDIRECTION.LEFT);
         }
         Attack();
     }
@@ -198,7 +201,9 @@ public class Player : Entity
         animator.SetTrigger(DIEHASH);
         death = true;
         hurtbox.SetActive(false);
+
     }
+
 
     public void FireArrow()
     {
@@ -223,6 +228,10 @@ public class Player : Entity
 
     public override void KillOff()
     {
-        
+        if (OnPlayerDeath != null)
+        {
+            OnPlayerDeath();
+        }
+
     }
 }

@@ -38,9 +38,6 @@ public class WaveSpawner : Singelton<WaveSpawner>
     [SerializeField]
     private GameObject startBtn;
 
-    [SerializeField]
-    private GameObject victoryScene;
-
     private bool isPressed = false;
 
     public LevelWaveInfo levelWaveInfo;
@@ -79,6 +76,8 @@ public class WaveSpawner : Singelton<WaveSpawner>
 
     public ObjectPool myPool { get; set; }
 
+    //Dùng khi đã hoàn thành hết wave
+    public event System.Action OnFinish;
 
     // Start is called before the first frame update
     void Start()
@@ -159,7 +158,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
             int portalIndex = Random.Range(0, LevelCreator.Instance.portal.Count);
             //Spawn kẻ thù
             var result = SpawnEnemy(enemyIndex);
-            SetStartPos(result.Item1,result.Item2,portalIndex);
+            SetStartPos(result.Item1, result.Item2, portalIndex);
             yield return new WaitForSeconds(wave.rate);
         }
         //Sau khi spawn xong thì vô trạng thái đợi
@@ -190,7 +189,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
                     break;
                 case 1:
                     //bottom
-                    enemyPos.y = bottomSide - LevelCreator.Instance.TileSize; 
+                    enemyPos.y = bottomSide - LevelCreator.Instance.TileSize;
                     enemyPos.x = Random.Range(leftSide, rightSide);
                     break;
                 case 2:
@@ -200,13 +199,14 @@ public class WaveSpawner : Singelton<WaveSpawner>
                     break;
             }
             enemy.transform.position = enemyPos;
-        } else
+        }
+        else
         {
             enemy.transform.position = LevelCreator.Instance.portal[portalIndex].transform.position;
         }
     }
 
-    private (GameObject,bool) SpawnEnemy(int monsterIndex)
+    private (GameObject, bool) SpawnEnemy(int monsterIndex)
     {
         string type = string.Empty;
         bool rand = false;
@@ -240,9 +240,12 @@ public class WaveSpawner : Singelton<WaveSpawner>
         waveCountdown = timeBetweenWaves;
         if (nextWave + 1 > levelWaveInfo.waves.Count - 1)
         {
-            victoryScene.SetActive(true);
             Debug.Log("Completed all waves");
             state = SpawnState.FINISH;
+            if (OnFinish != null)
+            {
+                OnFinish();
+            }
         }
         else
         {

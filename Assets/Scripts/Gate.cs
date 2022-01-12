@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 public class Gate : Entity
 {
+    
+    public event System.Action OnGateDestroy;
+    private Player player;
     private const string GATEDOWNSTRING = "GateDown";
     private int GATEDOWNHASH = Animator.StringToHash(GATEDOWNSTRING);
     private Animator animator;
@@ -27,7 +30,14 @@ public class Gate : Entity
     }
 
     private void Start() {
+        player = FindObjectOfType<Player>();
         StartCoroutine("GenerateEnergy");
+    }
+
+    private void OnFullyOpen(){
+        if(OnGateDestroy!=null){
+            OnGateDestroy();
+        }
     }
     protected override void Attack()
     {
@@ -44,6 +54,7 @@ public class Gate : Entity
         animator.SetTrigger(GATEDOWNHASH);
         hpShow.gameObject.SetActive(false);
         StopCoroutine("GenerateEnergy");
+        Invoke("OnFullyOpen",2f);
     }
 
     IEnumerator GenerateEnergy()
