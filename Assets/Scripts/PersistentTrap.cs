@@ -97,4 +97,9 @@ public class PersistentTrap : Tool
     protected override void OnKilled()
     {
     }
+
+    public override void KillOff()
+    {
+
+    }
 }

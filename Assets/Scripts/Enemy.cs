@@ -210,7 +210,7 @@ public class Enemy : Entity
         animator.SetTrigger(DIEHASH);
     }
 
-    public virtual void KillOff()
+    public override void KillOff()
     {
         AttackedEffect.ClearEffect();
         //Reset lại các cờ

@@ -62,4 +62,9 @@ public class OneTimeTrap : Tool
             Attack();
         }
     }
+
+    public override void KillOff()
+    {
+
+    }
 }

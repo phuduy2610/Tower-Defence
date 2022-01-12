@@ -56,4 +56,8 @@ public class Gate : Entity
         }
 
     }
+
+    public override void KillOff()
+    {
+    }
 }

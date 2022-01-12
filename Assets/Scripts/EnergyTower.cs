@@ -46,5 +46,7 @@ public class EnergyTower : Tool
         animator.SetTrigger("Destroy");
     }
 
-
+    public override void KillOff()
+    {
+    }
 }

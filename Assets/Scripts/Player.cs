@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Player : Entity
 {
+
+    private bool death = false;
     //bien arrow
     private GameObject arrow;
     // bien the hien viec bat dau ban de thay doi animation
@@ -23,12 +25,17 @@ public class Player : Entity
     private int CHARGEHASH = Animator.StringToHash("Charge");
     // lay hash cua para fire trong animator
     private int FIREHASH = Animator.StringToHash("Fire");
+    // lay hash cua para die trong animator
+    private int DIEHASH = Animator.StringToHash("Die");
     // UI luc ban
     [SerializeField]
     private ResourceBar powerShow;
     // vi tri hitbox ( noi spawn arrow )
     [SerializeField]
     private Transform hitbox;
+    // vi tri hitbox ( noi spawn arrow )
+    [SerializeField]
+    private GameObject hurtbox;
     // bien arrow prefab
     [SerializeField]
     private GameObject arrowPrefab;
@@ -153,6 +160,10 @@ public class Player : Entity
 
     private void Update()
     {
+        if (death)
+        {
+            return;
+        }
         // fire == 1 la dang nhan nut ban
         if (fire != 1) 
         {
@@ -184,7 +195,9 @@ public class Player : Entity
 
     protected override void OnKilled()
     {
-        Destroy(gameObject);
+        animator.SetTrigger(DIEHASH);
+        death = true;
+        hurtbox.SetActive(false);
     }
 
     public void FireArrow()
@@ -206,5 +219,10 @@ public class Player : Entity
         yield return new WaitForSeconds(0.05f);
 
         flashImage.gameObject.SetActive(false);
+    }
+
+    public override void KillOff()
+    {
+        
     }
 }

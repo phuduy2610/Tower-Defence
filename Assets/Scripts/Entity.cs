@@ -34,6 +34,8 @@ public abstract class Entity : MonoBehaviour
 
     protected abstract void OnKilled();
 
+    public abstract void KillOff();
+
     public virtual void OnGetAttacked(float damage)
     {
         hp -= damage; 

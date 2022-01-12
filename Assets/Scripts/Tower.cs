@@ -147,4 +147,9 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
         HideRange();
         selected = false;
     }
+
+    public override void KillOff()
+    {
+        throw new System.NotImplementedException();
+    }
 }

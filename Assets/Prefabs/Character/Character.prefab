@@ -944,6 +944,7 @@ MonoBehaviour:
   hpShow: {fileID: 5351869358263112443}
   powerShow: {fileID: 8774818837407274614}
   hitbox: {fileID: 5440273743500097923}
+  hurtbox: {fileID: 3827718093832434302}
   arrowPrefab: {fileID: 2672956884686448198, guid: 5255a9d657e449e479dab4b2d675cbc0, type: 3}
   maxPower: 10
   powerIncRate: 5
