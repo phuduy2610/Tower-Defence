@@ -23,6 +23,10 @@ public class LevelManager : Singelton<LevelManager>
     [SerializeField]
     Text energyText;
 
+    // biến chứa bảng selection
+    [SerializeField]
+    private ToolInfoSelection toolInfoSelection;
+
     private Dictionary<Tile, GameObject> TowerDictionary = new Dictionary<Tile, GameObject>();
 
     // xóa tool ( tháp, trap ) sau khoảng thời gian time
@@ -56,6 +60,17 @@ public class LevelManager : Singelton<LevelManager>
         }
     }
 
+    public bool ReduceEnergy(int amount)
+    {
+        if (energyCount - amount >= 0)
+        {
+            energyCount -= amount;
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 
     //Giữ các Tháp
 
@@ -76,11 +91,20 @@ public class LevelManager : Singelton<LevelManager>
 
     private void Update()
     {
+        //Ấn chuột phải để bỏ tower đang chọn
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            if (ClickedBtn != null)
+                DroppingTower();
+            else
+                SelectionOff();
+        }
+
         hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
 
-        //Check xem có ấn vào nút hay không
         if (hit.collider != null && hit.collider.gameObject.layer != LayerMask.NameToLayer("UI"))
         {
+            //Check xem có ấn vào nút hay không
             if (ClickedBtn != null)
             {
                 RaycastHit2D[] raycastHit2Ds = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
@@ -94,17 +118,47 @@ public class LevelManager : Singelton<LevelManager>
                         break;
                     }
                 }
+            } 
+            else 
+            {
+                // nếu nhấn chuột trái lên tool
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    RaycastHit2D[] raycastHit2Ds = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+                    foreach (RaycastHit2D hit in raycastHit2Ds)
+                    {
+                        if (hit.collider != null && hit.collider.gameObject.CompareTag("Tile"))
+                        {
+                            GameObject tower;
+                            TowerDictionary.TryGetValue(hit.collider.gameObject.GetComponent<Tile>(), out tower);
+
+                            if (tower != null)
+                            {
+                                Tool tool = tower.GetComponent<Tool>();
+                                if (tool != null)
+                                {
+                                    // hiện info mới cũng như deselect tool cũ
+                                    SelectionOff();
+                                    tool.OnSelected();
+                                    toolInfoSelection.SetTool(tool);
+                                    toolInfoSelection.ShowSelection();
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
             }
         } 
-
-        //Ấn chuột phải để bỏ tower đang chọn
-        if (Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            DroppingTower();
-        }
     }
 
-
+    // combo deslect tool, hide info selection
+    private void SelectionOff()
+    {
+        toolInfoSelection.DeselectTool();
+        toolInfoSelection.RemoveTool();
+        toolInfoSelection.HideSelection();
+    }
 
 
     public void PickTower(TowerBtn towerBtn)
@@ -162,19 +216,6 @@ public class LevelManager : Singelton<LevelManager>
 
     private void DestroyTool()
     {
-        //tileMouseOn.TurnColorGreen();
-        //if (Mouse.current.leftButton.wasPressedThisFrame)
-        //{
-        //    Hover.Instance.DeActivate();
-        //    tileMouseOn.TurnColorWhite();
-        //    tileMouseOn.IsEmpty = true;
-        //    GameObject towerDelete;
-        //    if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
-        //    {
-        //        Destroy(towerDelete);
-        //    }
-        //    TowerDictionary.Remove(tileMouseOn);
-        //}
         tileMouseOn.TurnColorGreen();
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -183,7 +224,12 @@ public class LevelManager : Singelton<LevelManager>
             GameObject towerDelete;
             if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
             {
-                towerDelete.GetComponent<Tool>().DestroyTool();
+                Tool tool = towerDelete.GetComponent<Tool>();
+                // xóa info tool cũ cũng như tắt hiện nếu đang select tool đó
+                if (toolInfoSelection.TryRemoveTool(tool))
+                    toolInfoSelection.HideSelection();
+
+                tool.DestroyTool();
             }
         }
     }
@@ -234,7 +280,5 @@ public class LevelManager : Singelton<LevelManager>
                 tileMouseOn.TurnColorRed();
             }
         }
-
-
     }
 }

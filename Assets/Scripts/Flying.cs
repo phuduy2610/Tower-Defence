@@ -88,13 +88,4 @@ public class Flying : Enemy
         WaveSpawner.Instance.myPool.ReleaseObject(gameObject);
 
     }
-
-    public override void OnGetAttacked(float damage)
-    {
-        if (hp > 0)
-        {
-            AttackedEffect.StartEffect();
-        }
-        base.OnGetAttacked(damage);
-    }
 }

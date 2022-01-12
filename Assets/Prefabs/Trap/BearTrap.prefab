@@ -123,6 +123,8 @@ MonoBehaviour:
   moveSpeed: 0
   defaultSpeed: 0
   hpShow: {fileID: 0}
+  lvlUpDamageMultiplier: 0
+  sr: {fileID: 7407572257213977127}
   damageType: 2
   animator: {fileID: 7407572257213977125}
   groundedTarget: 1

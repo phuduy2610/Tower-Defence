@@ -21,6 +21,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 
     private bool destroy = false;
 
+    private bool selected = false;
 
     private GameObject target;
     protected override void Attack()
@@ -121,12 +122,29 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HideRange();
+        if (!selected)
+            HideRange();
     }
 
     public override void DestroyTool()
     {
+        base.DestroyTool();
         animator.SetTrigger("Destroy");
+        OnDeselected();
         destroy = true;
+    }
+
+    public override void OnSelected()
+    {
+        base.OnSelected();
+        ShowRange();
+        selected = true;
+    }
+
+    public override void OnDeselected()
+    {
+        base.OnDeselected();
+        HideRange();
+        selected = false;
     }
 }
