@@ -7,7 +7,7 @@ public class Player : Entity
 {
 
     public event System.Action OnPlayerDeath;
-    private bool death = false;
+    public bool death{get;private set;} = false;
     //bien arrow
     private GameObject arrow;
     // bien the hien viec bat dau ban de thay doi animation

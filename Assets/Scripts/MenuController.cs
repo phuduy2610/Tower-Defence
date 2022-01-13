@@ -37,5 +37,9 @@ public class MenuController : PersistentSingleton<MenuController>
         SceneManager.LoadScene("Gameplay");
     }
 
+    public void QuitGame(){
+        Application.Quit();
+        Debug.Log("Quit Game");
+    }
 
 }

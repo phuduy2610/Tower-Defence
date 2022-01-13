@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class VictoryLoseManager : Singelton<VictoryLoseManager>
 {
+    [SerializeField]
+    private TMP_Text loseTxt;
     [SerializeField]
     private GameObject victoryScene;
     [SerializeField]
@@ -34,6 +38,9 @@ public class VictoryLoseManager : Singelton<VictoryLoseManager>
     {
         loseScene.SetActive(true);
         Time.timeScale = 0f;
+        if(player.death){
+            loseTxt.text = "YOU DIED";
+        }
     }
 
     void OnGameWin()
