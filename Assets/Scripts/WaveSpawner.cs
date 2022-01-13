@@ -38,10 +38,9 @@ public class WaveSpawner : Singelton<WaveSpawner>
     [SerializeField]
     private GameObject startBtn;
 
-    private bool isPressed = false;
+    public bool isPressed { get; private set; } = false;
 
     public LevelWaveInfo levelWaveInfo;
-
     //index của wave tiếp theo
     private int nextWave = 0;
     public int NextWave
@@ -84,7 +83,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
     {
         levelWaveInfo = new LevelWaveInfo(MenuController.Instance.LevelIndex);
         myPool = GetComponent<ObjectPool>();
-        waveCountdown = timeBetweenWaves;
+        waveCountdown = timeBetweenWaves + CountDown.Instance.TimebeforeWave;
     }
 
     // Update is called once per frame
@@ -96,7 +95,7 @@ public class WaveSpawner : Singelton<WaveSpawner>
             if (!EnemyIsAlive())
             {
                 //Begin a new round
-                WaveCompleted();
+                StartCoroutine("WaveCompleted");
             }
             else
             {
@@ -233,11 +232,14 @@ public class WaveSpawner : Singelton<WaveSpawner>
         return (enemy, rand);
     }
 
-    private void WaveCompleted()
+    private IEnumerator WaveCompleted()
     {
         Debug.Log("Wave Completed");
         state = SpawnState.COUNTING;
-        waveCountdown = timeBetweenWaves;
+        waveCountdown = timeBetweenWaves + CountDown.Instance.TimebeforeWave + 3.0f;
+        CountDown.Instance.countDownDisplay.gameObject.SetActive(true);
+        CountDown.Instance.countDownDisplay.text = "Wave Complete";
+        yield return new WaitForSeconds(3.0f);
         if (nextWave + 1 > levelWaveInfo.waves.Count - 1)
         {
             Debug.Log("Completed all waves");
