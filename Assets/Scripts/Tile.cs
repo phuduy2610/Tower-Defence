@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public enum TilesType
 {
     G, //Kiểu có thể đặt Máy bắn
+    G1, //Ground về mặt visual nhưng không thể đặt máy
     P, //Enemy có thể di chuyển và đặt trap
     E0, // Các E là để cho map đẹp hơn không thể tương tác
     P1, // Chỗ spawn portal

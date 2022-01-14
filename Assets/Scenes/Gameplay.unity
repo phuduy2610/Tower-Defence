@@ -957,8 +957,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: THE gate has been breached
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e04b425292fbcc143ad042e8f4548051, type: 2}
-  m_sharedMaterial: {fileID: 6385168571799847782, guid: e04b425292fbcc143ad042e8f4548051, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1f168727aefff934f816bf35f22617f2, type: 2}
+  m_sharedMaterial: {fileID: -5793521427266528461, guid: 1f168727aefff934f816bf35f22617f2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10315,7 +10315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000011444, y: 0}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
   m_SizeDelta: {x: 277.9493, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1462360996

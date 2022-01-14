@@ -171,6 +171,9 @@ public class LevelCreator : Singelton<LevelCreator>
                 case TilesType.G:
                     selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
                     break;
+                case TilesType.G1:
+                    selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+                    break;
                 case TilesType.P:
                     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
                     break;
