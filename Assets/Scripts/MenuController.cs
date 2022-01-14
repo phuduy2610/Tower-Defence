@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class MenuController : PersistentSingleton<MenuController>
 {
 
     [SerializeField]
     private int _levelIndex;
+
     public int LevelIndex
     {
         get
@@ -34,8 +36,11 @@ public class MenuController : PersistentSingleton<MenuController>
     public void PlayScene()
     {
         _levelIndex = int.Parse(EventSystem.current.currentSelectedGameObject.name);
-        SceneManager.LoadScene("Gameplay");
+        LoadController loadController = FindObjectOfType<LoadController>();
+        loadController.StartLoadScene();
     }
+
+
 
     public void QuitGame(){
         Application.Quit();
