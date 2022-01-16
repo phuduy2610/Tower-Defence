@@ -17,7 +17,7 @@ public class Wave
         rate = Rate;
     }
 }
-public class WaveSpawner : Singelton<WaveSpawner>
+public class WaveSpawner : Singleton<WaveSpawner>
 {
     //Các state khác nhau giữa các wave
     public enum SpawnState
@@ -27,11 +27,6 @@ public class WaveSpawner : Singelton<WaveSpawner>
         COUNTING,
         FINISH
     }
-
-    //warning sign cho random enemy
-    [SerializeField]
-    private GameObject warningSign;
-
 
     [SerializeField]
     private TMP_Text waveTxt;
@@ -226,6 +221,9 @@ public class WaveSpawner : Singelton<WaveSpawner>
                 break;
             case 4:
                 type = "Range";
+                break;
+            case 5:
+                type = "Boss";
                 break;
         }
         GameObject enemy = myPool.GetObject(type);

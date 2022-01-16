@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCreator : Singelton<LevelCreator>
+public class LevelCreator : Singleton<LevelCreator>
 {
     public Vector2 topLeftTile = Vector2.zero;
 

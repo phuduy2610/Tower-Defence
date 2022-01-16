@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : Singelton<ObjectPool>
+public class ObjectPool : Singleton<ObjectPool>
 {
     //Dùng để làm pool chứa khi cần tạo thêm object ( enemy, tia bắn ,...)
     [SerializeField]

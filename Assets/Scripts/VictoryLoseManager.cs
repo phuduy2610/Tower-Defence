@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class VictoryLoseManager : Singelton<VictoryLoseManager>
+public class VictoryLoseManager : Singleton<VictoryLoseManager>
 {
     [SerializeField]
     private TMP_Text loseTxt;

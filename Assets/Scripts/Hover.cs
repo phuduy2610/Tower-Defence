@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Hover : Singelton<Hover>
+public class Hover : Singleton<Hover>
 {
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update

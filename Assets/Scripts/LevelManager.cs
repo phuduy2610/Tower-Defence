@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
-public class LevelManager : Singelton<LevelManager>
+public class LevelManager : Singleton<LevelManager>
 {
     //Biến giữ các bool Object
 

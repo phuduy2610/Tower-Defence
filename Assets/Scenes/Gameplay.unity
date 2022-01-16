@@ -8532,7 +8532,7 @@ GameObject:
   - component: {fileID: 974100946}
   - component: {fileID: 974100948}
   m_Layer: 5
-  m_Name: Selection
+  m_Name: ToolInfoSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11553,6 +11553,7 @@ MonoBehaviour:
   - {fileID: 4066507481026025477, guid: e668d2fb52f8eb84b8f1257d5e5a06b5, type: 3}
   - {fileID: 7857842520723653590, guid: 99b63b2408c389747892937d4d8ae01f, type: 3}
   - {fileID: 4992413638631097897, guid: 1682e27e366368646962941be89ae4f5, type: 3}
+  - {fileID: 4066507481026025477, guid: 04d8b9c35dec3f54ea0c56d855b900b9, type: 3}
   enemiesHolder: {fileID: 0}
 --- !u!114 &1797455929
 MonoBehaviour:
@@ -11566,7 +11567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce28c421b3caf3429fd63bd46585895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningSign: {fileID: 0}
   waveTxt: {fileID: 1047473541}
   startBtn: {fileID: 2139256569}
 --- !u!1 &1861600169

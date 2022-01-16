@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class CountDown : Singelton<CountDown>
+public class CountDown : Singleton<CountDown>
 {
     [SerializeField]
     public float TimebeforeWave{get;private set;} = 2.0f;

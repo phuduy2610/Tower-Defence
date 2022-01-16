@@ -94,6 +94,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 
     protected override void OnKilled()
     {
+        DestroyTool();
     }
 
     private void Awake()

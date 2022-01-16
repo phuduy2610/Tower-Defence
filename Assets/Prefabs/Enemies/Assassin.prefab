@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   maxHp: 30
-  damage: 50
+  damage: 30
   moveSpeed: 3
   defaultSpeed: 2
   hpShow: {fileID: 0}

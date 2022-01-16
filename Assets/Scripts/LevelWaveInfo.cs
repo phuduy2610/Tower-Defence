@@ -40,8 +40,8 @@ public class LevelWaveInfo
             case 4:
                 for (int i = 0; i < 3; i++)
                 {
-                    int[] enemyIndex = { 0, 1, 2, 3, 4 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10, 1.0f);
+                    int[] enemyIndex = { 5 };
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 1, 1.0f);
                     waves.Add(temp);
                 }
                 break;

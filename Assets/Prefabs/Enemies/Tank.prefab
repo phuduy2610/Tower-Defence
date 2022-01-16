@@ -231,8 +231,8 @@ MonoBehaviour:
   hp: 500
   maxHp: 500
   damage: 5
-  moveSpeed: 1
-  defaultSpeed: 1
+  moveSpeed: 0.3
+  defaultSpeed: 0.3
   hpShow: {fileID: 0}
   grounded: 1
   AttackedEffect: {fileID: 3687757815084522512}
