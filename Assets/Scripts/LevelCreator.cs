@@ -183,6 +183,9 @@ public class LevelCreator : Singleton<LevelCreator>
                 case TilesType.P2:
                     selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
                     break;
+                case TilesType.P3:
+                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    break;
                 case TilesType.E0:
                     selectedTile = edgeTiles[0];
                     break;
