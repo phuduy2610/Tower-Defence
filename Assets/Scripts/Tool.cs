@@ -31,7 +31,10 @@ public abstract class Tool : Entity
 
     public virtual void DestroyTool()
     {
-        onDestroyed?.Invoke();
+        if (onDestroyed != null)
+        {
+            onDestroyed.Invoke();
+        }
     }
 
     public int CurrLevel
@@ -69,7 +72,10 @@ public abstract class Tool : Entity
     {
         if (currLevel < maxLevel)
         {
-            onUpgrade?.Invoke();
+            if (onUpgrade != null)
+            {
+                onUpgrade.Invoke();
+            }
             currLevel += 1;
             damage = damage * lvlUpDamageMultiplier;
         }
