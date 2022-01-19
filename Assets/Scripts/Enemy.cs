@@ -37,7 +37,8 @@ public class Enemy : Entity
     //Vị trí tiếp theo cần đi đến
     protected Vector3 nextWaypoints = Vector3.zero;
     //Điểm đi qua
-    protected Point previousPoint = new Point(-1, -1);
+    //List các vị trí đã đi qua
+    protected List<Point> alreadyThrough = new List<Point>();
     //Enemy đang attack
     protected Entity attackedEntity = null;
     //Animator
@@ -170,6 +171,7 @@ public class Enemy : Entity
         Point[] pointsToCheck = { upPoint, rightPoint, downPoint };
         //Tạo List gồm các tile P để xét
         List<Point> pointsToCheckList = new List<Point>();
+
         for (int i = 0; i < pointsToCheck.Length; i++)
         {
             Tile tempTile;
@@ -177,18 +179,11 @@ public class Enemy : Entity
             {
                 if (tempTile.type == TilesType.P)
                 {
-                    if (previousPoint.X > 0)
-                    {
-                        if (previousPoint.X != pointsToCheck[i].X || previousPoint.Y != pointsToCheck[i].Y)
-                        {
-                            pointsToCheckList.Add(pointsToCheck[i]);
-                        }
-                    }
-                    else
+                    if (!alreadyThrough.Contains(pointsToCheck[i]))
                     {
                         pointsToCheckList.Add(pointsToCheck[i]);
-
                     }
+
                 }
             }
         }
@@ -229,7 +224,7 @@ public class Enemy : Entity
 
         //Reset lại thuật toán tìm đường đi
         nextWaypoints = Vector3.zero;
-        previousPoint = new Point(-1,-1);
+        alreadyThrough.Clear();
         //Nhả lại object này về Level
         WaveSpawner.Instance.myPool.ReleaseObject(gameObject);
 
@@ -265,7 +260,7 @@ public class Enemy : Entity
                 }
             }
         }
-        previousPoint = pointsToCheck[index];
+        alreadyThrough.Add(pointsToCheck[index]);
         return pointsToCheck[index];
 
     }

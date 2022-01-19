@@ -32,7 +32,7 @@ public class LevelWaveInfo
             case 3:
                 for (int i = 0; i < 3; i++)
                 {
-                    int[] enemyIndex = { 0, 1, 2, 3, 4 };
+                    int[] enemyIndex = { 0, 1, 2, 3 };
                     Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 2), 1.0f);
                     waves.Add(temp);
                 }
