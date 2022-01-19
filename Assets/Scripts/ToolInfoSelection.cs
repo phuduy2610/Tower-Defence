@@ -50,7 +50,10 @@ public class ToolInfoSelection : MonoBehaviour
 
     public void DeselectTool()
     {
-        toolSelected?.OnDeselected();
+        if (toolSelected != null)
+        {
+            toolSelected.OnDeselected();
+        }
     }
 
     public void ShowSelection()

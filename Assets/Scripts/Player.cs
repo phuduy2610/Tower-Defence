@@ -207,7 +207,11 @@ public class Player : Entity
 
     public void FireArrow()
     {
-        arrow?.SetActive(true);
+        if (arrow != null)
+        {
+            arrow.SetActive(true);
+        }
+            
     }
 
     public override void OnGetAttacked(float damage)
