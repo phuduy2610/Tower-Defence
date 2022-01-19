@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0465a9e6378694aab98841cdb1451f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10000
-  maxHp: 10000
+  hp: 8000
+  maxHp: 8000
   damage: 45
   moveSpeed: 0.45
   defaultSpeed: 0.45
@@ -295,7 +295,7 @@ MonoBehaviour:
   grounded: 1
   AttackedEffect: {fileID: 3687757815084522512}
   hitCenter: {fileID: 4498631990066413024}
-  defaultSkillCooldown: 5
+  defaultSkillCooldown: 10
 --- !u!114 &7627452050316715019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 3908556781919984123, guid: 54f5320f00e197548b4def98c08ef422, type: 3}
-  damage: 1
   amountToDestroy: 3
 --- !u!1 &4498631990066413024
 GameObject:

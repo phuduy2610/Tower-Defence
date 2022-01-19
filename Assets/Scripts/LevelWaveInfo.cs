@@ -17,15 +17,15 @@ public class LevelWaveInfo
                 for (int i = 0; i < 3; i++)
                 {
                     int[] enemyIndex = { 0 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 1, 1.0f);
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
                     waves.Add(temp);
                 }
                 break;
             case 2:
                 for (int i = 0; i < 3; i++)
                 {
-                    int[] enemyIndex = { 0, 1, 2, 3, 4 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10, 1.0f);
+                    int[] enemyIndex = { 0, 1, 2 };
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
                     waves.Add(temp);
                 }
                 break;
@@ -33,17 +33,21 @@ public class LevelWaveInfo
                 for (int i = 0; i < 3; i++)
                 {
                     int[] enemyIndex = { 0, 1, 2, 3, 4 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10, 1.0f);
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 2), 1.0f);
                     waves.Add(temp);
                 }
                 break;
             case 4:
                 for (int i = 0; i < 3; i++)
                 {
-                    int[] enemyIndex = { 5 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 1, 1.0f);
+                    int[] enemyIndex = { 0, 1, 2, 3, 4 };
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
                     waves.Add(temp);
                 }
+                //Thêm wave cuối là boss
+                int[] enemyIndexBoss = { 5 };
+                Wave tempBoss = new Wave(LevelName(0), enemyIndexBoss, 1, 1.0f);
+                waves.Add(tempBoss);
                 break;
             default:
                 break;
@@ -63,7 +67,6 @@ public class LevelWaveInfo
             default:
                 return "Something is here";
         }
-
     }
 }
 

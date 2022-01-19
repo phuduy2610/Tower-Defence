@@ -8,9 +8,6 @@ public class DeathCloud : Skill
     private GameObject effect;
 
     [SerializeField]
-    private float damage = 1f;
-
-    [SerializeField]
     [Min(1)]
     private int amountToDestroy = 3;
     protected override void ActivateSkill()
