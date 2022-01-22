@@ -93,7 +93,11 @@ public class Enemy : Entity
 
     private void DealDamage()
     {
-        attackedEntity?.OnGetAttacked(this.damage);
+        if (attackedEntity != null)
+        {
+            attackedEntity.OnGetAttacked(this.damage);
+        }
+        //Play sound
     }
 
     protected override void Move()
