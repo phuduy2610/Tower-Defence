@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 public class DisplayController : MonoBehaviour
 {
-   public Toggle fullScreenToggle;
+    public Toggle fullScreenToggle;
     int currentWidth;
     int currentHeight;
     public TMP_Dropdown resolutionDropdown;
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         fullScreenToggle.isOn = Screen.fullScreen;
         currentWidth = Screen.currentResolution.width;
@@ -29,12 +29,12 @@ public class DisplayController : MonoBehaviour
         switch (resolutionDropdown.value)
         {
             case 0:
-                currentWidth = 800;
-                currentHeight = 600;
-                break;
-            case 1:
                 currentWidth = 1368;
                 currentHeight = 768;
+                break;
+            case 1:
+                currentWidth = 1600;
+                currentHeight = 900;
                 break;
             case 2:
                 currentWidth = 1920;
@@ -51,14 +51,14 @@ public class DisplayController : MonoBehaviour
     {
         switch (currentWidth)
         {
-            case 800:
-                resolutionDropdown.value = 0;
+            case 1600:
+                resolutionDropdown.value = 1;
                 break;
             case 1920:
                 resolutionDropdown.value = 2;
                 break;
             case 1368:
-                resolutionDropdown.value = 1;
+                resolutionDropdown.value = 0;
                 break;
             default:
                 break;
