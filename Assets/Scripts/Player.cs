@@ -97,6 +97,8 @@ public class Player : Entity
             else
                 ChangeFacingDirection(arrow.transform, FACEDIRECTION.LEFT);
 
+            //Play sound
+            
             //
             currPower = 0;
             powerShow.SetVal(0);

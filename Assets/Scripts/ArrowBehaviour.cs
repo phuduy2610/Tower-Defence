@@ -42,7 +42,6 @@ public class ArrowBehaviour : MonoBehaviour
 
     private void Update()
     {
-
         time += Time.deltaTime;
         var prePos = transform.position;
         transform.position = originalPos + (movementSpeed * power * time * direction) + (time * time) * 0.5f * customGravity;
@@ -63,6 +62,7 @@ public class ArrowBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag(ENEMYTAG))
         {
             collision.gameObject.GetComponentInParent<Enemy>().OnGetAttacked(damage);
+            //Play sound
             Destroy(gameObject);
         }
     }
