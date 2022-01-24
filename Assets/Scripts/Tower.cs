@@ -24,6 +24,10 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     private bool selected = false;
 
     private GameObject target;
+
+    [SerializeField]
+    AudioClip fireballSound;
+    AudioSource audioSource;
     protected override void Attack()
     {
         if (target != null)
@@ -32,8 +36,10 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
             {
                 animator.SetTrigger("Attack");
                 var gameObj = Instantiate(attackBall, transform.position, Quaternion.identity);
+                gameObj.GetComponent<DamageBallScript>().towerOG = this;
                 gameObj.GetComponent<DamageBallScript>().Attack(target, damage);
-            } else
+            }
+            else
             {
                 enemies.Remove(target);
                 if (enemies.Count > 0)
@@ -67,7 +73,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
                         target = null;
                     else
                         target = enemies[0];
-                } 
+                }
             }
         }
     }
@@ -82,7 +88,8 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
         {
             Attack();
             fireRate = defaultFireRate;
-        } else
+        }
+        else
         {
             fireRate -= Time.deltaTime;
         }
@@ -99,6 +106,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         fireRate = defaultFireRate;
     }
 
@@ -153,4 +161,10 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     {
         throw new System.NotImplementedException();
     }
+
+    public void PlaySoundEffect()
+    {
+        audioSource.PlayOneShot(fireballSound);
+    }
 }
+

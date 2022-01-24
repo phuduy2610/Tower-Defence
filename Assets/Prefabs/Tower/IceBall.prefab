@@ -135,3 +135,4 @@ MonoBehaviour:
   damageType: 1
   moveSpeed: 5
   hitEffect: {fileID: 5583395996887613973, guid: ed411fb2359494d4db0c4fabbebfae52, type: 3}
+  towerOG: {fileID: 6749641991325482075, guid: fc0464d910626c54d97c516b6a453b04, type: 3}

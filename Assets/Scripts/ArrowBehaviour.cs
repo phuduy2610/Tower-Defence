@@ -14,6 +14,16 @@ public class ArrowBehaviour : MonoBehaviour
     private float alpha = -30 * Mathf.Deg2Rad;
     private const string ENEMYTAG = "Enemy";
     private const float gravity = 5f;
+    [SerializeField]
+    AudioClip hitSound;
+    [SerializeField]
+    AudioClip fireSound;
+    Player player;
+
+    private void Start() {
+        player = FindObjectOfType<Player>();
+        player.PlaySoundEffect(fireSound);
+    }
 
     public void Setup(Vector3 targetPos, float power, float damage)
     {
@@ -32,7 +42,8 @@ public class ArrowBehaviour : MonoBehaviour
         {
             customGravity *= -1;
             facing = Player.FACEDIRECTION.RIGHT;
-        } else
+        }
+        else
         {
             facing = Player.FACEDIRECTION.LEFT;
         }
@@ -62,7 +73,7 @@ public class ArrowBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag(ENEMYTAG))
         {
             collision.gameObject.GetComponentInParent<Enemy>().OnGetAttacked(damage);
-            //Play sound
+            player.PlaySoundEffect(hitSound);
             Destroy(gameObject);
         }
     }
@@ -71,4 +82,5 @@ public class ArrowBehaviour : MonoBehaviour
     {
         return customGravity.x * (transform.position.x - originalPos.x) + customGravity.y * (transform.position.y - originalPos.y) > 0;
     }
+
 }

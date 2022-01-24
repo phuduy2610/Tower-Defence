@@ -16,6 +16,13 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     private WaveSpawner waveSpawner;
     private Gate gate;
     private Player player;
+    [SerializeField]
+    private GameObject musicPlayerObj;
+    private AudioSource musicPlayer;
+    [SerializeField]
+    private AudioClip winSound;
+    [SerializeField]
+    private AudioClip loseSound;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +33,7 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         waveSpawner.OnFinish += OnGameWin;
         gate.OnGateDestroy += OnGameLose;
         player.OnPlayerDeath += OnGameLose;
+        musicPlayer = musicPlayerObj.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,14 +46,19 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     {
         loseScene.SetActive(true);
         Time.timeScale = 0f;
-        if(player.death){
+        if (player.death)
+        {
             loseTxt.text = "YOU DIED";
         }
+        musicPlayer.clip = loseSound;
+        musicPlayer.Play();
     }
 
     void OnGameWin()
     {
         victoryScene.SetActive(true);
+        musicPlayer.clip = winSound;
+        musicPlayer.Play();
     }
 
     public void ExitGame()
@@ -54,13 +67,15 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         SceneManager.LoadScene("Menu");
     }
 
-    public void Restart(){
+    public void Restart()
+    {
         Time.timeScale = 1f;
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
 
-    public void NextScene(){
+    public void NextScene()
+    {
         MenuController.Instance.LevelIndex++;
         Restart();
     }

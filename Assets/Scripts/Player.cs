@@ -63,6 +63,8 @@ public class Player : Entity
 
     public enum FACEDIRECTION { LEFT, RIGHT }
 
+    private AudioSource audioSource;
+
     protected override void Attack()
     {
         if (fire > 0)
@@ -97,9 +99,6 @@ public class Player : Entity
             else
                 ChangeFacingDirection(arrow.transform, FACEDIRECTION.LEFT);
 
-            //Play sound
-            
-            //
             currPower = 0;
             powerShow.SetVal(0);
         }
@@ -148,6 +147,8 @@ public class Player : Entity
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
         hpShow.SetMax(hp);
         powerShow.SetMax(maxPower);
         powerShow.SetVal(0);
@@ -160,6 +161,8 @@ public class Player : Entity
         topLeftTilePos.y = LevelCreator.Instance.topLeftTile.y - halfPlayerHeight;
         bottomRightTilePos.x = LevelCreator.Instance.bottomRightTile.x + tileSize - halfPlayerSide;
         bottomRightTilePos.y = LevelCreator.Instance.bottomRightTile.y + tileSize - halfPlayerHeight;
+
+
     }
 
     private void Update()
@@ -239,5 +242,9 @@ public class Player : Entity
             OnPlayerDeath();
         }
 
+    }
+
+    public void PlaySoundEffect(AudioClip audioClip){
+        audioSource.PlayOneShot(audioClip);
     }
 }

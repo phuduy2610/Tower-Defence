@@ -18,6 +18,9 @@ public class DamageBallScript : MonoBehaviour
     private GameObject hitEffect;
 
     private GameObject hitCenter;
+    [HideInInspector]
+    public Tower towerOG;
+
 
     public void Attack(GameObject target, float damage)
     {
@@ -52,7 +55,7 @@ public class DamageBallScript : MonoBehaviour
                     damageScript.ApplyEffect(damageType, damage);
                 }
                 Instantiate(hitEffect, transform.position, Quaternion.identity);
-                //Play sound
+                towerOG.PlaySoundEffect();
             }
             Destroy(gameObject);
         }

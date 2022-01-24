@@ -4048,6 +4048,9 @@ MonoBehaviour:
   loseTxt: {fileID: 171589905}
   victoryScene: {fileID: 1778567012}
   loseScene: {fileID: 800675954}
+  musicPlayerObj: {fileID: 1334500121}
+  winSound: {fileID: 8300000, guid: 96f734028ef03314dbe79d239263e9cf, type: 3}
+  loseSound: {fileID: 8300000, guid: 897d73f5a1ee13941b82f38b1fa3f33f, type: 3}
 --- !u!4 &841472589
 Transform:
   m_ObjectHideFlags: 0
