@@ -21,10 +21,47 @@ public class MenuController : PersistentSingleton<MenuController>
             _levelIndex = value;
         }
     }
+    [SerializeField]
+    private Sprite defaultArrow;
+
+    [SerializeField]
+    private int _currentMoney;
+
+    public int CurrentMoney
+    {
+        get
+        {
+            return _currentMoney;
+        }
+        set
+        {
+            _currentMoney = value;
+        }
+    }
+
+    private Sprite arrowSprite;
+
+    //Chứa tên đang sử dụng
+    public Sprite ArrowSprite
+    {
+        get
+        {
+            return arrowSprite;
+        }
+        set
+        {
+            arrowSprite = value;
+        }
+    }
+
+    //Chứa xem tên nào đã được mua rồi
+    public bool[] arrowBought = new bool[6];
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _levelIndex = 0;
+        arrowSprite = defaultArrow;
     }
 
     // Update is called once per frame
@@ -42,7 +79,8 @@ public class MenuController : PersistentSingleton<MenuController>
 
 
 
-    public void QuitGame(){
+    public void QuitGame()
+    {
         Application.Quit();
         Debug.Log("Quit Game");
     }

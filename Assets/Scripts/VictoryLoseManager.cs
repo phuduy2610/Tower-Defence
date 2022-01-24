@@ -23,6 +23,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     private AudioClip winSound;
     [SerializeField]
     private AudioClip loseSound;
+    [SerializeField]
+    private TMP_Text moneyEarn;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +61,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         victoryScene.SetActive(true);
         musicPlayer.clip = winSound;
         musicPlayer.Play();
+        moneyEarn.text = "+" + MenuController.Instance.LevelIndex * 100;
+        MenuController.Instance.CurrentMoney += MenuController.Instance.LevelIndex * 100;
     }
 
     public void ExitGame()

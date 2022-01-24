@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.Sprites;
 public class ArrowBehaviour : MonoBehaviour
 {
     [SerializeField]
@@ -19,10 +19,10 @@ public class ArrowBehaviour : MonoBehaviour
     [SerializeField]
     AudioClip fireSound;
     Player player;
-
     private void Start() {
         player = FindObjectOfType<Player>();
         player.PlaySoundEffect(fireSound);
+        GetComponent<SpriteRenderer>().sprite = MenuController.Instance.ArrowSprite;
     }
 
     public void Setup(Vector3 targetPos, float power, float damage)
