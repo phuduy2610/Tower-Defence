@@ -20,6 +20,9 @@ public abstract class Entity : MonoBehaviour
     [SerializeField]
     protected ResourceBar hpShow;
 
+    [SerializeField]
+    private GameObject hitCenter;
+
     public float Hp { get => hp; }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
@@ -27,6 +30,7 @@ public abstract class Entity : MonoBehaviour
     public float DefaultSpeed { get => defaultSpeed; set => defaultSpeed = value; }
 
     public float Damage { get => damage; set => damage = value; }
+    public GameObject HitCenter { get => hitCenter; set => hitCenter = value; }
 
     protected abstract void Move();
 

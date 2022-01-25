@@ -23,14 +23,18 @@ public class ToolInfoSelection : MonoBehaviour
     [SerializeField]
     private Button upgradeBtn;
 
+    private TileHolder tileControl;
+
     public void SetTool(Tool tool)
     {
         toolSelected = tool;
+        tileControl = toolSelected.GetComponent<TileHolder>();
     }
 
     public void RemoveTool()
     {
         toolSelected = null;
+        tileControl = null;
     }
 
     // nếu đúng là tool hiện tại thì xóa khỏi tool đang được chọn
@@ -92,6 +96,11 @@ public class ToolInfoSelection : MonoBehaviour
 
     public void UpgradeTool()
     {
+        if (tileControl.TileIsOn == null)
+        {
+            return;
+        }
+
         if (LevelManager.Instance.ReduceEnergy((int)toolSelected.CurrentUpCost))
         {
             toolSelected.Upgrade();

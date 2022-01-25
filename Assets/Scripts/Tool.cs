@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Tool : Entity
@@ -58,12 +56,14 @@ public abstract class Tool : Entity
 
     public virtual void OnSelected()
     {
-        sr.color = Color.red;
+        if (sr.color != Color.black) 
+            sr.color = Color.red;
     }
 
     public virtual void OnDeselected()
     {
-        sr.color = Color.white;
+        if (sr.color != Color.black)
+            sr.color = Color.white;
     }
 
     public float CurrentUpCost => baseCost * costMultiplier * currLevel;

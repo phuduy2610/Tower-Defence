@@ -13445,6 +13445,7 @@ MonoBehaviour:
   - {fileID: 7857842520723653590, guid: 99b63b2408c389747892937d4d8ae01f, type: 3}
   - {fileID: 4992413638631097897, guid: 1682e27e366368646962941be89ae4f5, type: 3}
   - {fileID: 4066507481026025477, guid: 04d8b9c35dec3f54ea0c56d855b900b9, type: 3}
+  - {fileID: 4066507481026025477, guid: d59a87a258e19a441a0dcf9f1d498a62, type: 3}
   enemiesHolder: {fileID: 0}
 --- !u!114 &1797455929
 MonoBehaviour:

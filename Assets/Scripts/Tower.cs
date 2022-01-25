@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 {
+    public enum AttackTarget { enemy, ally};
+
     [SerializeField]
     private SpriteRenderer rangeSR;
 
@@ -24,6 +26,12 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     private bool selected = false;
 
     private GameObject target;
+
+    private string enemyTag = "Enemy";
+
+    [SerializeField]
+    private GameObject circle;
+
     protected override void Attack()
     {
         if (target != null)
@@ -32,6 +40,13 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
             {
                 animator.SetTrigger("Attack");
                 var gameObj = Instantiate(attackBall, transform.position, Quaternion.identity);
+                if (enemyTag.Equals("Enemy"))
+                {
+                    gameObj.layer = LayerMask.NameToLayer("AllyHitbox");
+                } else
+                {
+                    gameObj.layer = LayerMask.NameToLayer("EnemyHitbox");
+                }
                 gameObj.GetComponent<DamageBallScript>().Attack(target, damage);
             } else
             {
@@ -45,7 +60,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag(enemyTag))
         {
             if (enemies.Count == 0)
                 target = collision.gameObject;
@@ -56,7 +71,7 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag(enemyTag))
         {
             if (enemies.Count > 0)
             {
@@ -69,6 +84,23 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
                         target = enemies[0];
                 } 
             }
+        }
+    }
+
+    public void ChangeTarget(AttackTarget target)
+    {
+        enemies.Clear();
+        this.target = null;
+        switch(target)
+        {
+            case AttackTarget.ally:
+                this.circle.layer = LayerMask.NameToLayer("EnemyHitbox");
+                enemyTag = "Player";
+                break;
+            case AttackTarget.enemy:
+                this.circle.layer = LayerMask.NameToLayer("AllyHitbox");
+                enemyTag = "Enemy";
+                break;
         }
     }
 
@@ -152,5 +184,20 @@ public class Tower : Tool, IPointerEnterHandler, IPointerExitHandler
     public override void KillOff()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void CheckRange()
+    {
+        float radius = this.circle.GetComponent<CircleCollider2D>().radius;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(this.circle.transform.position, radius);
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.CompareTag(enemyTag))
+            {
+                enemies.Add(collider.gameObject);
+                target = collider.gameObject;
+                break;
+            }
+        }
     }
 }

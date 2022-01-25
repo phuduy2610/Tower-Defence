@@ -225,6 +225,7 @@ MonoBehaviour:
   moveSpeed: 0
   defaultSpeed: 0
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 0}
   maxLevel: 3
   costMultiplier: 2
   lvlUpDamageMultiplier: 2
@@ -234,6 +235,7 @@ MonoBehaviour:
   attackBall: {fileID: 8479106906377573994, guid: 7ba137584bec94b46a0d21e1ffae849b, type: 3}
   defaultFireRate: 1
   animator: {fileID: 7072057328901156651}
+  circle: {fileID: 3545228166965223576}
 --- !u!61 &3468499698566752880
 BoxCollider2D:
   m_ObjectHideFlags: 0

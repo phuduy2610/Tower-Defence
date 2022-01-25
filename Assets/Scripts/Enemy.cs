@@ -48,15 +48,6 @@ public class Enemy : Entity
     //
     [SerializeField]
     protected OnAttackedEffect AttackedEffect;
-    //
-    [SerializeField]
-    protected GameObject hitCenter;
-
-    public GameObject HitCenter
-    {
-        get => hitCenter;
-        private set { }
-    }
 
     //[SerializeField]
     //private GameObject hitBox;

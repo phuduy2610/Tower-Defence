@@ -4,12 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 public class LevelManager : Singleton<LevelManager>
 {
-    //Biến giữ các bool Object
-
-    //Biến đợi animation của cổng xong trước khi spawn quái
-    //Cờ bắt đầu spawn
     //Nút tower nào được click
     public TowerBtn ClickedBtn { get; set; }
     //Object giữ các tower cho đỡ rối giao diện
@@ -217,19 +214,25 @@ public class LevelManager : Singleton<LevelManager>
     private void DestroyTool()
     {
         tileMouseOn.TurnColorGreen();
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        GameObject towerDelete;
+        if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
         {
-            Hover.Instance.DeActivate();
-            tileMouseOn.TurnColorWhite();
-            GameObject towerDelete;
-            if (TowerDictionary.TryGetValue(tileMouseOn, out towerDelete))
+            if (towerDelete.GetComponent<TileHolder>().TileIsOn != null)
             {
-                Tool tool = towerDelete.GetComponent<Tool>();
-                // xóa info tool cũ cũng như tắt hiện nếu đang select tool đó
-                if (toolInfoSelection.TryRemoveTool(tool))
-                    toolInfoSelection.HideSelection();
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    Hover.Instance.DeActivate();
+                    tileMouseOn.TurnColorWhite();
+                    Tool tool = towerDelete.GetComponent<Tool>();
+                    // xóa info tool cũ cũng như tắt hiện nếu đang select tool đó
+                    if (toolInfoSelection.TryRemoveTool(tool))
+                        toolInfoSelection.HideSelection();
 
-                tool.DestroyTool();
+                    tool.DestroyTool();
+                }
+            } else
+            {
+                tileMouseOn.TurnColorRed();
             }
         }
     }
