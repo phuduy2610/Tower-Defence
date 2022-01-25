@@ -28,6 +28,8 @@ public class DamageBallScript : MonoBehaviour
 
     private Vector3 offset;
 
+    private Vector3 prevPos;
+
     public void Attack(GameObject target, float damage)
     {
         this.target = target;
@@ -35,7 +37,8 @@ public class DamageBallScript : MonoBehaviour
         this.damage = damage;
         offset = circleCollider.offset;
         currentPos = transform.position + offset;
-        CheckInTarget();
+        prevPos = hitCenter.transform.position;
+        //CheckInTarget();
     }
 
     private void Update()
@@ -43,14 +46,13 @@ public class DamageBallScript : MonoBehaviour
         if (target != null && target.activeInHierarchy)
         {
             transform.right = hitCenter.transform.position - currentPos;
-            Vector3 temp = Vector2.MoveTowards(currentPos, hitCenter.transform.position, moveSpeed * Time.deltaTime);
-            if (currentPos == temp)
+            currentPos = Vector2.MoveTowards(currentPos, hitCenter.transform.position, moveSpeed * Time.deltaTime);
+            if (currentPos == prevPos || currentPos == hitCenter.transform.position)
             {
                 DoDamge();
-            }
-            else
+            } else
             {
-                currentPos = temp;
+                prevPos = currentPos;
                 transform.position = currentPos - offset;
             }
         }
