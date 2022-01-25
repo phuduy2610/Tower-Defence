@@ -16,7 +16,7 @@ public class LevelWaveInfo
                 //Tạo 3 wave cho level đầu
                 for (int i = 0; i < 3; i++)
                 {
-                    int[] enemyIndex = {0};
+                    int[] enemyIndex = { 0 };
                     Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
                     waves.Add(temp);
                 }
@@ -30,18 +30,11 @@ public class LevelWaveInfo
                 }
                 break;
             case 3:
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     int[] enemyIndex = new int[1];
-                    if (i == 0)
-                    {
-                        enemyIndex[0] = 5;
-                    }
-                    else
-                    {
-                        enemyIndex[0] = 6;
-                    }
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 2), 1.0f);
+                    enemyIndex[0] = 5;
+                    Wave temp = new Wave(LevelName(i), enemyIndex,1, 1.0f);
                     waves.Add(temp);
                 }
                 break;
@@ -62,10 +55,10 @@ public class LevelWaveInfo
                 }
                 break;
             case 6:
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 1; i++)
                 {
-                    int[] enemyIndex = { 0, 1, 2, 3, 4 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
+                    int[] enemyIndex = { 6 };
+                    Wave temp = new Wave(LevelName(i), enemyIndex,1, 1.0f);
                     waves.Add(temp);
                 }
                 break;

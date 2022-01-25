@@ -47,12 +47,14 @@ public class DamageBallScript : MonoBehaviour
             if (currentPos == temp)
             {
                 DoDamge();
-            } else
+            }
+            else
             {
                 currentPos = temp;
                 transform.position = currentPos - offset;
             }
-        } else
+        }
+        else
         {
             Destroy(gameObject);
         }
@@ -92,8 +94,10 @@ public class DamageBallScript : MonoBehaviour
             }
             Instantiate(hitEffect, currentPos, Quaternion.identity);
             //Play sound
-            towerOG.PlaySoundEffect();
-
+            if (towerOG != null)
+            {
+                towerOG.PlaySoundEffect();
+            }
         }
         Destroy(gameObject);
     }
