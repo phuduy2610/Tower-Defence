@@ -55,18 +55,18 @@ public class LevelWaveInfo
                 }
                 break;
             case 6:
-                for (int i = 0; i < 1; i++)
-                {
-                    int[] enemyIndex = { 6 };
-                    Wave temp = new Wave(LevelName(i), enemyIndex,1, 1.0f);
-                    waves.Add(temp);
-                }
-                break;
-            case 7:
                 for (int i = 0; i < 3; i++)
                 {
                     int[] enemyIndex = { 0, 1, 2, 3, 4 };
                     Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 1), 1.0f);
+                    waves.Add(temp);
+                }
+                break;
+            case 7:
+                for (int i = 0; i < 1; i++)
+                {
+                    int[] enemyIndex = { 6 };
+                    Wave temp = new Wave(LevelName(i), enemyIndex,1, 1.0f);
                     waves.Add(temp);
                 }
                 break;
