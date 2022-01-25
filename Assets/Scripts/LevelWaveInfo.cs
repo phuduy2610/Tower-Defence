@@ -41,7 +41,7 @@ public class LevelWaveInfo
                     {
                         enemyIndex[0] = 6;
                     }
-                    Wave temp = new Wave(LevelName(i), enemyIndex, 10 * (i + 2), 1.0f);
+                    Wave temp = new Wave(LevelName(i), enemyIndex, 1, 1.0f);
                     waves.Add(temp);
                 }
                 break;
