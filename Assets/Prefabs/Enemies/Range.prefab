@@ -239,9 +239,10 @@ MonoBehaviour:
   moveSpeed: 1
   defaultSpeed: 1
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 6411605066413531796}
   grounded: 1
   AttackedEffect: {fileID: 5623363105538097724}
-  hitCenter: {fileID: 6411605066413531796}
+  spriteRenderer: {fileID: 4992413638631097899}
   attackDistance: 7
   fireBallPrefab: {fileID: 2794716099379660209, guid: 8d0fddcbfe29c414fb793cc11a1306a7, type: 3}
 --- !u!114 &5623363105538097724
@@ -313,11 +314,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70aa13c38b2689c46a73e2d5f34f9271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 7300201087714834620}
+  point: {fileID: 8837691716498842759}
   items:
   - {fileID: 941291948237673944, guid: 0b864023e637d2a4fad35fa11903a1ae, type: 3}
   - {fileID: 2654641754776530845, guid: c016aa3f8a8fe644d8bcda9e4625749e, type: 3}
   - {fileID: 7525711785038314486, guid: dacc9c5618839054582f93189a0f07aa, type: 3}
-  dropRate: 0.15
+  dropRate: 0.5
 --- !u!1 &6411605066413531796
 GameObject:
   m_ObjectHideFlags: 0

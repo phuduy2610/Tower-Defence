@@ -109,4 +109,8 @@ public class Boss : Enemy
                 break;
         }
     }
+    private void FixedUpdate()
+    {
+        spriteRenderer.sortingOrder = (int)Mathf.Abs((int)transform.position.y - LevelCreator.Instance.topLeftTile.y);
+    }
 }

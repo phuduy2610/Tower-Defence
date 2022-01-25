@@ -295,6 +295,7 @@ MonoBehaviour:
   hitCenter: {fileID: 4498631990066413024}
   grounded: 1
   AttackedEffect: {fileID: 3687757815084522512}
+  spriteRenderer: {fileID: 4066507481026025479}
   defaultSkillCooldown: 10
 --- !u!114 &7741537995553115772
 MonoBehaviour:

@@ -235,9 +235,10 @@ MonoBehaviour:
   moveSpeed: 0.3
   defaultSpeed: 0.3
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 4498631990066413024}
   grounded: 1
   AttackedEffect: {fileID: 3687757815084522512}
-  hitCenter: {fileID: 4498631990066413024}
+  spriteRenderer: {fileID: 4066507481026025479}
 --- !u!114 &3687757815084522512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,11 +308,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70aa13c38b2689c46a73e2d5f34f9271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 4066507481026025499}
+  point: {fileID: 1189310244754189972}
   items:
   - {fileID: 941291948237673944, guid: 0b864023e637d2a4fad35fa11903a1ae, type: 3}
   - {fileID: 7525711785038314486, guid: dacc9c5618839054582f93189a0f07aa, type: 3}
   - {fileID: 2654641754776530845, guid: c016aa3f8a8fe644d8bcda9e4625749e, type: 3}
-  dropRate: 0.2
+  dropRate: 0.5
 --- !u!1 &4498631990066413024
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,8 +40,15 @@ public class DamageBallScript : MonoBehaviour
         if (target != null && target.activeInHierarchy)
         {
             transform.right = hitCenter.transform.position - currentPos;
-            currentPos = Vector2.MoveTowards(currentPos, hitCenter.transform.position, moveSpeed * Time.deltaTime);
-            transform.position = currentPos - offset; 
+            Vector3 temp = Vector2.MoveTowards(currentPos, hitCenter.transform.position, moveSpeed * Time.deltaTime);
+            if (currentPos == temp)
+            {
+                DoDamge();
+            } else
+            {
+                currentPos = temp;
+                transform.position = currentPos - offset;
+            }
         } else
         {
             Destroy(gameObject);
@@ -64,6 +71,7 @@ public class DamageBallScript : MonoBehaviour
             if (collider.gameObject == target)
             {
                 DoDamge();
+                break;
             }
         }
     }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : Entity
 {
+    public event Action onDeath;
     public bool Grounded() => grounded;
     [SerializeField]
     protected bool grounded = false;
@@ -48,6 +50,9 @@ public class Enemy : Entity
     //
     [SerializeField]
     protected OnAttackedEffect AttackedEffect;
+
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer;
 
     //[SerializeField]
     //private GameObject hitBox;
@@ -213,6 +218,7 @@ public class Enemy : Entity
 
     public override void KillOff()
     {
+        onDeath?.Invoke();
         AttackedEffect.ClearEffect();
         //Reset lại các cờ
         deadFlag = false;
@@ -261,5 +267,10 @@ public class Enemy : Entity
         alreadyThrough.Add(pointsToCheck[index]);
         return pointsToCheck[index];
 
+    }
+
+    private void FixedUpdate()
+    {
+        spriteRenderer.sortingOrder = (int)Mathf.Abs((int)transform.position.y - LevelCreator.Instance.topLeftTile.y);
     }
 }

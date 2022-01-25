@@ -26,7 +26,7 @@ public class InventorySystem : Singleton<InventorySystem>
 
     public void UseItem(int index)
     {
-        if (index < effectList.Count && effectList[index] != null)
+        if (index >= 0 && index < effectList.Capacity && effectList[index] != null)
         {
             if (Time.timeScale > 0)
             {

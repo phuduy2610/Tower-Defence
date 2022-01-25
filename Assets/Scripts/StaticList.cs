@@ -12,6 +12,8 @@ public class StaticList<T> where T : class
 
     public int Count => count;
 
+    public int Capacity => size;
+
     public StaticList(int size)
     {
         this.size = size;
