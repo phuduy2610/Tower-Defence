@@ -19,6 +19,17 @@ public class LevelCreator : Singleton<LevelCreator>
     private GameObject[] edgeTiles;
 
     [SerializeField]
+    private GameObject[] pathTiles2;
+
+    [SerializeField]
+    private GameObject[] groundTiles2;
+
+    [SerializeField]
+    private GameObject[] edgeTiles2;
+
+
+
+    [SerializeField]
     private GameObject gatePrefab;
 
     [SerializeField]
@@ -162,6 +173,21 @@ public class LevelCreator : Singleton<LevelCreator>
 
         GameObject selectedTile;
         TilesType tileType;
+        GameObject[] _groudTiles;
+        GameObject[] _edgeTiles;
+        GameObject[] _pathTiles;
+        if (MenuController.Instance.LevelIndex < 4)
+        {
+            _groudTiles = groundTiles;
+            _edgeTiles = edgeTiles;
+            _pathTiles = pathTiles;
+        }
+        else
+        {
+            _groudTiles = groundTiles2;
+            _edgeTiles = edgeTiles2;
+            _pathTiles = pathTiles2;
+        }
         //Parse string đọc được ra kiểu enum TilesType và so sánh
         if (System.Enum.TryParse(tileCode, out tileType))
         {
@@ -169,58 +195,58 @@ public class LevelCreator : Singleton<LevelCreator>
             switch (tileType)
             {
                 case TilesType.G:
-                    selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+                    selectedTile = _groudTiles[Random.Range(0, _groudTiles.Length)];
                     break;
                 case TilesType.G1:
-                    selectedTile = groundTiles[Random.Range(0, groundTiles.Length)];
+                    selectedTile = _groudTiles[Random.Range(0, _groudTiles.Length)];
                     break;
                 case TilesType.P:
-                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    selectedTile = _pathTiles[Random.Range(0, _pathTiles.Length)];
                     break;
                 case TilesType.P1:
-                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    selectedTile = _pathTiles[Random.Range(0, _pathTiles.Length)];
                     break;
                 case TilesType.P2:
-                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    selectedTile = _pathTiles[Random.Range(0, _pathTiles.Length)];
                     break;
                 case TilesType.P3:
-                    selectedTile = pathTiles[Random.Range(0, pathTiles.Length)];
+                    selectedTile = _pathTiles[Random.Range(0, _pathTiles.Length)];
                     break;
                 case TilesType.E0:
-                    selectedTile = edgeTiles[0];
+                    selectedTile = _edgeTiles[0];
                     break;
                 case TilesType.E1:
-                    selectedTile = edgeTiles[1];
+                    selectedTile = _edgeTiles[1];
                     break;
                 case TilesType.E2:
-                    selectedTile = edgeTiles[2];
+                    selectedTile = _edgeTiles[2];
                     break;
                 case TilesType.E3:
-                    selectedTile = edgeTiles[3];
+                    selectedTile = _edgeTiles[3];
                     break;
                 case TilesType.E4:
-                    selectedTile = edgeTiles[4];
+                    selectedTile = _edgeTiles[4];
                     break;
                 case TilesType.E5:
-                    selectedTile = edgeTiles[5];
+                    selectedTile = _edgeTiles[5];
                     break;
                 case TilesType.E6:
-                    selectedTile = edgeTiles[6];
+                    selectedTile = _edgeTiles[6];
                     break;
                 case TilesType.E7:
-                    selectedTile = edgeTiles[7];
+                    selectedTile = _edgeTiles[7];
                     break;
                 case TilesType.E8:
-                    selectedTile = edgeTiles[8];
+                    selectedTile = _edgeTiles[8];
                     break;
                 case TilesType.E9:
-                    selectedTile = edgeTiles[9];
+                    selectedTile = _edgeTiles[9];
                     break;
                 case TilesType.E10:
-                    selectedTile = edgeTiles[10];
+                    selectedTile = _edgeTiles[10];
                     break;
                 case TilesType.E11:
-                    selectedTile = edgeTiles[11];
+                    selectedTile = _edgeTiles[11];
                     break;
                 default:
                     selectedTile = null;
