@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 1469868715962444492}
   - component: {fileID: 7327327326221404228}
   - component: {fileID: 763066827745292226}
+  - component: {fileID: 1802586094022124575}
   m_Layer: 12
   m_Name: Tank
   m_TagString: Enemy
@@ -294,6 +295,23 @@ MonoBehaviour:
   duration: 1
   damageTake: 0
   entity: {fileID: 4066507481026025499}
+--- !u!114 &1802586094022124575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066507481026025477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70aa13c38b2689c46a73e2d5f34f9271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 941291948237673944, guid: 0b864023e637d2a4fad35fa11903a1ae, type: 3}
+  - {fileID: 7525711785038314486, guid: dacc9c5618839054582f93189a0f07aa, type: 3}
+  - {fileID: 2654641754776530845, guid: c016aa3f8a8fe644d8bcda9e4625749e, type: 3}
+  dropRate: 0.2
 --- !u!1 &4498631990066413024
 GameObject:
   m_ObjectHideFlags: 0

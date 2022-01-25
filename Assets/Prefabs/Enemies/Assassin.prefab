@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 3927601823294754848}
   - component: {fileID: 1059194993384037464}
   - component: {fileID: 7441203459876118546}
+  - component: {fileID: 5892915547636433655}
   m_Layer: 12
   m_Name: Assassin
   m_TagString: Enemy
@@ -299,6 +300,21 @@ MonoBehaviour:
   duration: 1
   damageTake: 0
   entity: {fileID: 4992413638631097911}
+--- !u!114 &5892915547636433655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992413638631097897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70aa13c38b2689c46a73e2d5f34f9271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 941291948237673944, guid: 0b864023e637d2a4fad35fa11903a1ae, type: 3}
+  dropRate: 0.1
 --- !u!1 &6411605066413531796
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ public class Enemy : Entity
     protected const string TOWERTAG = "Tower";
     //enemy tag
     protected const string ENEMYTAG = "Enemy";
+    //item tag
+    protected const string ITEMTAG = "Item";
     //Ally hurtbox layer
     protected const string ALLYHURTBOX = "AllyHurtbox";
     //attack hash
@@ -130,6 +132,7 @@ public class Enemy : Entity
         string otherTag = other.gameObject.tag;
         switch (otherTag)
         {
+            case ITEMTAG:
             case ARROWTAG:
             case TOWERTAG:
             case ENEMYTAG:

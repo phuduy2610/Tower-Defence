@@ -12,6 +12,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     [SerializeField]
     private GameObject victoryScene;
     [SerializeField]
+    private GameObject inventory;
+    [SerializeField]
     private GameObject loseScene;
     private WaveSpawner waveSpawner;
     private Gate gate;
@@ -36,7 +38,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
 
     void OnGameLose()
     {
-        loseScene.SetActive(true);
+        loseScene.SetActive(true); 
+        inventory.SetActive(false);
         Time.timeScale = 0f;
         if(player.death){
             loseTxt.text = "YOU DIED";
@@ -46,6 +49,7 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     void OnGameWin()
     {
         victoryScene.SetActive(true);
+        inventory.SetActive(false);
     }
 
     public void ExitGame()

@@ -45,4 +45,15 @@ public abstract class Entity : MonoBehaviour
             OnKilled();
         }
     }
+    public virtual void ChangeHealth(float amount)
+    {
+        if (amount < 0)
+        {
+            OnGetAttacked(-1*amount);
+        } else
+        {
+            hp = Mathf.Clamp(hp + amount, 0, maxHp);
+            hpShow?.SetVal(this.hp);
+        }
+    }
 }
