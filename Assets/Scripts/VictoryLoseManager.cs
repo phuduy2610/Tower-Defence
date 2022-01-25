@@ -12,6 +12,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     [SerializeField]
     private GameObject victoryScene;
     [SerializeField]
+    private GameObject inventory;
+    [SerializeField]
     private GameObject loseScene;
     private WaveSpawner waveSpawner;
     private Gate gate;
@@ -46,7 +48,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
 
     void OnGameLose()
     {
-        loseScene.SetActive(true);
+        loseScene.SetActive(true); 
+        inventory.SetActive(false);
         Time.timeScale = 0f;
         if (player.death)
         {
@@ -63,6 +66,7 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         musicPlayer.Play();
         moneyEarn.text = "+" + MenuController.Instance.LevelIndex * 100;
         MenuController.Instance.CurrentMoney += MenuController.Instance.LevelIndex * 100;
+        inventory.SetActive(false);
     }
 
     public void ExitGame()

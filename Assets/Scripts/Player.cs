@@ -8,6 +8,7 @@ public class Player : Entity
 
     public event System.Action OnPlayerDeath;
     public bool death{get;private set;} = false;
+
     //bien arrow
     private GameObject arrow;
     // bien the hien viec bat dau ban de thay doi animation
@@ -246,5 +247,11 @@ public class Player : Entity
 
     public void PlaySoundEffect(AudioClip audioClip){
         audioSource.PlayOneShot(audioClip);
+    }
+
+
+    private void FixedUpdate()
+    {
+        spriteRenderer.sortingOrder = (int)Mathf.Abs((int)transform.position.y - LevelCreator.Instance.topLeftTile.y);
     }
 }

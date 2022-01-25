@@ -303,8 +303,9 @@ MonoBehaviour:
   moveSpeed: 2
   defaultSpeed: 2
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 3009383851889624482}
   grounded: 0
   AttackedEffect: {fileID: 7371835207780878275}
-  hitCenter: {fileID: 3009383851889624482}
+  spriteRenderer: {fileID: 0}
   defaultFallTime: 0.4
   defaultFallSpeed: 4

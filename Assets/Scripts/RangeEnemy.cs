@@ -18,6 +18,7 @@ public class RangeEnemy : Enemy
         string otherTag = other.gameObject.tag;
         switch (otherTag)
         {
+            case ITEMTAG:
             case ARROWTAG:
             case TOWERTAG:
             case ENEMYTAG:

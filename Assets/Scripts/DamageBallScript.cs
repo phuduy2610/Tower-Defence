@@ -5,7 +5,6 @@ using UnityEngine;
 public class DamageBallScript : MonoBehaviour
 {
     GameObject target;
-    SpriteRenderer sr;
     private float damage = 0f;
 
     [SerializeField]
@@ -22,42 +21,80 @@ public class DamageBallScript : MonoBehaviour
     public Tower towerOG;
 
 
+    [SerializeField]
+    private CircleCollider2D circleCollider;
+
+    private Vector3 currentPos;
+
+    private Vector3 offset;
+
     public void Attack(GameObject target, float damage)
     {
         this.target = target;
-        hitCenter = target.GetComponentInParent<Enemy>().HitCenter;
+        hitCenter = target.GetComponentInParent<Entity>().HitCenter;
         this.damage = damage;
+        offset = circleCollider.offset;
+        currentPos = transform.position + offset;
+        CheckInTarget();
     }
 
     private void Update()
     {
         if (target != null && target.activeInHierarchy)
         {
-            transform.right = hitCenter.transform.position - transform.position;
-            transform.position = Vector2.MoveTowards(transform.position, hitCenter.transform.position, moveSpeed * Time.deltaTime);
+            transform.right = hitCenter.transform.position - currentPos;
+            Vector3 temp = Vector2.MoveTowards(currentPos, hitCenter.transform.position, moveSpeed * Time.deltaTime);
+            if (currentPos == temp)
+            {
+                DoDamge();
+            } else
+            {
+                currentPos = temp;
+                transform.position = currentPos - offset;
+            }
         } else
         {
             Destroy(gameObject);
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == target.gameObject)
+        if (collision.gameObject == target)
         {
-            var tar = target.gameObject;
-            if (tar != null)
-            {
-                tar.GetComponentInParent<Enemy>().OnGetAttacked(damage);
-                var damageScript = tar.GetComponentInParent<DamageTakeBehaviour>();
-                if (damageScript != null)
-                {
-                    damageScript.ApplyEffect(damageType, damage);
-                }
-                Instantiate(hitEffect, transform.position, Quaternion.identity);
-                towerOG.PlaySoundEffect();
-            }
-            Destroy(gameObject);
+            DoDamge();
         }
+    }
+
+    private void CheckInTarget()
+    {
+        float radius = circleCollider.radius;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(currentPos, radius);
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject == target)
+            {
+                DoDamge();
+                break;
+            }
+        }
+    }
+
+    public void DoDamge()
+    {
+        var tar = target.gameObject;
+        if (tar != null)
+        {
+            tar.GetComponentInParent<Entity>().OnGetAttacked(damage);
+            var damageScript = tar.GetComponentInParent<DamageTakeBehaviour>();
+            if (damageScript != null)
+            {
+                damageScript.ApplyEffect(damageType, damage);
+            }
+            Instantiate(hitEffect, currentPos, Quaternion.identity);
+            //Play sound
+            towerOG.PlaySoundEffect();
+
+        }
+        Destroy(gameObject);
     }
 }

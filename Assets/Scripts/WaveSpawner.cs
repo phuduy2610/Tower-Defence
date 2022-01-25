@@ -225,6 +225,9 @@ public class WaveSpawner : Singleton<WaveSpawner>
             case 5:
                 type = "Boss";
                 break;
+            case 6:
+                type = "Boss 1";
+                break;
         }
         GameObject enemy = myPool.GetObject(type);
         return (enemy, rand);

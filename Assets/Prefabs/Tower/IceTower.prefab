@@ -226,6 +226,7 @@ MonoBehaviour:
   moveSpeed: 0
   defaultSpeed: 0
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 0}
   maxLevel: 3
   costMultiplier: 2
   lvlUpDamageMultiplier: 2
@@ -236,6 +237,7 @@ MonoBehaviour:
   defaultFireRate: 1
   animator: {fileID: 3707085654457897285}
   fireballSound: {fileID: 8300000, guid: dffad5b323a11034f9b719fc0e41745b, type: 3}
+  circle: {fileID: 2751634730931429472}
 --- !u!61 &5837234686136349346
 BoxCollider2D:
   m_ObjectHideFlags: 0

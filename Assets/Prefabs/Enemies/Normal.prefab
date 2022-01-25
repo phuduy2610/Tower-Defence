@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 5074267932878849707}
   - component: {fileID: 1368886313612130927}
   - component: {fileID: 6659858065485882478}
+  - component: {fileID: -2006498624803006861}
   m_Layer: 12
   m_Name: Normal
   m_TagString: Enemy
@@ -291,9 +292,10 @@ MonoBehaviour:
   moveSpeed: 1
   defaultSpeed: 1
   hpShow: {fileID: 0}
+  hitCenter: {fileID: 8368251781174968060}
   grounded: 1
   AttackedEffect: {fileID: 7371835207780878275}
-  hitCenter: {fileID: 8368251781174968060}
+  spriteRenderer: {fileID: 7857842520723653588}
 --- !u!114 &7371835207780878275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +353,23 @@ MonoBehaviour:
   duration: 1
   damageTake: 0
   entity: {fileID: 7857842520723653576}
+--- !u!114 &-2006498624803006861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857842520723653590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70aa13c38b2689c46a73e2d5f34f9271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 7857842520723653576}
+  point: {fileID: 3862864585067253945}
+  items:
+  - {fileID: 941291948237673944, guid: 0b864023e637d2a4fad35fa11903a1ae, type: 3}
+  dropRate: 0.5
 --- !u!1 &8368251781174968060
 GameObject:
   m_ObjectHideFlags: 0

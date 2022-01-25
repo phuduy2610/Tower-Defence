@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : Entity
 {
+    public event Action onDeath;
     public bool Grounded() => grounded;
     [SerializeField]
     protected bool grounded = false;
@@ -22,6 +24,8 @@ public class Enemy : Entity
     protected const string TOWERTAG = "Tower";
     //enemy tag
     protected const string ENEMYTAG = "Enemy";
+    //item tag
+    protected const string ITEMTAG = "Item";
     //Ally hurtbox layer
     protected const string ALLYHURTBOX = "AllyHurtbox";
     //attack hash
@@ -46,15 +50,9 @@ public class Enemy : Entity
     //
     [SerializeField]
     protected OnAttackedEffect AttackedEffect;
-    //
-    [SerializeField]
-    protected GameObject hitCenter;
 
-    public GameObject HitCenter
-    {
-        get => hitCenter;
-        private set { }
-    }
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer;
 
     //[SerializeField]
     //private GameObject hitBox;
@@ -130,6 +128,7 @@ public class Enemy : Entity
         string otherTag = other.gameObject.tag;
         switch (otherTag)
         {
+            case ITEMTAG:
             case ARROWTAG:
             case TOWERTAG:
             case ENEMYTAG:
@@ -219,6 +218,7 @@ public class Enemy : Entity
 
     public override void KillOff()
     {
+        onDeath?.Invoke();
         AttackedEffect.ClearEffect();
         //Reset lại các cờ
         deadFlag = false;
@@ -267,5 +267,10 @@ public class Enemy : Entity
         alreadyThrough.Add(pointsToCheck[index]);
         return pointsToCheck[index];
 
+    }
+
+    private void FixedUpdate()
+    {
+        spriteRenderer.sortingOrder = (int)Mathf.Abs((int)transform.position.y - LevelCreator.Instance.topLeftTile.y);
     }
 }
