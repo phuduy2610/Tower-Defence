@@ -89,4 +89,7 @@ public class Flying : Enemy
 
     }
 
+    private void FixedUpdate() {
+        
+    }
 }
