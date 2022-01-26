@@ -6,12 +6,21 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class Shopping : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite attackIcon;
+    [SerializeField]
+    private GameObject[] gemIcon;
+
+    [SerializeField]
+    private TMP_Text[] costTxt;
+
     //Các sprite tên khác nhau
     [SerializeField]
     private Sprite[] arrowSprites = new Sprite[6];
     [SerializeField]
     //Giá tiền
     private int[] arrowCost = new int[6];
+
     [SerializeField]
     //Nút mua
     private GameObject[] BuyButtons = new GameObject[6];
@@ -24,6 +33,16 @@ public class Shopping : MonoBehaviour
     //Hình tên hiện tại
     [SerializeField]
     private GameObject currentArrowImage;
+    [SerializeField]
+    private int[] arrowDamage = new int[6];
+    public int[] ArrowDamage{
+        get{
+            return arrowDamage;
+        }
+        set{
+            arrowDamage = value;
+        }
+    }
 
     private int currentMoney;
     public int CurrentMoneyDisplay
@@ -67,6 +86,10 @@ public class Shopping : MonoBehaviour
                 {
                     BuyButtons[i].SetActive(false);
                     EquipButtons[i].SetActive(true);
+                    //Thay cost bằng attack
+                    costTxt[i].text = arrowDamage[i].ToString();
+                    //Thay icon
+                    gemIcon[i].GetComponent<Image>().sprite = attackIcon;
                 }
             }
         }
@@ -87,6 +110,10 @@ public class Shopping : MonoBehaviour
             CurrentMoneyDisplay -= arrowCost[itemIndex];
             BuyButtons[itemIndex].SetActive(false);
             EquipButtons[itemIndex].SetActive(true);
+            //Thay cost bằng attack
+            costTxt[itemIndex].text = arrowDamage[itemIndex].ToString();
+            //Thay icon
+            gemIcon[itemIndex].GetComponent<Image>().sprite = attackIcon;
             MenuController.Instance.ArrowBought[itemIndex] = true;
             Debug.Log(MenuController.Instance.CurrentMoney);
             MenuController.Instance.SavePlayerData();

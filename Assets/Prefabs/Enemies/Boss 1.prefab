@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0465a9e6378694aab98841cdb1451f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 15000
-  maxHp: 15000
+  hp: 4000
+  maxHp: 4000
   damage: 55
   moveSpeed: 2
   defaultSpeed: 2
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 2818727713972580681, guid: d53c73747934ace4f912c9554e9ce54c, type: 3}
-  amountToControl: 6
+  amountToControl: 3
 --- !u!1 &4498631990066413024
 GameObject:
   m_ObjectHideFlags: 0
