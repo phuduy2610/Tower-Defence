@@ -163,7 +163,7 @@ public class Player : Entity
         bottomRightTilePos.x = LevelCreator.Instance.bottomRightTile.x + tileSize - halfPlayerSide;
         bottomRightTilePos.y = LevelCreator.Instance.bottomRightTile.y + tileSize - halfPlayerHeight;
 
-
+        damage = MenuController.Instance.CharDamage;
     }
 
     private void Update()

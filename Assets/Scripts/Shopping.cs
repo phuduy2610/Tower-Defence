@@ -127,6 +127,7 @@ public class Shopping : MonoBehaviour
         currentArrowImage.GetComponent<Image>().sprite = arrowSprites[itemIndex];
         MenuController.Instance.ArrowSprite = arrowSprites[itemIndex];
         MenuController.Instance.WeaponSelected = itemIndex;
+        MenuController.Instance.CharDamage = ArrowDamage[itemIndex];
         MenuController.Instance.SavePlayerData();
     }
 

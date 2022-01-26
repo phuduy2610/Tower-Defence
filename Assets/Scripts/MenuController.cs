@@ -14,6 +14,8 @@ public class MenuController : PersistentSingleton<MenuController>
 
     private int weaponSelected;
 
+    private int charDamage;
+
     public int LevelIndex
     {
         get
@@ -61,6 +63,7 @@ public class MenuController : PersistentSingleton<MenuController>
     public bool[] ArrowBought { get => arrowBought; set => arrowBought = value; }
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
     public int WeaponSelected { get => weaponSelected; set => weaponSelected = value; }
+    public int CharDamage { get => charDamage; set => charDamage = value; }
 
     //Chứa xem tên nào đã được mua rồi
     private bool[] arrowBought = new bool[6];

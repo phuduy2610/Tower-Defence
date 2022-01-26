@@ -26,10 +26,12 @@ public class LoadManager : PersistentSingleton<LoadManager>
             controller.CurrentLevel = playerData.currentLevel;
             controller.WeaponSelected = playerData.currentSelect;
             controller.ArrowSprite = shopping.ArrowSprites[playerData.currentSelect];
+            controller.CharDamage = shopping.ArrowDamage[playerData.currentSelect];
             shopping.CurrentArrowImage.GetComponent<Image>().sprite = controller.ArrowSprite;
         } else
         {
             controller.CurrentMoney = Constant.MONEYDEFAULT;
+            controller.CharDamage = shopping.ArrowDamage[0];
             controller.Setup();
         }
         shopping.Setup();
