@@ -12,7 +12,7 @@ public class StraightDamageBall : ItemScript
 
     public override void Setup()
     {
-        owner = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
+        owner = FindObjectOfType<Player>();
     }
 
     public override void Use()

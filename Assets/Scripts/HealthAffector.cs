@@ -11,11 +11,14 @@ public class HealthAffector : ItemScript
 
     public override void Setup()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
+        player = FindObjectOfType<Player>();
     }
 
     public override void Use()
     {
-        player?.ChangeHealth(changeAmount);
+        if (player != null)
+        {
+            player.ChangeHealth(changeAmount);
+        }
     }
 }

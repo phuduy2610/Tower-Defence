@@ -45,6 +45,11 @@ public class SaveManager : PersistentSingleton<SaveManager>
 
     public void WriteSettingsData()
     {
+        if(_settings.screenWidth == 0 || _settings.screenHeight == 0)
+        {
+            _settings.screenWidth = Screen.width;
+            _settings.screenHeight = Screen.height;
+        }
         var jsonString = JsonUtility.ToJson(_settings);
         File.WriteAllText(Constant.SETTINGSPATH, jsonString);
     }
