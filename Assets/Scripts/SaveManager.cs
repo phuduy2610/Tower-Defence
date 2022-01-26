@@ -21,8 +21,6 @@ public class SaveManager : PersistentSingleton<SaveManager>
     {
         _settings.screenWidth = width;
         _settings.screenHeight = height;
-        PlayerPrefs.SetInt(Constant.RESHEIGHTKEY, height);
-        PlayerPrefs.SetInt(Constant.RESWIDTHKEY, width);
     }
 
     public void SaveScreenMode(bool mode)
@@ -49,7 +47,6 @@ public class SaveManager : PersistentSingleton<SaveManager>
     {
         var jsonString = JsonUtility.ToJson(_settings);
         File.WriteAllText(Constant.SETTINGSPATH, jsonString);
-        PlayerPrefs.Save();
     }
 
     public void SavePlayerData(int level, int money, bool[] weapons, int select)
