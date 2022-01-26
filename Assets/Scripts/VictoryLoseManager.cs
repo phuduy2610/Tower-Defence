@@ -19,7 +19,6 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     private Gate gate;
     private Player player;
     [SerializeField]
-    private GameObject musicPlayerObj;
     private AudioSource musicPlayer;
     [SerializeField]
     private AudioClip winSound;
@@ -39,7 +38,6 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         waveSpawner.OnFinish += OnGameWin;
         gate.OnGateDestroy += OnGameLose;
         player.OnPlayerDeath += OnGameLose;
-        musicPlayer = musicPlayerObj.GetComponent<AudioSource>();
     }
 
     void OnGameLose()

@@ -9,6 +9,8 @@ public class Wave
     public int amount; //số lượng enemy sẽ spawn trong mỗi wave
     public float rate; //tốc độ spawn
 
+
+
     public Wave(string Name, int[] Enemies, int Amount, float Rate)
     {
         name = Name;
@@ -32,6 +34,10 @@ public class WaveSpawner : Singleton<WaveSpawner>
     private TMP_Text waveTxt;
     [SerializeField]
     private GameObject startBtn;
+    [SerializeField]
+    private AudioSource musicPlayer;
+    [SerializeField]
+    private AudioClip bossMusic;
 
     public bool isPressed { get; private set; } = false;
 
@@ -228,6 +234,11 @@ public class WaveSpawner : Singleton<WaveSpawner>
             case 6:
                 type = "Boss 1";
                 break;
+        }
+        if (monsterIndex >= 5)
+        {
+            musicPlayer.clip = bossMusic;
+            musicPlayer.Play();
         }
         GameObject enemy = myPool.GetObject(type);
         return (enemy, rand);
