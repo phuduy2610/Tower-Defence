@@ -30,15 +30,23 @@ public class AudioController : MonoBehaviour
     public void ChangeMasterVolumn(float volumn)
     {
         audioMixer.SetFloat("MasterVolumn", volumn);
+        SaveManager.Instance.SaveMaster(volumn);
     }
 
     public void ChangeBGVolumn(float volumn)
     {
         audioMixer.SetFloat("BGVolumn", volumn);
+        SaveManager.Instance.SaveBackground(volumn);
     }
 
     public void ChangeSEVolumn(float volumn)
     {
         audioMixer.SetFloat("SEVolumn", volumn);
+        SaveManager.Instance.SaveEffect(volumn);
+    }
+
+    public void OnClose()
+    {
+        SaveManager.Instance.WriteSettingsData();
     }
 }

@@ -40,32 +40,30 @@ public class Shopping : MonoBehaviour
         }
     }
 
+    public Sprite[] ArrowSprites { get => arrowSprites; set => arrowSprites = value; }
+    public GameObject CurrentArrowImage { get => currentArrowImage; set => currentArrowImage = value; }
 
-    void Start()
+    public void Setup()
     {
         //Khởi tạo giá ban đầu
-        if (MenuController.Instance.CurrentMoney != 0)
+        if (MenuController.Instance.CurrentMoney != -1)
         {
             CurrentMoneyDisplay = MenuController.Instance.CurrentMoney;
         }
-        else
-        {
-            CurrentMoneyDisplay = 10000;
-        }
         //Xem đã mua tên nào rồi
-        if (MenuController.Instance.arrowBought == null || MenuController.Instance.arrowBought.Length == 0)
+        if (MenuController.Instance.ArrowBought == null || MenuController.Instance.ArrowBought.Length == 0)
         {
-            MenuController.Instance.arrowBought[0] = true;
+            MenuController.Instance.ArrowBought[0] = true;
             for (int i = 1; i < 6; i++)
             {
-                MenuController.Instance.arrowBought[i] = false;
+                MenuController.Instance.ArrowBought[i] = false;
             }
         }
         else
         {
-            for (int i = 0; i < MenuController.Instance.arrowBought.Length; i++)
+            for (int i = 0; i < MenuController.Instance.ArrowBought.Length; i++)
             {
-                if (MenuController.Instance.arrowBought[i])
+                if (MenuController.Instance.ArrowBought[i])
                 {
                     BuyButtons[i].SetActive(false);
                     EquipButtons[i].SetActive(true);
@@ -80,21 +78,19 @@ public class Shopping : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void BuyArrow(Button clickedBtn)
     {
         //Mua tên
         int itemIndex = getBuyIndex(clickedBtn.name);
-        CurrentMoneyDisplay -= arrowCost[itemIndex];
-        BuyButtons[itemIndex].SetActive(false);
-        EquipButtons[itemIndex].SetActive(true);
-        MenuController.Instance.arrowBought[itemIndex] = true;
-        Debug.Log(MenuController.Instance.CurrentMoney);
+        if (CurrentMoneyDisplay >= arrowCost[itemIndex])
+        {
+            CurrentMoneyDisplay -= arrowCost[itemIndex];
+            BuyButtons[itemIndex].SetActive(false);
+            EquipButtons[itemIndex].SetActive(true);
+            MenuController.Instance.ArrowBought[itemIndex] = true;
+            Debug.Log(MenuController.Instance.CurrentMoney);
+            MenuController.Instance.SavePlayerData();
+        }
     }
 
     public void EquipArrow(Button clickedBtn)
@@ -103,6 +99,8 @@ public class Shopping : MonoBehaviour
         int itemIndex = getBuyIndex(clickedBtn.name);
         currentArrowImage.GetComponent<Image>().sprite = arrowSprites[itemIndex];
         MenuController.Instance.ArrowSprite = arrowSprites[itemIndex];
+        MenuController.Instance.WeaponSelected = itemIndex;
+        MenuController.Instance.SavePlayerData();
     }
 
     private int getBuyIndex(string buttonPress)
@@ -110,7 +108,4 @@ public class Shopping : MonoBehaviour
         int index = int.Parse(buttonPress.Substring(buttonPress.Length - 1));
         return index;
     }
-
-
-
 }

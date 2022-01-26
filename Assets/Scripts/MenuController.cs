@@ -6,9 +6,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MenuController : PersistentSingleton<MenuController>
 {
+    [SerializeField]
+    private LevelBlocker levelBlocker;
+
+    [SerializeField]
+    private int currentLevel;
 
     [SerializeField]
     private int _levelIndex;
+
+    private int weaponSelected;
 
     public int LevelIndex
     {
@@ -25,7 +32,7 @@ public class MenuController : PersistentSingleton<MenuController>
     private Sprite defaultArrow;
 
     [SerializeField]
-    private int _currentMoney;
+    private int _currentMoney = -1;
 
     public int CurrentMoney
     {
@@ -54,20 +61,18 @@ public class MenuController : PersistentSingleton<MenuController>
         }
     }
 
+    public bool[] ArrowBought { get => arrowBought; set => arrowBought = value; }
+    public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
+    public int WeaponSelected { get => weaponSelected; set => weaponSelected = value; }
+
     //Chứa xem tên nào đã được mua rồi
-    public bool[] arrowBought = new bool[6];
+    private bool[] arrowBought = new bool[6];
 
     // Start is called before the first frame update
-    void Start()
+    public void Setup()
     {
-        _levelIndex = 0;
         arrowSprite = defaultArrow;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        weaponSelected = 0;
     }
 
     public void PlayScene()
@@ -77,12 +82,14 @@ public class MenuController : PersistentSingleton<MenuController>
         loadController.StartLoadScene();
     }
 
-
-
     public void QuitGame()
     {
         Application.Quit();
         Debug.Log("Quit Game");
     }
 
+    public void SavePlayerData()
+    {
+        SaveManager.Instance.SavePlayerData(this.CurrentLevel, this.CurrentMoney,this.ArrowBought, this.WeaponSelected);
+    }
 }

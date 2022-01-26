@@ -19,6 +19,9 @@ public class ArrowBehaviour : MonoBehaviour
     [SerializeField]
     AudioClip fireSound;
     Player player;
+    [SerializeField]
+    [Min(1f)]
+    private float multi = 1f;
     private void Start() {
         player = FindObjectOfType<Player>();
         player.PlaySoundEffect(fireSound);
@@ -28,7 +31,8 @@ public class ArrowBehaviour : MonoBehaviour
     public void Setup(Vector3 targetPos, float power, float damage)
     {
         targetPos.z = 0;
-        this.damage = damage;
+        multi *= (MenuController.Instance.WeaponSelected + 1f) * 0.5f;
+        this.damage = damage * multi;
         this.power = power;
         direction = (targetPos - transform.position).normalized;
         customGravity = Vector2.Perpendicular(direction) * gravity;

@@ -4506,7 +4506,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4793,6 +4793,7 @@ MonoBehaviour:
   winSound: {fileID: 8300000, guid: 96f734028ef03314dbe79d239263e9cf, type: 3}
   loseSound: {fileID: 8300000, guid: 897d73f5a1ee13941b82f38b1fa3f33f, type: 3}
   moneyEarn: {fileID: 599666505}
+  nextButton: {fileID: 1861600169}
 --- !u!4 &841472589
 Transform:
   m_ObjectHideFlags: 0
@@ -9507,6 +9508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6776244b4359c640becbae09ae1fcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputs:
+  - {fileID: 1108875580}
   pauseMenuUI: {fileID: 1255919439}
 --- !u!4 &1536245184
 Transform:
@@ -11574,6 +11577,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6660415255859472589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12799,6 +12814,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7347227113892808863}
+        m_TargetAssemblyTypeName: DisplayController, Assembly-CSharp
+        m_MethodName: OnClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15418,6 +15445,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8932212461790117356}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: OnClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

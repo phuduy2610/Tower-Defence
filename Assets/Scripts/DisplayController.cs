@@ -12,16 +12,42 @@ public class DisplayController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        fullScreenToggle.isOn = Screen.fullScreen;
-        currentWidth = Screen.currentResolution.width;
-        currentHeight = Screen.currentResolution.height;
-        StartResolution();
+        if (SaveManager.Instance.Settings.screenWidth != 0)
+        {
+            fullScreenToggle.SetIsOnWithoutNotify(SaveManager.Instance.Settings.fullScreenMode);
+            currentWidth = SaveManager.Instance.Settings.screenWidth;
+            currentHeight = SaveManager.Instance.Settings.screenHeight;
+        } else
+        {
+            fullScreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
+            currentWidth = Screen.width;
+            currentHeight = Screen.height;
+            SaveManager.Instance.SaveScreen(currentWidth, currentHeight);
+            SaveManager.Instance.SaveScreenMode(Screen.fullScreen);
+        }
+
+        switch (currentWidth)
+        {
+            case 1368:
+                resolutionDropdown.SetValueWithoutNotify(0);
+                break;
+            case 1600:
+                resolutionDropdown.SetValueWithoutNotify(1);
+                break;
+            case 1920:
+                resolutionDropdown.SetValueWithoutNotify(2);
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
     public void ChangeFullScene()
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        bool value = !Screen.fullScreen;
+        Screen.fullScreen = value;
+        SaveManager.Instance.SaveScreenMode(value);
     }
 
     public void ChangeResolution()
@@ -44,24 +70,11 @@ public class DisplayController : MonoBehaviour
                 break;
         }
         Screen.SetResolution(currentWidth, currentHeight, Screen.fullScreen);
-
+        SaveManager.Instance.SaveScreen(currentWidth, currentHeight);
     }
 
-    private void StartResolution()
+    public void OnClose()
     {
-        switch (currentWidth)
-        {
-            case 1600:
-                resolutionDropdown.value = 1;
-                break;
-            case 1920:
-                resolutionDropdown.value = 2;
-                break;
-            case 1368:
-                resolutionDropdown.value = 0;
-                break;
-            default:
-                break;
-        }
+        SaveManager.Instance.WriteSettingsData();
     }
 }

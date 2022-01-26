@@ -88,6 +88,11 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
         //Ấn chuột phải để bỏ tower đang chọn
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {

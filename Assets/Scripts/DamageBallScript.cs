@@ -69,19 +69,19 @@ public class DamageBallScript : MonoBehaviour
         }
     }
 
-    private void CheckInTarget()
-    {
-        float radius = circleCollider.radius;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(currentPos, radius);
-        foreach (var collider in colliders)
-        {
-            if (collider.gameObject == target)
-            {
-                DoDamge();
-                break;
-            }
-        }
-    }
+    //private void CheckInTarget()
+    //{
+    //    float radius = circleCollider.radius;
+    //    Collider2D[] colliders = Physics2D.OverlapCircleAll(currentPos, radius);
+    //    foreach (var collider in colliders)
+    //    {
+    //        if (collider.gameObject == target)
+    //        {
+    //            DoDamge();
+    //            break;
+    //        }
+    //    }
+    //}
 
     public void DoDamge()
     {

@@ -27,6 +27,8 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     private AudioClip loseSound;
     [SerializeField]
     private TMP_Text moneyEarn;
+    [SerializeField]
+    private GameObject nextButton;
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +42,9 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
         musicPlayer = musicPlayerObj.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnGameLose()
     {
+        MenuController.Instance.SavePlayerData();
         loseScene.SetActive(true); 
         inventory.SetActive(false);
         Time.timeScale = 0f;
@@ -61,6 +58,17 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
 
     void OnGameWin()
     {
+        if (MenuController.Instance.LevelIndex < Constant.MAXLEVEL)
+        {
+            if (MenuController.Instance.CurrentLevel == MenuController.Instance.LevelIndex)
+            {
+                MenuController.Instance.CurrentLevel++;
+            }
+        } else
+        {
+            nextButton.SetActive(false);
+        }
+        MenuController.Instance.SavePlayerData();
         victoryScene.SetActive(true);
         musicPlayer.clip = winSound;
         musicPlayer.Play();
@@ -83,7 +91,7 @@ public class VictoryLoseManager : Singleton<VictoryLoseManager>
     }
 
     public void NextScene()
-    {
+    {   
         MenuController.Instance.LevelIndex++;
         Restart();
     }
