@@ -176,7 +176,7 @@ public class LevelCreator : Singleton<LevelCreator>
         GameObject[] _groudTiles;
         GameObject[] _edgeTiles;
         GameObject[] _pathTiles;
-        if (MenuController.Instance.LevelIndex < 4)
+        if (MenuController.Instance.LevelIndex <= 4)
         {
             _groudTiles = groundTiles;
             _edgeTiles = edgeTiles;

@@ -12275,8 +12275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563e45d9ec12de544acf2744ff71313e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelBlocker: {fileID: 0}
-  currentLevel: 1
+  currentLevel: 8
   _levelIndex: 0
   defaultArrow: {fileID: 4397636249099975194, guid: 1b85eed2c71afbd4fb4d629e5350a9ef, type: 3}
   _currentMoney: 0
