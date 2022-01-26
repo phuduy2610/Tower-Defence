@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class MenuController : PersistentSingleton<MenuController>
 {
     [SerializeField]
-    private LevelBlocker levelBlocker;
-
-    [SerializeField]
     private int currentLevel;
 
     [SerializeField]
