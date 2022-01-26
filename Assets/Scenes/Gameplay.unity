@@ -4789,7 +4789,7 @@ MonoBehaviour:
   victoryScene: {fileID: 1778567012}
   inventory: {fileID: 1108875573}
   loseScene: {fileID: 800675954}
-  musicPlayerObj: {fileID: 1334500121}
+  musicPlayer: {fileID: 1334500122}
   winSound: {fileID: 8300000, guid: 96f734028ef03314dbe79d239263e9cf, type: 3}
   loseSound: {fileID: 8300000, guid: 897d73f5a1ee13941b82f38b1fa3f33f, type: 3}
   moneyEarn: {fileID: 599666505}
@@ -10563,6 +10563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTxt: {fileID: 1047473541}
   startBtn: {fileID: 2139256569}
+  musicPlayer: {fileID: 1334500122}
+  bossMusic: {fileID: 8300000, guid: 0dc05251de333494abc43f97eed4611c, type: 3}
 --- !u!1 &1861600169
 GameObject:
   m_ObjectHideFlags: 0
