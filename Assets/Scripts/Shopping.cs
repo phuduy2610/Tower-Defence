@@ -64,15 +64,16 @@ public class Shopping : MonoBehaviour
 
     public void Setup()
     {
+        
         //Khởi tạo giá ban đầu
         if (MenuController.Instance.CurrentMoney != -1)
         {
             CurrentMoneyDisplay = MenuController.Instance.CurrentMoney;
         }
         //Xem đã mua tên nào rồi
+        MenuController.Instance.ArrowBought[0] = true;
         if (MenuController.Instance.ArrowBought == null || MenuController.Instance.ArrowBought.Length == 0)
         {
-            MenuController.Instance.ArrowBought[0] = true;
             for (int i = 1; i < 6; i++)
             {
                 MenuController.Instance.ArrowBought[i] = false;
